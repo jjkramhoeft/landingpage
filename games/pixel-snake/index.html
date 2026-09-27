@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixel Snake</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/press-start-2p-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../css/fonts.css">
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; background: #1a1030; }
+    canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+  </style>
+</head>
+<body>
+  <canvas id="game" role="img" aria-label="Pixel Snake. Press Space or tap to start, steer with the arrow keys, WASD or by swiping."></canvas>
+  <script>
+    /*
+      Pixel Snake: eat the apples, avoid the walls and your own tail. The speed goes up every ten apples.
+      Controls: arrow keys or WASD, swipe on touch screens, Space to start or pause, Esc to close when embedded.
+      When it runs inside the Games page, it uses that page's sound (window.parent.Sound), so the sound toggle applies.
+      The best score is kept in localStorage ("jjk-hiscore-pixel-snake") and shown on the game's card.
+    */
+    (function () {
+      'use strict';
+
+      const COLS = 24;
+      const ROWS = 16;
+      const START_SPEED = 140;   // ms per move
+      const SPEED_STEP = 12;     // faster every ten apples
+      const MIN_SPEED = 60;
+      const HI_KEY = 'jjk-hiscore-pixel-snake';
+      const LAST_KEY = 'jjk-lastplayed-pixel-snake';
+      const FONT = '"Press Start 2P", ui-monospace, monospace';
+      const COLORS = {
+        bg: '#1a1030', board: '#140c26', grid: 'rgba(238, 95, 183, 0.08)', frame: '#ee5fb7',
+        body: '#c2408f', body2: '#ee5fb7', head: '#ff8fd2', eye: '#1a1030',
+        apple: '#ffd447', leaf: '#7ef0c8', text: '#ffd447', text2: '#ee5fb7', dim: '#e9e3f7',
+      };
+
+      const canvas = document.getElementById('game');
+      const ctx = canvas.getContext('2d');
+      const embedded = window.parent !== window;
+      const sound = (() => { try { return embedded ? window.parent.Sound : null; } catch (e) { return null; } })();
+      const play = (name) => { if (sound && sound[name]) sound[name](); };
+
+      let dpr = 1, cell = 20, offsetX = 0, offsetY = 0, hudHeight = 40;
+      let snake = [], dir = { x: 1, y: 0 }, queue = [], apple = { x: 0, y: 0 };
+      let score = 0, eaten = 0, speed = START_SPEED, lastMove = 0;
+      let state = 'ready'; // ready | playing | paused | over
+      let hi = loadHi();
+
+      function loadHi() {
+        try { return Number(localStorage.getItem(HI_KEY)) || 0; } catch (e) { return 0; }
+      }
+
+      function saveHi() {
+        try {
+          localStorage.setItem(HI_KEY, String(hi));
+          localStorage.setItem(LAST_KEY, new Date().toISOString());
+        } catch (e) { /* storage unavailable */ }
+      }
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = window.innerWidth, h = window.innerHeight;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        hudHeight = Math.max(36, Math.round(h * 0.09));
+        cell = Math.max(8, Math.floor(Math.min((w - 16) / COLS, (h - hudHeight - 16) / ROWS)));
+        offsetX = Math.floor((w - cell * COLS) / 2);
+        offsetY = hudHeight + Math.floor((h - hudHeight - cell * ROWS) / 2);
+      }
+
+      function reset() {
+        const y = Math.floor(ROWS / 2);
+        snake = [{ x: 6, y }, { x: 5, y }, { x: 4, y }];
+        dir = { x: 1, y: 0 };
+        queue = [];
+        score = 0;
+        eaten = 0;
+        speed = START_SPEED;
+        placeApple();
+      }
+
+      function placeApple() {
+        const free = [];
+        for (let x = 0; x < COLS; x++) {
+          for (let y = 0; y < ROWS; y++) {
+            if (!snake.some((s) => s.x === x && s.y === y)) free.push({ x, y });
+          }
+        }
+        apple = free[Math.floor(Math.random() * free.length)] || { x: -1, y: -1 };
+      }
+
+      function start() {
+        reset();
+        state = 'playing';
+        lastMove = performance.now();
+        play('jump');
+      }
+
+      function pause(on) {
+        if (on && state === 'playing') state = 'paused';
+        else if (!on && state === 'paused') { state = 'playing'; lastMove = performance.now(); }
+      }
+
+      // Queue up to two turns so quick key presses aren't lost, and never allow reversing into yourself.
+      function turn(x, y) {
+        const last = queue.length ? queue[queue.length - 1] : dir;
+        if (queue.length >= 2 || (x === -last.x && y === -last.y) || (x === last.x && y === last.y)) return;
+        queue.push({ x, y });
+      }
+
+      function move() {
+        if (queue.length) dir = queue.shift();
+        const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+        const hitWall = head.x < 0 || head.y < 0 || head.x >= COLS || head.y >= ROWS;
+        const eats = !hitWall && head.x === apple.x && head.y === apple.y;
+        const body = eats ? snake : snake.slice(0, -1);
+        if (hitWall || body.some((s) => s.x === head.x && s.y === head.y)) {
+          state = 'over';
+          hi = Math.max(hi, score);
+          saveHi();
+          play('over');
+          return;
+        }
+        snake.unshift(head);
+        if (eats) {
+          score += 10;
+          eaten++;
+          if (eaten % 10 === 0) speed = Math.max(MIN_SPEED, speed - SPEED_STEP);
+          play('coin');
+          placeApple();
+        } else {
+          snake.pop();
+        }
+      }
+
+      // ---- Drawing ----
+
+      function text(str, x, y, size, color, align) {
+        ctx.font = `${size}px ${FONT}`;
+        ctx.textAlign = align || 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = color;
+        ctx.fillText(str, x, y);
+      }
+
+      function square(x, y, color, inset) {
+        ctx.fillStyle = color;
+        ctx.fillRect(offsetX + x * cell + inset, offsetY + y * cell + inset, cell - inset * 2, cell - inset * 2);
+      }
+
+      function draw(now) {
+        const w = window.innerWidth, h = window.innerHeight;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.fillStyle = COLORS.bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Board
+        ctx.fillStyle = COLORS.board;
+        ctx.fillRect(offsetX, offsetY, cell * COLS, cell * ROWS);
+        ctx.strokeStyle = COLORS.grid;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let x = 1; x < COLS; x++) { ctx.moveTo(offsetX + x * cell + 0.5, offsetY); ctx.lineTo(offsetX + x * cell + 0.5, offsetY + ROWS * cell); }
+        for (let y = 1; y < ROWS; y++) { ctx.moveTo(offsetX, offsetY + y * cell + 0.5); ctx.lineTo(offsetX + COLS * cell, offsetY + y * cell + 0.5); }
+        ctx.stroke();
+        ctx.fillStyle = COLORS.frame;
+        const f = Math.max(3, Math.round(cell / 6));
+        ctx.fillRect(offsetX - f, offsetY - f, cell * COLS + f * 2, f);
+        ctx.fillRect(offsetX - f, offsetY + cell * ROWS, cell * COLS + f * 2, f);
+        ctx.fillRect(offsetX - f, offsetY, f, cell * ROWS);
+        ctx.fillRect(offsetX + cell * COLS, offsetY, f, cell * ROWS);
+
+        // Apple
+        const inset = Math.max(1, Math.round(cell / 10));
+        square(apple.x, apple.y, COLORS.apple, inset);
+        ctx.fillStyle = COLORS.leaf;
+        ctx.fillRect(offsetX + apple.x * cell + cell / 2 - cell / 10, offsetY + apple.y * cell, cell / 5, cell / 4);
+
+        // Snake
+        snake.forEach((s, i) => square(s.x, s.y, i === 0 ? COLORS.head : (i % 2 ? COLORS.body : COLORS.body2), inset));
+        if (snake.length) {
+          const headX = offsetX + snake[0].x * cell, headY = offsetY + snake[0].y * cell;
+          const e = Math.max(2, Math.round(cell / 5));
+          ctx.fillStyle = COLORS.eye;
+          const ex = dir.x === 1 ? cell - e * 2 : dir.x === -1 ? e : cell / 2 - e * 1.5;
+          const ey = dir.y === 1 ? cell - e * 2 : dir.y === -1 ? e : cell / 2 - e * 1.5;
+          if (dir.x !== 0) { ctx.fillRect(headX + ex, headY + e, e, e); ctx.fillRect(headX + ex, headY + cell - e * 2, e, e); }
+          else { ctx.fillRect(headX + e, headY + ey, e, e); ctx.fillRect(headX + cell - e * 2, headY + ey, e, e); }
+        }
+
+        // HUD
+        // Fits "SCORE 0000" and "HI 0000" (17 characters of this square font) across the board with room to spare.
+        const size = Math.max(7, Math.min(18, Math.round(hudHeight * 0.3), Math.floor((cell * COLS) / 22)));
+        text(`SCORE ${String(score).padStart(4, '0')}`, offsetX, hudHeight / 2 + 4, size, COLORS.text);
+        text(`HI ${String(hi).padStart(4, '0')}`, offsetX + cell * COLS, hudHeight / 2 + 4, size, COLORS.text2, 'right');
+
+        // Messages
+        const cx = offsetX + (cell * COLS) / 2, cy = offsetY + (cell * ROWS) / 2;
+        const blink = Math.floor(now / 500) % 2 === 0;
+        const big = Math.max(12, Math.min(28, Math.round(cell * 1.1)));
+        const small = Math.max(8, Math.min(14, Math.round(cell * 0.55)));
+        const touch = matchMedia('(pointer: coarse)').matches;
+        if (state !== 'playing') {
+          ctx.fillStyle = 'rgba(20, 12, 38, 0.72)';
+          ctx.fillRect(offsetX, cy - big * 2.2, cell * COLS, big * 4.4);
+        }
+        if (state === 'ready') {
+          text('PIXEL SNAKE', cx, cy - big * 0.8, big, COLORS.text2, 'center');
+          if (blink) text(touch ? 'TAP TO START' : 'PRESS SPACE', cx, cy + big * 0.9, small, COLORS.dim, 'center');
+        } else if (state === 'paused') {
+          text('PAUSED', cx, cy - big * 0.6, big, COLORS.text, 'center');
+          if (blink) text(touch ? 'TAP TO GO ON' : 'SPACE TO GO ON', cx, cy + big * 0.9, small, COLORS.dim, 'center');
+        } else if (state === 'over') {
+          text('GAME OVER', cx, cy - big * 0.8, big, COLORS.text2, 'center');
+          text(score >= hi && score > 0 ? `NEW HI-SCORE ${score}` : `SCORE ${score}`, cx, cy + big * 0.35, small, COLORS.text, 'center');
+          if (blink) text(touch ? 'TAP TO PLAY AGAIN' : 'SPACE TO PLAY AGAIN', cx, cy + big * 1.4, small, COLORS.dim, 'center');
+        }
+      }
+
+      function loop(now) {
+        requestAnimationFrame(loop);
+        if (state === 'playing') {
+          while (now - lastMove >= speed && state === 'playing') {
+            lastMove += speed;
+            move();
+          }
+        }
+        draw(now);
+      }
+
+      // ---- Input ----
+
+      const KEYS = {
+        ArrowUp: [0, -1], KeyW: [0, -1],
+        ArrowDown: [0, 1], KeyS: [0, 1],
+        ArrowLeft: [-1, 0], KeyA: [-1, 0],
+        ArrowRight: [1, 0], KeyD: [1, 0],
+      };
+
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && embedded) {
+          window.parent.postMessage({ type: 'jjk-close-game' }, '*');
+          return;
+        }
+        if (e.code === 'Space' || e.code === 'Enter') {
+          e.preventDefault();
+          if (state === 'playing') pause(true);
+          else if (state === 'paused') pause(false);
+          else start();
+          return;
+        }
+        const d = KEYS[e.code];
+        if (!d) return;
+        e.preventDefault();
+        if (state === 'ready' || state === 'over') start();
+        if (state === 'paused') pause(false);
+        turn(d[0], d[1]);
+      });
+
+      let touchStart = null;
+      canvas.addEventListener('pointerdown', (e) => { touchStart = { x: e.clientX, y: e.clientY }; });
+      canvas.addEventListener('pointerup', (e) => {
+        if (!touchStart) return;
+        const dx = e.clientX - touchStart.x, dy = e.clientY - touchStart.y;
+        touchStart = null;
+        if (Math.hypot(dx, dy) < 24) {
+          if (state === 'playing') return;
+          if (state === 'paused') pause(false); else start();
+          return;
+        }
+        if (state !== 'playing') start();
+        if (Math.abs(dx) > Math.abs(dy)) turn(Math.sign(dx), 0); else turn(0, Math.sign(dy));
+      });
+
+      // Pause when the game loses focus or the tab is hidden.
+      window.addEventListener('blur', () => pause(true));
+      document.addEventListener('visibilitychange', () => { if (document.hidden) pause(true); });
+      window.addEventListener('resize', resize);
+
+      // Canvas text doesn't trigger web font loading by itself, so ask for the pixel font up front.
+      if (document.fonts && document.fonts.load) document.fonts.load(`16px ${FONT}`).catch(() => {});
+
+      reset();
+      resize();
+      requestAnimationFrame(loop);
+      window.focus();
+    })();
+  </script>
+</body>
+</html>

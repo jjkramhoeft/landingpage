@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#1a1030"/>
+  <rect x="149" y="29" width="342" height="342" rx="4" fill="#241744"/>
+  <!-- the cell the solver is working on -->
+  <rect x="339" y="29" width="38" height="38" fill="#ee5fb7" fill-opacity=".3"/>
+  <path d="M187 29V371M225 29V371M301 29V371M339 29V371M415 29V371M453 29V371M149 67H491M149 105H491M149 181H491M149 219H491M149 295H491M149 333H491" stroke="#8d7fb0" stroke-opacity=".45" fill="none"/>
+  <path d="M263 29V371M377 29V371M149 143H491M149 257H491" stroke="#c9bfe6" stroke-width="3" fill="none"/>
+  <rect x="149" y="29" width="342" height="342" rx="4" stroke="#c9bfe6" stroke-width="3" fill="none"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700" text-anchor="middle" fill="#e9e3f7">
+    <text x="168" y="56">5</text><text x="206" y="56">3</text><text x="320" y="56">7</text>
+    <text x="168" y="94">6</text><text x="282" y="94">1</text><text x="320" y="94">9</text><text x="358" y="94">5</text>
+    <text x="206" y="132">9</text><text x="244" y="132">8</text><text x="434" y="132">6</text>
+    <text x="168" y="170">8</text><text x="320" y="170">6</text><text x="472" y="170">3</text>
+    <text x="168" y="208">4</text><text x="282" y="208">8</text><text x="358" y="208">3</text><text x="472" y="208">1</text>
+    <text x="168" y="246">7</text><text x="320" y="246">2</text><text x="472" y="246">6</text>
+    <text x="206" y="284">6</text><text x="396" y="284">2</text><text x="434" y="284">8</text>
+    <text x="282" y="322">4</text><text x="320" y="322">1</text><text x="358" y="322">9</text><text x="472" y="322">5</text>
+    <text x="320" y="360">8</text><text x="434" y="360">7</text><text x="472" y="360">9</text>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700" text-anchor="middle" fill="#ffd447">
+    <text x="244" y="56">4</text><text x="282" y="56">6</text>
+    <text x="206" y="94">7</text><text x="244" y="94">2</text>
+    <text x="168" y="132">1</text>
+  </g>
+</svg>

@@ -1,0 +1,330 @@
+/* Algorithms and Utilities page: "The workshop / blueprint". Blueprint blue, electric green for active states. */
+:root {
+  --bg: #0a1726;
+  --surface: rgba(11, 29, 50, 0.86);
+  --surface-strong: rgba(15, 37, 62, 0.96);
+  --line: rgba(140, 185, 255, 0.2);
+  --text: #e6effa;
+  --muted: #93a9c4;
+  --accent: #5aa2ff;
+  --active: #4cf5a0;
+  --bp-minor: rgba(120, 170, 255, 0.05);
+  --bp-major: rgba(120, 170, 255, 0.1);
+  --bp-bracket: rgba(160, 200, 255, 0.55);
+  --viz-line: rgba(120, 170, 255, 0.12);
+  --viz-node: rgba(150, 190, 255, 0.35);
+  --viz-visited: rgba(90, 162, 255, 0.55);
+  --viz-frontier: rgba(76, 245, 160, 0.75);
+  --viz-path: rgba(76, 245, 160, 0.95);
+  --viz-goal: rgba(242, 165, 65, 0.85);
+  --viz-bar: rgba(90, 162, 255, 0.18);
+  --radius: 8px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #edf3fb;
+    --surface: rgba(255, 255, 255, 0.88);
+    --surface-strong: rgba(255, 255, 255, 0.97);
+    --line: rgba(31, 102, 201, 0.22);
+    --text: #0f2138;
+    --muted: #4a5f7a;
+    --accent: #1f66c9;
+    --active: #0a8a55;
+    --bp-minor: rgba(31, 102, 201, 0.05);
+    --bp-major: rgba(31, 102, 201, 0.1);
+    --bp-bracket: rgba(31, 102, 201, 0.55);
+    --viz-line: rgba(31, 102, 201, 0.14);
+    --viz-node: rgba(31, 102, 201, 0.35);
+    --viz-visited: rgba(31, 102, 201, 0.5);
+    --viz-frontier: rgba(10, 138, 85, 0.75);
+    --viz-path: rgba(10, 138, 85, 0.9);
+    --viz-goal: rgba(154, 90, 6, 0.8);
+    --viz-bar: rgba(31, 102, 201, 0.14);
+  }
+}
+
+/* Blueprint paper: a fine grid with a stronger line every fifth square. */
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--bp-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-major) 1px, transparent 1px),
+    linear-gradient(var(--bp-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+/* The running algorithm stays well in the background. */
+#bg {
+  opacity: 0.6;
+}
+
+h1,
+h2,
+h3,
+.kicker {
+  font-family: var(--mono);
+}
+
+/* Intro */
+.workshop-intro,
+.workshop-projects {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.workshop-intro {
+  display: grid;
+  gap: 28px;
+  padding-top: calc(var(--header-h) + 56px);
+  padding-bottom: 12px;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--active);
+  font-size: 0.9rem;
+}
+
+.workshop-intro h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.brace {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.lead {
+  max-width: 60ch;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.title-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-self: end;
+  margin: 0;
+  border: 1.5px solid var(--bp-bracket);
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.title-block div {
+  padding: 8px 12px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.title-block div:nth-child(2n) {
+  border-right: none;
+}
+
+.title-block .title-block-wide {
+  grid-column: 1 / -1;
+  border-right: none;
+  border-bottom: none;
+}
+
+.title-block dt {
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title-block dd {
+  margin: 2px 0 0;
+  color: var(--text);
+}
+
+#viz-stats {
+  color: var(--active);
+}
+
+/* Filters */
+.workshop-projects {
+  padding-top: 36px;
+  padding-bottom: 72px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--active);
+  box-shadow: inset 0 0 0 1px var(--active);
+  color: var(--text);
+}
+
+.chip:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.chip-count {
+  color: var(--accent);
+  font-size: 0.78rem;
+}
+
+.chip[aria-pressed="true"] .chip-count {
+  color: var(--active);
+}
+
+.filter-status {
+  margin: 14px 0 22px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.filter-status::before {
+  content: "> ";
+  color: var(--active);
+}
+
+/* Blueprint cards: corner brackets, and a scan line over the image on hover. */
+.page-algorithms .project-card {
+  --card-accent: var(--accent);
+  position: relative;
+}
+
+.page-algorithms .project-card::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) left top / 14px 2px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) left top / 2px 14px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) right top / 14px 2px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) right top / 2px 14px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) left bottom / 14px 2px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) left bottom / 2px 14px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) right bottom / 14px 2px,
+    linear-gradient(var(--bp-bracket), var(--bp-bracket)) right bottom / 2px 14px;
+  background-repeat: no-repeat;
+  transition: inset 0.25s ease;
+}
+
+.page-algorithms .project-card:hover::after,
+.page-algorithms .project-card.is-open::after {
+  --bp-bracket: var(--active);
+  inset: 3px;
+}
+
+.page-algorithms .project-card:hover,
+.page-algorithms .project-card.is-open {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+}
+
+.page-algorithms .project-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(140, 200, 255, 0.08) 3px 4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.page-algorithms .project-media::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--active) 22%, transparent), transparent);
+  opacity: 0;
+  translate: 0 -100%;
+}
+
+.page-algorithms .project-card:hover .project-media::after {
+  opacity: 1;
+}
+
+.page-algorithms .project-card:hover .project-media::before {
+  opacity: 1;
+  animation: scan 1.8s linear infinite;
+}
+
+@keyframes scan {
+  from { translate: 0 -100%; }
+  to { translate: 0 340%; }
+}
+
+.page-algorithms .project-toggle {
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.page-algorithms .project-toggle::before {
+  content: "$ ";
+  color: var(--active);
+}
+
+.page-algorithms .project-toggle:hover {
+  border-color: var(--active);
+}
+
+.page-algorithms .project-toggle[aria-expanded="true"] {
+  border-color: var(--active);
+}
+
+.page-algorithms .project-complexity::before {
+  content: "complexity: ";
+  color: var(--muted);
+}
+
+@media (min-width: 720px) {
+  .workshop-intro,
+  .workshop-projects {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+}
+
+@media (min-width: 900px) {
+  .workshop-intro {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: end;
+  }
+}

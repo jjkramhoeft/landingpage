@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" shape-rendering="crispEdges">
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0v32" fill="none" stroke="#ee5fb7" stroke-opacity=".09"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="400" fill="#1a1030"/>
+  <rect width="640" height="400" fill="url(#grid)"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-weight="700" font-size="20" letter-spacing="3" fill="#ffd447">
+    <text x="24" y="42">SCORE 0420</text>
+    <text x="616" y="42" text-anchor="end" fill="#ee5fb7">HI 9001</text>
+  </g>
+  <!-- snake body, tail to head -->
+  <g fill="#c2408f">
+    <rect x="98" y="258" width="28" height="28"/>
+    <rect x="130" y="258" width="28" height="28"/>
+    <rect x="162" y="258" width="28" height="28"/>
+    <rect x="194" y="258" width="28" height="28"/>
+    <rect x="226" y="258" width="28" height="28"/>
+    <rect x="258" y="258" width="28" height="28"/>
+  </g>
+  <g fill="#ee5fb7">
+    <rect x="258" y="226" width="28" height="28"/>
+    <rect x="258" y="194" width="28" height="28"/>
+    <rect x="290" y="194" width="28" height="28"/>
+    <rect x="322" y="194" width="28" height="28"/>
+    <rect x="354" y="194" width="28" height="28"/>
+    <rect x="386" y="194" width="28" height="28"/>
+  </g>
+  <rect x="418" y="194" width="28" height="28" fill="#ff8fd2"/>
+  <rect x="436" y="200" width="6" height="6" fill="#1a1030"/>
+  <rect x="436" y="210" width="6" height="6" fill="#1a1030"/>
+  <!-- apple -->
+  <rect x="514" y="194" width="28" height="28" fill="#ffd447"/>
+  <rect x="526" y="186" width="6" height="8" fill="#7ef0c8"/>
+  <!-- stars -->
+  <g fill="#ffd447" fill-opacity=".6">
+    <rect x="80" y="100" width="4" height="4"/>
+    <rect x="200" y="130" width="4" height="4"/>
+    <rect x="360" y="90" width="4" height="4"/>
+    <rect x="560" y="120" width="4" height="4"/>
+    <rect x="480" y="320" width="4" height="4"/>
+    <rect x="120" y="350" width="4" height="4"/>
+  </g>
+</svg>

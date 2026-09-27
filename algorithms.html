@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Algorithms and Utilities · Jakob Kramhøft</title>
+  <meta name="description" content="Algorithms, tools and small utilities by Jakob Kramhøft: data quality, geo and handy tools, some from work and some built out of curiosity.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0a1726" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#edf3fb" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/algorithms.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="data/projects.js" defer></script>
+  <script src="js/algo-viz.js" defer></script>
+  <script src="js/sound.js" defer></script>
+  <script src="js/project-cards.js" defer></script>
+  <script src="js/algorithms.js" defer></script>
+</head>
+<body class="page-algorithms" data-music="synth">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Jakob Kramhøft, home">
+      <span class="brand-mark" aria-hidden="true">JJK</span>
+      <span class="brand-name">Jakob Kramhøft</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="career.html">Career</a>
+      <a href="algorithms.html" aria-current="page">Algorithms</a>
+      <a href="games.html">Games</a>
+    </nav>
+    <button id="sound-toggle" class="icon-button" type="button" aria-pressed="false" aria-label="Turn sound on" title="Turn sound on">
+      <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m16 9 5 6m0-6-5 6"/></svg>
+      <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    </button>
+  </header>
+
+  <main id="main">
+    <section class="workshop-intro" aria-labelledby="workshop-title">
+      <div class="workshop-text">
+        <p class="kicker">// algorithms &amp; utilities</p>
+        <h1 id="workshop-title"><span class="brace" aria-hidden="true">{</span> The workshop <span class="brace" aria-hidden="true">}</span></h1>
+        <p class="lead">
+          Algorithms, tools and small utilities. Some come from work, where data has to be clean and addresses have to exist.
+          Others were built out of pure curiosity, to see how something works → by building it.
+        </p>
+      </div>
+
+      <!-- An engineering-drawing style title block. The background rows are filled in by js/algo-viz.js. -->
+      <dl class="title-block" aria-label="About this page">
+        <div><dt>Drawing</dt><dd>Algorithms &amp; Utilities</dd></div>
+        <div><dt>Projects</dt><dd id="project-count">–</dd></div>
+        <div><dt>Background</dt><dd id="viz-name">–</dd></div>
+        <div><dt>Complexity</dt><dd id="viz-complexity">–</dd></div>
+        <div class="title-block-wide"><dt>Now</dt><dd id="viz-stats">–</dd></div>
+      </dl>
+    </section>
+
+    <section class="workshop-projects" aria-labelledby="projects-title">
+      <h2 id="projects-title" class="visually-hidden">Projects</h2>
+      <div class="filters" role="group" aria-label="Filter projects" id="filters"></div>
+      <p class="filter-status" id="filter-status" aria-live="polite"></p>
+      <div id="project-list" class="project-grid"></div>
+      <p class="empty" id="empty-state" hidden>No projects match this filter yet.</p>
+      <noscript><p class="empty">Turn on JavaScript to see the projects.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 1982-<span id="year">2026</span> Jakob Kramhøft</p>
+    <p><a href="https://www.linkedin.com/in/jjkramhoeft/" rel="me noopener" target="_blank">LinkedIn</a> · <a href="https://github.com/jjkramhoeft" rel="me noopener" target="_blank">GitHub</a></p>
+  </footer>
+</body>
+</html>

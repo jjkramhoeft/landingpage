@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11252f"/>
+      <stop offset="1" stop-color="#0a171d"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <g fill="none" stroke="#5aa2ff" stroke-opacity=".12" stroke-width="2">
+    <path d="M-20 350c140-50 280 30 440-30s200-40 240-10"/>
+    <path d="M-20 380c150-50 290 30 460-30s190-35 220-5"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="13" letter-spacing="2" fill="#8fa3ae">
+    <text x="40" y="52">INPUT</text>
+    <text x="376" y="52">CLEAN</text>
+  </g>
+  <g fill="#1b303b">
+    <rect x="40" y="68" width="226" height="40" rx="8"/>
+    <rect x="40" y="122" width="226" height="40" rx="8"/>
+    <rect x="40" y="176" width="226" height="40" rx="8"/>
+    <rect x="40" y="230" width="226" height="40" rx="8"/>
+    <rect x="40" y="284" width="226" height="40" rx="8"/>
+  </g>
+  <g fill="#173c4a">
+    <rect x="376" y="68" width="226" height="40" rx="8"/>
+    <rect x="376" y="122" width="226" height="40" rx="8"/>
+    <rect x="376" y="176" width="226" height="40" rx="8"/>
+    <rect x="376" y="230" width="226" height="40" rx="8"/>
+    <rect x="376" y="284" width="226" height="40" rx="8"/>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="14" fill="#c9d6dc">
+    <text x="54" y="93">strøget 12 1th kbh</text>
+    <text x="54" y="147">vesterbrog. 3,st</text>
+    <text x="54" y="201">N.Voldgade 34 K</text>
+    <text x="54" y="255">amager blvd 70</text>
+    <text x="54" y="309">frb.gade 1 1459</text>
+  </g>
+  <g fill="#f0f6f8" font-family="Consolas, 'Courier New', monospace" font-size="14">
+    <text x="390" y="93">Strøget 12, 1. th</text>
+    <text x="390" y="147">Vesterbrogade 3, st.</text>
+    <text x="390" y="201">Nørre Voldgade 34</text>
+    <text x="390" y="255">Amager Boulevard 70</text>
+    <text x="390" y="309">Frederiksberggade 1</text>
+  </g>
+  <g fill="#e5634f">
+    <circle cx="250" cy="88" r="5"/>
+    <circle cx="250" cy="142" r="5"/>
+    <circle cx="250" cy="196" r="5" fill="#f2a541"/>
+    <circle cx="250" cy="250" r="5"/>
+    <circle cx="250" cy="304" r="5" fill="#f2a541"/>
+  </g>
+  <g fill="none" stroke="#35d0c0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m578 88 5 5 9-10"/>
+    <path d="m578 142 5 5 9-10"/>
+    <path d="m578 196 5 5 9-10"/>
+    <path d="m578 250 5 5 9-10"/>
+    <path d="m578 304 5 5 9-10"/>
+  </g>
+  <g fill="none" stroke="#5aa2ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M286 196h70"/>
+    <path d="m342 182 14 14-14 14"/>
+  </g>
+</svg>

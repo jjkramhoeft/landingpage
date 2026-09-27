@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Career · Jakob Kramhøft</title>
+  <meta name="description" content="The career of Jakob Kramhøft: nearly 30 years of software and data work, from COWI to BiQ, and an M.Sc. in Computer Modelling from DTU.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0d1418" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#eef3f4" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/career.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="data/career.js" defer></script>
+  <script src="js/map-grid.js" defer></script>
+  <script src="js/sound.js" defer></script>
+  <script src="js/career.js" defer></script>
+</head>
+<body data-music="piano">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Jakob Kramhøft, home">
+      <span class="brand-mark" aria-hidden="true">JJK</span>
+      <span class="brand-name">Jakob Kramhøft</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="career.html" aria-current="page">Career</a>
+      <a href="algorithms.html">Algorithms</a>
+      <a href="games.html">Games</a>
+    </nav>
+    <button id="sound-toggle" class="icon-button" type="button" aria-pressed="false" aria-label="Turn sound on" title="Turn sound on">
+      <svg class="icon-off" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m16 9 5 6m0-6-5 6"/></svg>
+      <svg class="icon-on" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    </button>
+  </header>
+
+  <main id="main">
+    <section class="career-intro" aria-labelledby="career-title">
+      <p class="kicker">Career · The route travelled</p>
+      <h1 id="career-title">From COWI to BiQ</h1>
+      <div class="about">
+        <p>
+          Nearly 30 years ago I started as a system developer at COWI. Since then the route has run through
+          pervasive computing at Euman, maps and mobile search at mobilePeople and data management at DM Partner.
+          It then continued into almost ten years of data quality at iDQ, which today lives on in bdq and BiQ,
+          where I work as a senior developer.
+        </p>
+      </div>
+      <ul class="facts" aria-label="Career in numbers">
+        <li class="fact"><strong id="fact-years">29</strong><span>years in software</span></li>
+        <li class="fact"><strong id="fact-companies">7</strong><span>companies</span></li>
+        <li class="fact"><strong>M.Sc.</strong><span>Computer Modelling, DTU</span></li>
+      </ul>
+    </section>
+
+    <section class="timeline-section" aria-labelledby="experience-title">
+      <h2 id="experience-title" class="timeline-title"><span class="line-chip" aria-hidden="true"></span>Experience</h2>
+      <ol id="experience-route" class="route route-work"></ol>
+    </section>
+
+    <section class="timeline-section" aria-labelledby="education-title">
+      <h2 id="education-title" class="timeline-title"><span class="line-chip line-chip-branch" aria-hidden="true"></span>Education</h2>
+      <ol id="education-route" class="route route-branch"></ol>
+    </section>
+
+    <section class="timeline-section" aria-labelledby="influences-title">
+      <h2 id="influences-title" class="timeline-title"><span class="line-chip line-chip-people" aria-hidden="true"></span>Influential persons</h2>
+      <div id="influences"></div>
+    </section>
+
+    <noscript>
+      <p class="timeline-section">Turn on JavaScript to see the full timeline, or see the
+        <a href="https://www.linkedin.com/in/jjkramhoeft/">LinkedIn profile</a>.</p>
+    </noscript>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 1982-<span id="year">2026</span> Jakob Kramhøft</p>
+    <p><a href="https://www.linkedin.com/in/jjkramhoeft/" rel="me noopener" target="_blank">LinkedIn</a> · <a href="https://github.com/jjkramhoeft" rel="me noopener" target="_blank">GitHub</a></p>
+  </footer>
+</body>
+</html>

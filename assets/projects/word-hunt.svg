@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#1a1030"/>
+  <g fill="#2f1d55">
+    <rect x="164" y="24" width="80" height="80" rx="6"/><rect x="254" y="24" width="80" height="80" rx="6"/><rect x="344" y="24" width="80" height="80" rx="6"/><rect x="434" y="24" width="80" height="80" rx="6"/>
+    <rect x="164" y="114" width="80" height="80" rx="6"/><rect x="254" y="114" width="80" height="80" rx="6"/><rect x="344" y="114" width="80" height="80" rx="6"/><rect x="434" y="114" width="80" height="80" rx="6"/>
+    <rect x="164" y="204" width="80" height="80" rx="6"/><rect x="254" y="204" width="80" height="80" rx="6"/><rect x="344" y="204" width="80" height="80" rx="6"/><rect x="434" y="204" width="80" height="80" rx="6"/>
+    <rect x="164" y="294" width="80" height="80" rx="6"/><rect x="254" y="294" width="80" height="80" rx="6"/><rect x="344" y="294" width="80" height="80" rx="6"/><rect x="434" y="294" width="80" height="80" rx="6"/>
+  </g>
+  <!-- the traced word: K-O-D-E -->
+  <g fill="#ee5fb7">
+    <rect x="164" y="114" width="80" height="80" rx="6"/>
+    <rect x="254" y="114" width="80" height="80" rx="6"/>
+    <rect x="344" y="204" width="80" height="80" rx="6"/>
+    <rect x="434" y="204" width="80" height="80" rx="6"/>
+  </g>
+  <path d="M204 154h90l90 90h90" fill="none" stroke="#ffd447" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".85"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="40" font-weight="700" text-anchor="middle" fill="#f6ecff">
+    <text x="204" y="78">S</text><text x="294" y="78">T</text><text x="384" y="78">A</text><text x="474" y="78">R</text>
+    <text x="204" y="168">K</text><text x="294" y="168">O</text><text x="384" y="168">L</text><text x="474" y="168">I</text>
+    <text x="204" y="258">N</text><text x="294" y="258">G</text><text x="384" y="258">D</text><text x="474" y="258">E</text>
+    <text x="204" y="348">P</text><text x="294" y="348">U</text><text x="384" y="348">M</text><text x="474" y="348">W</text>
+  </g>
+  <text x="40" y="60" font-family="Consolas, 'Courier New', monospace" font-size="18" font-weight="700" fill="#ffd447">1:12</text>
+  <text x="600" y="60" text-anchor="end" font-family="Consolas, 'Courier New', monospace" font-size="18" font-weight="700" fill="#ee5fb7">+40</text>
+</svg>

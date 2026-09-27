@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0v40" fill="none" stroke="#5aa2ff" stroke-opacity=".16"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="400" fill="#0b1829"/>
+  <!-- cells the search explored -->
+  <g fill="#5aa2ff" fill-opacity=".14">
+    <rect x="40" y="280" width="40" height="40"/><rect x="80" y="280" width="40" height="40"/>
+    <rect x="120" y="280" width="40" height="40"/><rect x="160" y="280" width="40" height="40"/>
+    <rect x="80" y="320" width="40" height="40"/><rect x="120" y="320" width="40" height="40"/>
+    <rect x="160" y="320" width="40" height="40"/><rect x="200" y="320" width="40" height="40"/>
+    <rect x="40" y="240" width="40" height="40"/><rect x="80" y="240" width="40" height="40"/>
+    <rect x="200" y="280" width="40" height="40"/><rect x="240" y="320" width="40" height="40"/>
+    <rect x="280" y="320" width="40" height="40"/><rect x="320" y="320" width="40" height="40"/>
+    <rect x="280" y="280" width="40" height="40"/><rect x="280" y="240" width="40" height="40"/>
+    <rect x="280" y="200" width="40" height="40"/><rect x="320" y="200" width="40" height="40"/>
+    <rect x="320" y="240" width="40" height="40"/><rect x="360" y="240" width="40" height="40"/>
+    <rect x="360" y="200" width="40" height="40"/><rect x="400" y="200" width="40" height="40"/>
+    <rect x="440" y="200" width="40" height="40"/><rect x="480" y="200" width="40" height="40"/>
+    <rect x="520" y="200" width="40" height="40"/><rect x="560" y="200" width="40" height="40"/>
+    <rect x="400" y="240" width="40" height="40"/><rect x="440" y="240" width="40" height="40"/>
+    <rect x="520" y="160" width="40" height="40"/><rect x="560" y="160" width="40" height="40"/>
+    <rect x="560" y="120" width="40" height="40"/><rect x="520" y="120" width="40" height="40"/>
+    <rect x="280" y="160" width="40" height="40"/><rect x="320" y="160" width="40" height="40"/>
+    <rect x="360" y="160" width="40" height="40"/><rect x="400" y="160" width="40" height="40"/>
+    <rect x="560" y="80" width="40" height="40"/>
+  </g>
+  <!-- walls -->
+  <g fill="#1d3d63">
+    <rect x="240" y="40" width="40" height="280"/>
+    <rect x="360" y="280" width="240" height="40"/>
+    <rect x="440" y="40" width="40" height="160"/>
+    <rect x="120" y="80" width="80" height="40"/>
+  </g>
+  <rect width="640" height="400" fill="url(#grid)"/>
+  <!-- route -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 340H300V220H580V100" stroke="#7ef0c8" stroke-opacity=".25" stroke-width="18"/>
+    <path d="M60 340H300V220H580V100" stroke="#7ef0c8" stroke-width="6"/>
+  </g>
+  <circle cx="60" cy="340" r="12" fill="#5aa2ff" stroke="#0b1829" stroke-width="4"/>
+  <circle cx="580" cy="100" r="12" fill="#f2a541" stroke="#0b1829" stroke-width="4"/>
+</svg>

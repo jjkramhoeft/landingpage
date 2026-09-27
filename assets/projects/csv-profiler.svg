@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400">
+  <rect width="640" height="400" fill="#0b1829"/>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="14">
+    <g fill="#9fc2ec" letter-spacing="1">
+      <text x="40" y="52">COLUMN</text>
+      <text x="220" y="52">TYPE</text>
+      <text x="330" y="52">FILLED</text>
+    </g>
+    <path d="M40 66h560" stroke="#5aa2ff" stroke-opacity=".4"/>
+    <g fill="#e6effa">
+      <text x="40" y="104">customer_id</text>
+      <text x="40" y="152">name</text>
+      <text x="40" y="200">email</text>
+      <text x="40" y="248">postcode</text>
+      <text x="40" y="296">created</text>
+      <text x="40" y="344">phone</text>
+    </g>
+    <g fill="#7f9bbd">
+      <text x="220" y="104">int</text>
+      <text x="220" y="152">text</text>
+      <text x="220" y="200">email</text>
+      <text x="220" y="248">int</text>
+      <text x="220" y="296">date</text>
+      <text x="220" y="344">text</text>
+    </g>
+  </g>
+  <g fill="#1a3150">
+    <rect x="330" y="92" width="200" height="14" rx="3"/>
+    <rect x="330" y="140" width="200" height="14" rx="3"/>
+    <rect x="330" y="188" width="200" height="14" rx="3"/>
+    <rect x="330" y="236" width="200" height="14" rx="3"/>
+    <rect x="330" y="284" width="200" height="14" rx="3"/>
+    <rect x="330" y="332" width="200" height="14" rx="3"/>
+  </g>
+  <g fill="#5aa2ff">
+    <rect x="330" y="92" width="200" height="14" rx="3"/>
+    <rect x="330" y="140" width="188" height="14" rx="3"/>
+    <rect x="330" y="188" width="132" height="14" rx="3" fill="#f2a541"/>
+    <rect x="330" y="236" width="196" height="14" rx="3"/>
+    <rect x="330" y="284" width="200" height="14" rx="3"/>
+    <rect x="330" y="332" width="76" height="14" rx="3" fill="#e5634f"/>
+  </g>
+  <g fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m560 94 5 5 9-10" stroke="#4cf5a0"/>
+    <path d="m560 142 5 5 9-10" stroke="#4cf5a0"/>
+    <path d="M567 186v8m0 5v.5" stroke="#f2a541"/>
+    <path d="m560 238 5 5 9-10" stroke="#4cf5a0"/>
+    <path d="m560 286 5 5 9-10" stroke="#4cf5a0"/>
+    <path d="M567 330v8m0 5v.5" stroke="#e5634f"/>
+  </g>
+</svg>
