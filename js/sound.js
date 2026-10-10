@@ -7,7 +7,7 @@
     "synth" (algorithms page) or "chiptune" (games page).
   - Effects, played only when sound is on: Sound.blip(frequency) a short hover sound, Sound.chime(step) a soft bell,
     Sound.click() a mechanical click, Sound.keys(count) a burst of keyboard typing, and the 8-bit
-    Sound.coin(), Sound.jump() and Sound.over() (game over).
+    Sound.coin(), Sound.jump(), Sound.shoot(), Sound.boom() (an explosion) and Sound.over() (game over).
 */
 (function () {
   'use strict';
@@ -626,6 +626,18 @@
     square(ctx.currentTime, 220, 700, 0.14, 0.03);
   }
 
+  function shoot() {
+    if (!playing || !ctx) return;
+    square(ctx.currentTime, 1400, 300, 0.09, 0.02);
+  }
+
+  function boom() {
+    if (!playing || !ctx) return;
+    const t = ctx.currentTime;
+    square(t, 320, 60, 0.22, 0.05);
+    square(t + 0.03, 180, 40, 0.2, 0.04);
+  }
+
   function over() {
     if (!playing || !ctx) return;
     const t = ctx.currentTime;
@@ -666,5 +678,5 @@
     events.forEach((type) => document.addEventListener(type, arm, true));
   }
 
-  window.Sound = { blip, chime, click, keys, coin, jump, over };
+  window.Sound = { blip, chime, click, keys, coin, jump, shoot, boom, over };
 })();

@@ -46,6 +46,19 @@ window.Sprites = (function () {
         'Y.....Y',
       ],
     },
+    invader: {
+      palette: { M: '#e9584c', d: '#9c2f26', w: '#efe6d4' },
+      rows: [
+        '..M.....M..',
+        '...M...M...',
+        '..MMMMMMM..',
+        '.MMwMMMwMM.',
+        'MMMMMMMMMMM',
+        'M.MMMMMMM.M',
+        'M.M.....M.M',
+        '...dd.dd...',
+      ],
+    },
     ship: {
       palette: { C: '#efe6d4', W: '#c9a04a', M: '#e9584c', Y: '#c9a04a' },
       rows: [

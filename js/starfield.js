@@ -3,7 +3,10 @@
   Stars drift left at three speeds and shift slightly as the page scrolls.
 
   It also hosts the hidden mini-game "Star Catcher" (started by the Konami code, see js/games.js):
-  move the ship with the arrow keys, A/D, the mouse or a finger, and catch the falling coins. Three misses and it's over.
+  move the ship with the arrow keys, A/D, the mouse or a finger, and catch the falling coins. Invaders zigzag down too:
+  shoot them with Space, W or the up arrow, or by holding the mouse button or a finger down. Shooting a coin catches it.
+  A missed coin, or an invader
+  that reaches the ground or the ship, costs a life. Three lives and it's over.
 
   Starfield.startGame() / Starfield.stopGame() / Starfield.isPlaying()
   Pauses while the tab is hidden; with "reduce motion" on it draws a still frame (the game still runs if started).
@@ -119,16 +122,19 @@ window.Starfield = (function () {
   // ---------------------------------------------------------------- Star Catcher
 
   const game = {
-    active: false, over: false, overTimer: 0,
+    active: false, over: false, overTimer: 0, playTime: 0,
     shipX: 0, targetX: null, left: false, right: false,
     coins: [], spawnTimer: 0, score: 0, lives: 3,
+    firing: false, fireCooldown: 0, bullets: [],
+    invaders: [], invaderTimer: 0, explosions: [],
   };
 
   function startGame() {
     if (game.active) return;
     Object.assign(game, {
-      active: true, over: false, overTimer: 0, shipX: width / 2, targetX: null,
+      active: true, over: false, overTimer: 0, playTime: 0, shipX: width / 2, targetX: null,
       left: false, right: false, coins: [], spawnTimer: 0.5, score: 0, lives: 3,
+      firing: false, fireCooldown: 0, bullets: [], invaders: [], invaderTimer: 4, explosions: [],
     });
     document.body.classList.add('arcade-game-on');
     if (window.Sound) window.Sound.jump();
@@ -139,16 +145,48 @@ window.Starfield = (function () {
     if (!game.active) return;
     game.active = false;
     game.coins = [];
+    game.bullets = [];
+    game.invaders = [];
+    game.explosions = [];
     document.body.classList.remove('arcade-game-on');
     if (reduceMotion.matches) { stop(); draw(); }
   }
 
+  function shipY() {
+    return groundY() - 20;
+  }
+
+  function loseLife() {
+    if (game.over) return;
+    game.lives--;
+    if (game.lives <= 0) {
+      game.over = true;
+      game.overTimer = 0;
+      game.firing = false;
+      if (window.Sound) window.Sound.over();
+    }
+  }
+
+  function fire() {
+    if (!game.active || game.over || game.fireCooldown > 0) return;
+    game.bullets.push({ x: game.shipX, y: shipY() - 18 });
+    game.fireCooldown = 0.25;
+    if (window.Sound) window.Sound.shoot();
+  }
+
+  function explode(x, y) {
+    game.explosions.push({ x, y, t: 0 });
+    if (window.Sound) window.Sound.boom();
+  }
+
   function updateGame(dt) {
+    game.explosions = game.explosions.filter((e) => (e.t += dt) < 0.35);
     if (game.over) {
       game.overTimer += dt;
       if (game.overTimer > 4) stopGame();
       return;
     }
+    game.playTime += dt;
     const speed = 380;
     if (game.left) game.shipX -= speed * dt;
     if (game.right) game.shipX += speed * dt;
@@ -161,21 +199,50 @@ window.Starfield = (function () {
       game.spawnTimer = Math.max(0.35, 1.1 - game.score * 0.03);
     }
 
-    const shipY = groundY() - 20;
+    const ship = shipY();
     game.coins = game.coins.filter((coin) => {
       coin.y += coin.vy * dt;
-      if (Math.abs(coin.x - game.shipX) < 34 && Math.abs(coin.y - shipY) < 22) {
+      // Shooting a coin counts as catching it.
+      const shot = game.bullets.findIndex((b) => Math.abs(b.x - coin.x) < 18 && Math.abs(b.y - coin.y) < 18);
+      if (shot >= 0) game.bullets.splice(shot, 1);
+      if (shot >= 0 || (Math.abs(coin.x - game.shipX) < 34 && Math.abs(coin.y - ship) < 22)) {
         game.score++;
         if (window.Sound) window.Sound.coin();
         return false;
       }
       if (coin.y > groundY() + 12) {
-        game.lives--;
-        if (game.lives <= 0) {
-          game.over = true;
-          game.overTimer = 0;
-          if (window.Sound) window.Sound.over();
-        }
+        loseLife();
+        return false;
+      }
+      return true;
+    });
+
+    // Invaders start after a few seconds and come more often as the score goes up.
+    game.invaderTimer -= dt;
+    if (game.invaderTimer <= 0) {
+      const baseX = 60 + Math.random() * (width - 120);
+      game.invaders.push({ baseX, x: baseX, y: 70, vy: 40 + Math.random() * 25 + game.score * 1.5, phase: Math.random() * Math.PI * 2 });
+      game.invaderTimer = Math.max(1.2, 3.5 - game.score * 0.05);
+    }
+
+    game.fireCooldown -= dt;
+    if (game.firing) fire();
+    game.bullets = game.bullets.filter((bullet) => (bullet.y -= 560 * dt) > 60);
+
+    game.invaders = game.invaders.filter((inv) => {
+      inv.y += inv.vy * dt;
+      inv.x = Math.min(Math.max(inv.baseX + Math.sin(game.playTime * 2 + inv.phase) * 50, 30), width - 30);
+      const hit = game.bullets.findIndex((b) => Math.abs(b.x - inv.x) < 26 && Math.abs(b.y - inv.y) < 20);
+      if (hit >= 0) {
+        game.bullets.splice(hit, 1);
+        game.score += 2;
+        explode(inv.x, inv.y);
+        return false;
+      }
+      const reachedShip = Math.abs(inv.x - game.shipX) < 40 && Math.abs(inv.y - ship) < 26;
+      if (reachedShip || inv.y > groundY()) {
+        explode(inv.x, inv.y);
+        loseLife();
         return false;
       }
       return true;
@@ -183,9 +250,22 @@ window.Starfield = (function () {
   }
 
   function drawGame() {
-    const shipY = groundY() - 20;
     game.coins.forEach((coin) => window.Sprites.draw(ctx, 'coin', coin.x, coin.y, 3));
-    if (!game.over) window.Sprites.draw(ctx, 'ship', game.shipX, shipY, 5);
+    game.invaders.forEach((inv) => window.Sprites.draw(ctx, 'invader', inv.x, inv.y, 3));
+    ctx.fillStyle = colors.hud;
+    game.bullets.forEach((b) => ctx.fillRect(Math.round(b.x) - 2, Math.round(b.y) - 8, 4, 12));
+    // An explosion is a ring of pixel squares flying apart.
+    game.explosions.forEach((e) => {
+      const r = 6 + e.t * 90;
+      ctx.globalAlpha = 1 - e.t / 0.35;
+      ctx.fillStyle = colors.hud2;
+      for (let k = 0; k < 8; k++) {
+        const a = (k / 8) * Math.PI * 2;
+        ctx.fillRect(Math.round(e.x + Math.cos(a) * r) - 3, Math.round(e.y + Math.sin(a) * r) - 3, 6, 6);
+      }
+      ctx.globalAlpha = 1;
+    });
+    if (!game.over) window.Sprites.draw(ctx, 'ship', game.shipX, shipY(), 5);
 
     // HUD, just below the site header.
     const size = width < 500 ? 9 : 12;
@@ -197,6 +277,10 @@ window.Starfield = (function () {
     ctx.fillStyle = colors.hud;
     ctx.fillText(`SCORE ${game.score}`, 16, 78 + size * 2);
     for (let i = 0; i < game.lives; i++) window.Sprites.draw(ctx, 'heart', 22 + i * 26, 78 + size * 4 + 12, 3);
+    if (game.playTime < 6 && !game.over) {
+      ctx.fillStyle = colors.hud2;
+      ctx.fillText(width < 500 ? 'TAP TO SHOOT' : 'SPACE TO SHOOT', 16, 78 + size * 4 + 32);
+    }
 
     if (game.over) {
       const big = width < 500 ? 16 : 28;
@@ -207,7 +291,7 @@ window.Starfield = (function () {
       ctx.fillText('GAME OVER', width / 2, height / 2 - big);
       ctx.font = `${Math.round(big * 0.5)}px ${FONT}`;
       ctx.fillStyle = colors.hud;
-      ctx.fillText(`YOU CAUGHT ${game.score} ${game.score === 1 ? 'COIN' : 'COINS'}`, width / 2, height / 2 + big * 0.6);
+      ctx.fillText(`YOU SCORED ${game.score}`, width / 2, height / 2 + big * 0.6);
     }
   }
 
@@ -216,16 +300,25 @@ window.Starfield = (function () {
     if (e.code === 'Escape') { stopGame(); return; }
     if (e.code === 'ArrowLeft' || e.code === 'KeyA') { game.left = true; game.targetX = null; e.preventDefault(); }
     if (e.code === 'ArrowRight' || e.code === 'KeyD') { game.right = true; game.targetX = null; e.preventDefault(); }
-    if (e.code === 'ArrowUp' || e.code === 'ArrowDown' || e.code === 'Space') e.preventDefault();
+    if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') { game.firing = true; fire(); e.preventDefault(); }
+    if (e.code === 'ArrowDown') e.preventDefault();
   });
 
   window.addEventListener('keyup', (e) => {
     if (e.code === 'ArrowLeft' || e.code === 'KeyA') game.left = false;
     if (e.code === 'ArrowRight' || e.code === 'KeyD') game.right = false;
+    if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') game.firing = false;
   });
 
+  // The mouse or a finger steers, and holding it down keeps firing. The Quit button is left alone.
   window.addEventListener('pointermove', (e) => { if (game.active) game.targetX = e.clientX; }, { passive: true });
-  window.addEventListener('pointerdown', (e) => { if (game.active) game.targetX = e.clientX; }, { passive: true });
+  window.addEventListener('pointerdown', (e) => {
+    if (!game.active || (e.target instanceof Element && e.target.closest('button, a'))) return;
+    game.targetX = e.clientX;
+    game.firing = true;
+    fire();
+  }, { passive: true });
+  ['pointerup', 'pointercancel', 'blur'].forEach((type) => window.addEventListener(type, () => { game.firing = false; }));
 
   // ---------------------------------------------------------------- Loop
 
