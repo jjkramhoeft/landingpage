@@ -1,0 +1,709 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-28T22:05:46+00:00",
+  "title": "Design System: JJKramhoeft Landing Page",
+  "extensions": {
+    "colorMeta": {
+      "night-map-slate": {
+        "role": "neutral",
+        "displayName": "Night Map Slate",
+        "canonical": "#0d1418",
+        "tonalRamp": [
+          "#060c10",
+          "#1e252a",
+          "#394146",
+          "#565f64",
+          "#798287",
+          "#9da6ac",
+          "#c2ccd2",
+          "#e6f0f6"
+        ],
+        "oklch": "oklch(18.6% 0.013 233.5)"
+      },
+      "night-map-glow": {
+        "role": "neutral",
+        "displayName": "Night Map Glow",
+        "canonical": "#12303a",
+        "tonalRamp": [
+          "#000e14",
+          "#092832",
+          "#27454f",
+          "#44636e",
+          "#668692",
+          "#8aabb7",
+          "#afd1de",
+          "#d9f4fe"
+        ],
+        "oklch": "oklch(29.1% 0.040 222.6)"
+      },
+      "night-map-surface": {
+        "role": "neutral",
+        "displayName": "Night Map Surface",
+        "canonical": "rgba(17, 27, 34, 0.82)",
+        "tonalRamp": [
+          "#040c13",
+          "#1b252d",
+          "#364149",
+          "#545f68",
+          "#76828b",
+          "#9aa7b0",
+          "#bfcdd6",
+          "#e3f1fb"
+        ]
+      },
+      "night-map-surface-strong": {
+        "role": "neutral",
+        "displayName": "Surface Strong",
+        "canonical": "rgba(22, 35, 44, 0.95)",
+        "tonalRamp": [
+          "#030c14",
+          "#19262f",
+          "#34424c",
+          "#51606a",
+          "#73838e",
+          "#97a7b3",
+          "#bccdd9",
+          "#e0f1fe"
+        ]
+      },
+      "night-map-line": {
+        "role": "neutral",
+        "displayName": "Night Map Line",
+        "canonical": "rgba(160, 200, 210, 0.16)",
+        "tonalRamp": [
+          "#000e12",
+          "#012931",
+          "#21464e",
+          "#3f646d",
+          "#618791",
+          "#85acb6",
+          "#aad3dd",
+          "#d2f6ff"
+        ]
+      },
+      "night-map-text": {
+        "role": "neutral",
+        "displayName": "Night Map Text",
+        "canonical": "#e7eef1",
+        "tonalRamp": [
+          "#080c0e",
+          "#202527",
+          "#3b4143",
+          "#595f61",
+          "#7b8184",
+          "#9fa6a9",
+          "#c5cccf",
+          "#e9f0f3"
+        ],
+        "oklch": "oklch(94.5% 0.009 225.1)"
+      },
+      "night-map-muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#9aabb5",
+        "tonalRamp": [
+          "#020d14",
+          "#18262e",
+          "#33424b",
+          "#516069",
+          "#73838d",
+          "#97a8b1",
+          "#bcced8",
+          "#e0f2fc"
+        ],
+        "oklch": "oklch(73.1% 0.024 233.5)"
+      },
+      "day-map-paper": {
+        "role": "neutral",
+        "displayName": "Day Map Paper",
+        "canonical": "#eef3f4",
+        "tonalRamp": [
+          "#090c0c",
+          "#212525",
+          "#3d4141",
+          "#5a5e5f",
+          "#7d8182",
+          "#a1a5a6",
+          "#c7cbcc",
+          "#eaeff0"
+        ],
+        "oklch": "oklch(96.1% 0.006 211.0)"
+      },
+      "day-map-text": {
+        "role": "neutral",
+        "displayName": "Day Map Text",
+        "canonical": "#10222b",
+        "tonalRamp": [
+          "#000d15",
+          "#152730",
+          "#30434d",
+          "#4d616b",
+          "#6f848f",
+          "#93a8b4",
+          "#b8cedb",
+          "#ddf2fe"
+        ],
+        "oklch": "oklch(24.1% 0.029 231.5)"
+      },
+      "day-map-muted": {
+        "role": "neutral",
+        "displayName": "Day Map Muted",
+        "canonical": "#4a606d",
+        "tonalRamp": [
+          "#000d16",
+          "#122732",
+          "#2e434f",
+          "#4b616e",
+          "#6d8492",
+          "#91a9b7",
+          "#b6cfde",
+          "#ddf2ff"
+        ],
+        "oklch": "oklch(47.6% 0.034 234.4)"
+      },
+      "contour-teal": {
+        "role": "primary",
+        "displayName": "Contour Teal",
+        "canonical": "#35d0c0",
+        "tonalRamp": [
+          "#000f0c",
+          "#002b27",
+          "#034a44",
+          "#036d63",
+          "#0c9488",
+          "#0abeae",
+          "#52e5d4",
+          "#b8fff4"
+        ],
+        "oklch": "oklch(77.6% 0.126 184.5)"
+      },
+      "contour-teal-day": {
+        "role": "primary",
+        "displayName": "Contour Teal (day)",
+        "canonical": "#0b7a70",
+        "tonalRamp": [
+          "#000f0c",
+          "#002b27",
+          "#044a44",
+          "#046d64",
+          "#319287",
+          "#5bb7ac",
+          "#83ded2",
+          "#b8fff4"
+        ],
+        "oklch": "oklch(52.2% 0.090 184.7)"
+      },
+      "route-amber": {
+        "role": "secondary",
+        "displayName": "Route Amber",
+        "canonical": "#f2a541",
+        "tonalRamp": [
+          "#140800",
+          "#351e00",
+          "#5a3701",
+          "#835101",
+          "#b17002",
+          "#de9228",
+          "#ffbb6c",
+          "#ffebd5"
+        ],
+        "oklch": "oklch(78.0% 0.144 69.4)"
+      },
+      "route-amber-day": {
+        "role": "secondary",
+        "displayName": "Route Amber (day)",
+        "canonical": "#9a5a06",
+        "tonalRamp": [
+          "#150800",
+          "#371d01",
+          "#5e3400",
+          "#874e02",
+          "#b16f28",
+          "#d89450",
+          "#febb7b",
+          "#ffead9"
+        ],
+        "oklch": "oklch(52.9% 0.118 63.6)"
+      },
+      "blueprint-blue": {
+        "role": "secondary",
+        "displayName": "Blueprint Blue",
+        "canonical": "#5aa2ff",
+        "tonalRamp": [
+          "#000a20",
+          "#00234d",
+          "#003e7f",
+          "#0c5bb2",
+          "#3880da",
+          "#62a6ff",
+          "#a9cdfe",
+          "#e5f0fe"
+        ],
+        "oklch": "oklch(70.7% 0.155 255.7)"
+      },
+      "blueprint-blue-day": {
+        "role": "secondary",
+        "displayName": "Blueprint Blue (day)",
+        "canonical": "#1f66c9",
+        "tonalRamp": [
+          "#000a22",
+          "#002152",
+          "#013b86",
+          "#0d58ba",
+          "#387ee3",
+          "#69a5fe",
+          "#abcdfe",
+          "#e5effe"
+        ],
+        "oklch": "oklch(52.4% 0.169 258.1)"
+      },
+      "blueprint-night": {
+        "role": "neutral",
+        "displayName": "Blueprint Night",
+        "canonical": "#0a1726",
+        "tonalRamp": [
+          "#020b1a",
+          "#172535",
+          "#324152",
+          "#505f72",
+          "#728295",
+          "#95a6bb",
+          "#bbcce2",
+          "#e4f0fe"
+        ],
+        "oklch": "oklch(20.1% 0.035 253.1)"
+      },
+      "signal-green": {
+        "role": "secondary",
+        "displayName": "Signal Green",
+        "canonical": "#4cf5a0",
+        "tonalRamp": [
+          "#001005",
+          "#002d17",
+          "#004d2c",
+          "#017042",
+          "#06995c",
+          "#0dc377",
+          "#41ed98",
+          "#c5ffda"
+        ],
+        "oklch": "oklch(86.4% 0.182 156.7)"
+      },
+      "signal-green-day": {
+        "role": "secondary",
+        "displayName": "Signal Green (day)",
+        "canonical": "#0a8a55",
+        "tonalRamp": [
+          "#000f06",
+          "#002d18",
+          "#004d2d",
+          "#067044",
+          "#249761",
+          "#52bd84",
+          "#7be4a9",
+          "#c4ffda"
+        ],
+        "oklch": "oklch(55.9% 0.129 157.5)"
+      },
+      "arcade-magenta": {
+        "role": "tertiary",
+        "displayName": "Arcade Magenta",
+        "canonical": "#ee5fb7",
+        "tonalRamp": [
+          "#1c0011",
+          "#45002f",
+          "#730051",
+          "#a30975",
+          "#cd3f9a",
+          "#f768bf",
+          "#feaeda",
+          "#ffe7f3"
+        ],
+        "oklch": "oklch(69.4% 0.199 345.6)"
+      },
+      "arcade-magenta-day": {
+        "role": "tertiary",
+        "displayName": "Arcade Magenta (day)",
+        "canonical": "#b3217b",
+        "tonalRamp": [
+          "#1c000f",
+          "#46002c",
+          "#74014d",
+          "#a5096f",
+          "#cf3f93",
+          "#f968b8",
+          "#feafd6",
+          "#fee7f1"
+        ],
+        "oklch": "oklch(52.1% 0.196 348.8)"
+      },
+      "coin-yellow": {
+        "role": "tertiary",
+        "displayName": "Coin Yellow",
+        "canonical": "#ffd447",
+        "tonalRamp": [
+          "#100a00",
+          "#2d2301",
+          "#4e3e02",
+          "#725b05",
+          "#9b7c02",
+          "#c6a005",
+          "#f0c634",
+          "#ffeebc"
+        ],
+        "oklch": "oklch(88.3% 0.158 91.4)"
+      },
+      "coin-yellow-day": {
+        "role": "tertiary",
+        "displayName": "Coin Yellow (day)",
+        "canonical": "#8f6c00",
+        "tonalRamp": [
+          "#110a00",
+          "#2f2200",
+          "#513c01",
+          "#765904",
+          "#9e7b1e",
+          "#c49f49",
+          "#ebc570",
+          "#ffedc5"
+        ],
+        "oklch": "oklch(55.1% 0.113 86.1)"
+      },
+      "arcade-dusk-purple": {
+        "role": "neutral",
+        "displayName": "Arcade Dusk Purple",
+        "canonical": "#150b29",
+        "tonalRamp": [
+          "#0e0421",
+          "#271d3d",
+          "#42395b",
+          "#60577b",
+          "#8379a0",
+          "#a79ec6",
+          "#cdc4ed",
+          "#efecfe"
+        ],
+        "oklch": "oklch(18.3% 0.059 295.4)"
+      },
+      "cartridge-plum": {
+        "role": "neutral",
+        "displayName": "Cartridge Plum",
+        "canonical": "#3b2766",
+        "tonalRamp": [
+          "#0f0029",
+          "#291351",
+          "#443171",
+          "#625093",
+          "#8473b9",
+          "#a997e0",
+          "#cec0ff",
+          "#efebff"
+        ],
+        "oklch": "oklch(33.3% 0.106 294.6)"
+      },
+      "cartridge-plum-hover": {
+        "role": "neutral",
+        "displayName": "Cartridge Plum (hover)",
+        "canonical": "#4d3285",
+        "tonalRamp": [
+          "#100029",
+          "#2c065c",
+          "#462b7d",
+          "#644ba0",
+          "#866ec7",
+          "#aa93ef",
+          "#cec0fe",
+          "#efecfe"
+        ],
+        "oklch": "oklch(39.5% 0.133 294.5)"
+      },
+      "on-coin": {
+        "role": "neutral",
+        "displayName": "On-Coin",
+        "canonical": "#1a1030",
+        "tonalRamp": [
+          "#0e0422",
+          "#261d3e",
+          "#42395d",
+          "#60577d",
+          "#8279a2",
+          "#a79ec8",
+          "#cdc3ef",
+          "#efecfe"
+        ],
+        "oklch": "oklch(20.6% 0.061 294.9)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name on the main page, set as the map sheet's title; the largest type on the site."
+      },
+      "sheet-display": {
+        "displayName": "Sheet Display",
+        "purpose": "The Career title."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles (1.35rem portal, 1.15-1.2rem project and station)."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text."
+      },
+      "body-lead": {
+        "displayName": "Body Lead",
+        "purpose": "Intro and lead paragraphs, 56-62ch max."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Monospace annotation: taglines, kickers, badges, periods, tags, chips."
+      },
+      "blueprint-display": {
+        "displayName": "Blueprint Display",
+        "purpose": "Algorithms headings, wrapped in blue { } braces."
+      },
+      "arcade-display": {
+        "displayName": "Arcade Display",
+        "purpose": "Games title only, with a hard 4px offset shadow in the other accent."
+      },
+      "arcade-label": {
+        "displayName": "Arcade Label",
+        "purpose": "Pixel buttons, badges and card titles on the Games page only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-panel",
+        "value": "0 12px 32px rgba(0, 0, 0, 0.35)",
+        "purpose": "The portrait frame; the only resting shadow. Day: 0 12px 32px rgba(16, 40, 50, 0.12)."
+      },
+      {
+        "name": "portrait-halo",
+        "value": "0 0 0 8px color-mix(in srgb, var(--accent) 10%, transparent)",
+        "purpose": "A faint teal ring around the portrait."
+      },
+      {
+        "name": "route-glow",
+        "value": "0 0 12px color-mix(in srgb, var(--line-color) 45%, transparent)",
+        "purpose": "The drawn route line on Career."
+      },
+      {
+        "name": "station-reached",
+        "value": "0 0 0 3px var(--station), 0 0 22px color-mix(in srgb, var(--station) 45%, transparent)",
+        "purpose": "A station badge once the route line reaches it."
+      },
+      {
+        "name": "pixel-bevel",
+        "value": "inset -3px -3px 0 rgba(0,0,0,0.3), inset 3px 3px 0 rgba(255,255,255,0.45)",
+        "purpose": "Arcade coin buttons; pressed: inset 3px 3px 0 rgba(0,0,0,0.3) plus a 2px push down."
+      }
+    ],
+    "motion": [
+      {
+        "name": "hover-ease",
+        "value": "0.25s ease",
+        "purpose": "Card lift, border and glow transitions; 0.2s ease for small controls."
+      },
+      {
+        "name": "details-expand",
+        "value": "grid-template-rows 0.3s ease",
+        "purpose": "Project card details opening from 0fr to 1fr."
+      },
+      {
+        "name": "rise",
+        "value": "0.6s ease both, translate 0 18px -> 0",
+        "purpose": "Scroll reveal; uses translate so it never clashes with hover transform. Staggered with --delay."
+      },
+      {
+        "name": "arcade-steps",
+        "value": "0.2s steps(2)",
+        "purpose": "Arcade hover and state changes move in pixel steps, never smoothly."
+      },
+      {
+        "name": "scan",
+        "value": "1.8s linear infinite",
+        "purpose": "Signal Green scan band sweeping a blueprint card image on hover."
+      },
+      {
+        "name": "blink",
+        "value": "1.1s steps(1) infinite",
+        "purpose": "The arcade's 'Select game' prompt."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "durations 0.001ms",
+        "purpose": "Under prefers-reduced-motion all animation and transition collapses and canvases draw one still frame."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "nav",
+        "value": "640px",
+        "purpose": "Header nav links appear."
+      },
+      {
+        "name": "gutter",
+        "value": "720px",
+        "purpose": "Gutters widen from 16px to 28px; section padding 64px to 72px; career badges grow."
+      },
+      {
+        "name": "portals",
+        "value": "880px",
+        "purpose": "Portal cards become three columns."
+      },
+      {
+        "name": "workshop",
+        "value": "900px",
+        "purpose": "Blueprint intro splits into text plus a 340px title block."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Summit Label",
+      "kind": "card",
+      "refersTo": "summit-label",
+      "description": "Main-page destination labelled like a peak on a map: bare ink symbol, big title, teaser, CTA; a ground halo clears the contours behind the text. The canvas draws its tinted summit rings.",
+      "html": "<a class=\"ds-summit\" href=\"#\" style=\"--card-accent:var(--career, #f2a541)\"><span class=\"ds-summit-rings\" aria-hidden=\"true\"></span><span class=\"ds-summit-icon\"><svg viewBox=\"0 0 24 24\" width=\"28\" height=\"28\" style=\"fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round\"><circle cx=\"12\" cy=\"12\" r=\"9.5\"/><path d=\"m15.8 8.2-2.4 5.2-5.2 2.4 2.4-5.2z\"/></svg></span><h2>Career</h2><p>40+ years of programming, from a Commodore 64 in 1984 to BiQ today.</p><span class=\"ds-summit-cta\">View the route <svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" aria-hidden=\"true\" style=\"fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></span></a>",
+      "css": ".ds-summit{position:relative;isolation:isolate;display:flex;flex-direction:column;gap:10px;max-width:320px;padding:28px 4px;color:var(--text, #e7eef1);font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;text-decoration:none}.ds-summit-rings{position:absolute;z-index:-2;left:-114px;top:-106px;width:280px;height:280px;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 17px,color-mix(in srgb,var(--card-accent) 45%,transparent) 17px 18px);mask:radial-gradient(circle,#000 30%,transparent 70%)}.ds-summit::before{content:'';position:absolute;z-index:-1;inset:72px -32px -12px;background:radial-gradient(closest-side,color-mix(in srgb,var(--bg, #0d1418) 88%,transparent) 70%,transparent)}.ds-summit-icon{width:52px;height:52px;display:grid;place-items:center;color:var(--card-accent);filter:drop-shadow(0 0 2px var(--bg, #0d1418)) drop-shadow(0 0 5px var(--bg, #0d1418));transition:scale .3s cubic-bezier(.16,1,.3,1)}.ds-summit-icon svg{width:36px;height:36px;stroke-width:1.6}.ds-summit:hover .ds-summit-icon,.ds-summit:focus-visible .ds-summit-icon{scale:1.12}.ds-summit h2{margin:10px 0 0;font-size:2rem;line-height:1.12;letter-spacing:-.02em;transition:color .25s ease}.ds-summit:hover h2,.ds-summit:focus-visible h2{color:var(--card-accent)}.ds-summit p{max-width:34ch;margin:0;color:var(--muted, #9aabb5);line-height:1.6}.ds-summit-cta{display:inline-flex;align-items:center;gap:6px;padding-top:10px;color:var(--card-accent);font-weight:600}.ds-summit-cta svg{transition:transform .25s ease}.ds-summit:hover .ds-summit-cta svg{transform:translateX(4px)}.ds-summit:focus-visible{outline:2px solid var(--card-accent);outline-offset:4px;border-radius:18px}"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "Shared card anatomy for every project, rendered from data/projects.js: 16:10 media, badges, title, summary, toggle.",
+      "html": "<article class=\"ds-project\"><div class=\"ds-project-media\"></div><div class=\"ds-project-body\"><p class=\"ds-badges\"><span class=\"ds-badge ds-badge-section\">Algorithms</span><span class=\"ds-badge\">Hobby</span></p><h3>Perlin Noise</h3><p class=\"ds-summary\">Simplex and Perlin noise, from scratch.</p><button class=\"ds-toggle\" type=\"button\">More</button></div></article>",
+      "css": ".ds-project{--card-accent:var(--algo, #5aa2ff);display:flex;flex-direction:column;max-width:300px;overflow:hidden;border:1px solid var(--line, rgba(160,200,210,.16));border-radius:18px;background:var(--surface, rgba(17,27,34,.82));color:var(--text, #e7eef1);font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;transition:border-color .25s ease}.ds-project:hover{border-color:color-mix(in srgb,var(--card-accent) 60%,var(--line, rgba(160,200,210,.16)))}.ds-project-media{aspect-ratio:16/10;border-bottom:1px solid var(--line, rgba(160,200,210,.16));background:linear-gradient(135deg,color-mix(in srgb,var(--card-accent) 20%,transparent),transparent)}.ds-project-body{display:flex;flex-direction:column;gap:10px;padding:18px 20px 20px}.ds-badges{display:flex;gap:6px;margin:0}.ds-badge{padding:5px 8px;border:1px solid var(--line, rgba(160,200,210,.16));border-radius:999px;color:var(--muted, #9aabb5);font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:.7rem;font-weight:600;line-height:1;letter-spacing:.06em;text-transform:uppercase}.ds-badge-section{border-color:color-mix(in srgb,var(--card-accent) 45%,transparent);color:var(--card-accent)}.ds-project h3{margin:2px 0 0;font-size:1.15rem}.ds-summary{margin:0;color:var(--muted, #9aabb5);line-height:1.55}.ds-toggle{align-self:flex-start;padding:8px 14px;border:1px solid var(--line, rgba(160,200,210,.16));border-radius:999px;background:transparent;color:inherit;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:border-color .2s ease}.ds-toggle:hover,.ds-toggle:focus-visible{border-color:var(--card-accent)}"
+    },
+    {
+      "name": "Sound Toggle",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "40px round icon button; muted at rest, sheet accent when sound is on (aria-pressed).",
+      "html": "<button class=\"ds-icon-btn\" type=\"button\" aria-pressed=\"true\" aria-label=\"Turn sound off\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\" style=\"fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round\"><path d=\"M11 5 6 9H3v6h3l5 4z\"/><path d=\"M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13\"/></svg></button>",
+      "css": ".ds-icon-btn{width:40px;height:40px;display:grid;place-items:center;padding:0;border:1px solid var(--line, rgba(160,200,210,.16));border-radius:50%;background:var(--surface, rgba(17,27,34,.82));color:var(--muted, #9aabb5);cursor:pointer;transition:color .2s ease,border-color .2s ease}.ds-icon-btn:hover{color:var(--text, #e7eef1)}.ds-icon-btn[aria-pressed=true]{border-color:var(--accent, #35d0c0);color:var(--accent, #35d0c0)}.ds-icon-btn:focus-visible{outline:2px solid var(--accent, #35d0c0);outline-offset:3px}"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Fixed 60px subpage header: JJK brand mark and name, nav links, sound toggle; blurred ground behind.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-mark\">JJK</span>Jakob Kramhøft</a><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Career</a><a href=\"#\">Algorithms</a><a href=\"#\">Games</a></nav><button class=\"ds-icon-btn\" type=\"button\" aria-pressed=\"false\" aria-label=\"Turn sound on\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" aria-hidden=\"true\" style=\"fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round\"><path d=\"M11 5 6 9H3v6h3l5 4z\"/><path d=\"M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13\"/></svg></button></header>",
+      "css": ".ds-header{height:60px;display:flex;align-items:center;gap:12px;padding:0 16px;background:color-mix(in srgb,var(--bg, #0d1418) 75%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line, rgba(160,200,210,.16));font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif}.ds-brand{display:inline-flex;align-items:center;gap:10px;margin-right:auto;color:var(--text, #e7eef1);font-weight:650;text-decoration:none}.ds-mark{width:32px;height:32px;display:grid;place-items:center;border:1.5px solid var(--accent, #35d0c0);border-radius:50%;color:var(--accent, #35d0c0);font-size:.78rem;font-weight:700;letter-spacing:.04em}.ds-nav{display:flex;gap:4px}.ds-nav a{padding:8px 12px;border-radius:8px;color:var(--muted, #9aabb5);font-size:.95rem;text-decoration:none}.ds-nav a:hover,.ds-nav a[aria-current=page]{background:var(--surface, rgba(17,27,34,.82));color:var(--text, #e7eef1)}.ds-icon-btn{width:40px;height:40px;display:grid;place-items:center;padding:0;border:1px solid var(--line, rgba(160,200,210,.16));border-radius:50%;background:var(--surface, rgba(17,27,34,.82));color:var(--muted, #9aabb5);cursor:pointer}.ds-icon-btn:hover{color:var(--text, #e7eef1)}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Blueprint filter chip with count; Signal Green double line when pressed.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" type=\"button\" aria-pressed=\"true\">All <span class=\"ds-chip-count\">5</span></button><button class=\"ds-chip\" type=\"button\" aria-pressed=\"false\">Geo <span class=\"ds-chip-count\">2</span></button></div>",
+      "css": ".ds-chips{display:flex;gap:8px}.ds-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(140,185,255,.2);border-radius:6px;background:rgba(11,29,50,.86);color:#93a9c4;font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:.85rem;cursor:pointer;transition:color .2s ease,border-color .2s ease,box-shadow .2s ease}.ds-chip:hover{border-color:#5aa2ff;color:#e6effa}.ds-chip[aria-pressed=true]{border-color:#4cf5a0;box-shadow:inset 0 0 0 1px #4cf5a0;color:#e6effa}.ds-chip-count{color:#5aa2ff;font-size:.78rem}.ds-chip[aria-pressed=true] .ds-chip-count{color:#4cf5a0}.ds-chip:focus-visible{outline:2px solid #5aa2ff;outline-offset:3px}"
+    },
+    {
+      "name": "Blueprint Card",
+      "kind": "custom",
+      "refersTo": "project-card-blueprint",
+      "description": "Signature: 8px card with corner brackets that turn Signal Green and move outwards on hover.",
+      "html": "<article class=\"ds-bp\"><p class=\"ds-bp-kicker\">// pathfinding</p><h3>Dijkstra Route</h3><p class=\"ds-bp-cx\">O((V + E) log V)</p><button class=\"ds-bp-toggle\" type=\"button\">details</button></article>",
+      "css": ".ds-bp{--br:rgba(160,200,255,.55);position:relative;max-width:300px;padding:20px;border:1px solid rgba(140,185,255,.2);border-radius:8px;background:rgba(11,29,50,.86);color:#e6effa;font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif}.ds-bp::after{content:'';position:absolute;inset:6px;pointer-events:none;background:linear-gradient(var(--br),var(--br)) left top/14px 2px,linear-gradient(var(--br),var(--br)) left top/2px 14px,linear-gradient(var(--br),var(--br)) right top/14px 2px,linear-gradient(var(--br),var(--br)) right top/2px 14px,linear-gradient(var(--br),var(--br)) left bottom/14px 2px,linear-gradient(var(--br),var(--br)) left bottom/2px 14px,linear-gradient(var(--br),var(--br)) right bottom/14px 2px,linear-gradient(var(--br),var(--br)) right bottom/2px 14px;background-repeat:no-repeat;transition:inset .25s ease}.ds-bp:hover::after{--br:#4cf5a0;inset:3px}.ds-bp:hover{border-color:rgba(90,162,255,.6)}.ds-bp-kicker{margin:0;color:#4cf5a0;font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:.85rem}.ds-bp h3{margin:6px 0 0;font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:1.15rem}.ds-bp-cx{margin:6px 0 12px;color:#5aa2ff;font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:.8rem}.ds-bp-cx::before{content:'complexity: ';color:#93a9c4}.ds-bp-toggle{padding:8px 14px;border:1px solid rgba(140,185,255,.2);border-radius:6px;background:transparent;color:#e6effa;font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:.82rem;cursor:pointer}.ds-bp-toggle::before{content:'$ ';color:#4cf5a0}.ds-bp-toggle:hover,.ds-bp-toggle:focus-visible{border-color:#4cf5a0}"
+    },
+    {
+      "name": "Cartridge Card",
+      "kind": "custom",
+      "refersTo": "project-card-cartridge",
+      "description": "Signature: plum cartridge shell with stepped pixel corners, grip ridges and a label-bordered body.",
+      "html": "<article class=\"ds-cart\"><div class=\"ds-cart-label\"></div><div class=\"ds-cart-body\"><span class=\"ds-cart-badge\">Hi-score</span><h3>Chinese Checkers</h3><button class=\"ds-coin\" type=\"button\">&#9654; Play</button></div></article>",
+      "css": ".ds-cart{position:relative;max-width:280px;padding:18px 10px 10px;background:#3b2766;clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px));transition:transform .2s steps(2),background-color .2s steps(2)}.ds-cart::before{content:'';position:absolute;top:5px;left:30%;right:30%;height:8px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 8px)}.ds-cart:hover{transform:translateY(-4px);background:#4d3285}.ds-cart-label{aspect-ratio:16/10;border:4px solid #140c26;border-bottom:none;background:linear-gradient(#25134a,#331a62)}.ds-cart-body{display:flex;flex-direction:column;gap:10px;padding:14px;border:4px solid #140c26;border-top:none;background:rgba(29,17,54,.94);color:#f6ecff}.ds-cart-badge{align-self:flex-start;padding:5px 8px;background:#ffd447;color:#1a1030;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.55rem;text-transform:uppercase}.ds-cart h3{margin:0;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.8rem;font-weight:400;line-height:1.6}.ds-coin{align-self:flex-start;padding:10px 14px;border:none;background:#ffd447;color:#1a1030;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.65rem;line-height:1;cursor:pointer;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3),inset 3px 3px 0 rgba(255,255,255,.45)}.ds-coin:hover{filter:brightness(1.08)}.ds-coin:active{translate:0 2px;box-shadow:inset 3px 3px 0 rgba(0,0,0,.3)}.ds-coin:focus-visible{outline:2px solid #ee5fb7;outline-offset:3px}"
+    },
+    {
+      "name": "Route Station",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature: round logo badge on the amber route line, lit with a teal ring once reached, beside an 18px station card.",
+      "html": "<div class=\"ds-route\"><span class=\"ds-route-line\"></span><div class=\"ds-station\"><span class=\"ds-station-badge\">BiQ</span><div class=\"ds-station-card\"><p class=\"ds-station-period\">2023-02 – Present</p><h3>BiQ A/S</h3><p class=\"ds-station-role\">Senior Developer · Copenhagen</p></div></div></div>",
+      "css": ".ds-route{position:relative;max-width:520px;font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;color:var(--text, #e7eef1)}.ds-route-line{position:absolute;left:34px;top:34px;bottom:-20px;width:4px;border-radius:2px;background:var(--career, #f2a541);box-shadow:0 0 12px color-mix(in srgb,var(--career, #f2a541) 45%,transparent)}.ds-station{position:relative;padding-left:100px}.ds-station-badge{position:absolute;left:2px;top:0;width:68px;height:68px;display:grid;place-items:center;border:3px solid var(--bg, #0d1418);border-radius:50%;background:#fff;color:#10222b;font-weight:700;box-shadow:0 0 0 3px var(--accent, #35d0c0),0 0 22px color-mix(in srgb,var(--accent, #35d0c0) 45%,transparent)}.ds-station-card{padding:18px 20px;border:1px solid color-mix(in srgb,var(--accent, #35d0c0) 30%,var(--line, rgba(160,200,210,.16)));border-radius:18px;background:var(--surface, rgba(17,27,34,.82))}.ds-station-period{margin:0;color:var(--career, #f2a541);font-family:ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, 'Liberation Mono', monospace;font-size:.8rem}.ds-station-card h3{margin:4px 0 0;font-size:1.2rem}.ds-station-role{margin:3px 0 0;color:var(--muted, #9aabb5);font-size:.92rem}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Atlas of Side Projects",
+    "overview": "The site is a bound atlas of one person's work. Every page is a sheet from the same atlas. The main page is the night-map cover, covered in drifting contour lines. The Career sheet is a transit route, the Algorithms sheet a blueprint, and the Games sheet a margin doodle that turned into an arcade. They share one printing: the same slate ground, the same see-through panels, the same card anatomy, header, footer and sound toggle. A sheet changes only its background, accent, heading font and card shape. The projects are what the atlas is for, so the chrome stays thin and lets them lead.\n\nComponents are **crafted instruments**. Every card has a small, precise, hand-made detail that belongs to its sheet: corner brackets and a scan line on the blueprint, grip ridges and stepped pixel corners on the cartridge, a round logo badge on the route. These details are what make the site recognisable, and they show up where a person looks, not as decoration spread across the page. Behind everything, one `<canvas>` runs a slow generative background (noise contours, a pathfinding or sorting run, a parallax starfield, a pulsing map grid). It is dimmed well back, pauses when the tab is hidden, and becomes a still frame under reduced motion.\n\nDark (\"Night over the map\") is the default, and light follows the OS setting with its own darker, readable accent values. Density is calm: one content column of at most 1120px, generous section spacing, and body text kept to about 60 characters per line.",
+    "keyCharacteristics": [
+      "One shared base with themed sheets, where only theme tokens change from page to page.",
+      "One accent per sheet, and in the arcade a second one (yellow).",
+      "See-through panels floating over a live, dimmed generative canvas.",
+      "One small hand-made detail per component that belongs to its sheet.",
+      "System sans for reading, monospace for labels, data and anything \"technical\".",
+      "Sound and motion are opt-in or polite, never required."
+    ],
+    "rules": [
+      {
+        "name": "The One Ink Per Sheet Rule",
+        "body": "Each page has exactly one accent (the arcade has two: magenta and coin yellow). The main page is the only place where all the inks appear together, and only as the per-destination `--card-accent` on the three summits, where each ink also tints its own summit's contour rings.",
+        "section": "colors"
+      },
+      {
+        "name": "The Day Ink Rule",
+        "body": "Every accent has a darker day version for light mode, chosen so text stays readable. A new accent isn't finished until its day version exists and is defined in a `prefers-color-scheme: light` block.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signal Is State Rule",
+        "body": "Signal Green means \"active, pressed or running\". It is never used for decoration or as a second brand colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Annotation Rule",
+        "body": "Anything that reads like data (dates, periods, counts, complexity, tags, filter labels, stats) is set in monospace. Anything that reads like prose is set in the system sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Pixel Font Stays In The Arcade Rule",
+        "body": "Press Start 2P appears only on the Games page and in its games. It is never used for body text, and it is used at no more than about 0.8rem outside the title.",
+        "section": "typography"
+      },
+      {
+        "name": "The Shared Chassis Rule",
+        "body": "Header, footer, sound toggle, container widths, gutters, breakpoints and the card structure (media, body, badges, title, summary, expanding details, actions) are identical on every sheet. A new page is a new theme on this same base, not a new layout.",
+        "section": "layout"
+      },
+      {
+        "name": "The Glow Is A Response Rule",
+        "body": "Panels are flat and see-through at rest. Accent-coloured light appears only for hover, focus, open or \"reached\". A glow that is always on means something is wrong.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Canvas Stays Behind Rule",
+        "body": "The generative background is dimmed until it cannot compete with the text (for example at 0.6 opacity on the blueprint). It never takes pointer events, pauses when the tab is hidden, and becomes a still frame under reduced motion.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Circle Means Identity Rule",
+        "body": "Circles are reserved for identity: the portrait, the JJK brand mark, company logos in station badges, person avatars and the round sound toggle. Content cards are never circular.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do theme a new page by overriding only the theme tokens (`--bg`, `--bg-glow`, `--surface`, `--line`, `--text`, `--muted`, `--accent`, `--radius`) and the heading font in its own stylesheet. Keep the shared base untouched.",
+      "Do give every new accent a day version in a `prefers-color-scheme: light` block, and check text contrast in both modes.",
+      "Do give each component one crafted detail that belongs to its sheet (brackets, ridges, badges, prompt glyphs). Put it where the visitor's attention already is.",
+      "Do set dates, counts, tags, periods and technical notes in the monospace stack.",
+      "Do keep every generative background on the single `#bg` canvas: dimmed, pointer-events off, paused when hidden, and a still frame under `prefers-reduced-motion`.",
+      "Do use `translate` for entrance animations (the `rise` keyframe) so they don't clash with the `transform` used on hover.",
+      "Do keep project images at 16:10 and let `data/projects.js` drive every card."
+    ],
+    "donts": [
+      "Don't give a sheet a second layout, header or card structure. Page themes change tokens and details, not the base.",
+      "Don't put more than one accent on a subpage (the arcade's coin yellow is the only second accent), or use Signal Green for anything but active state.",
+      "Don't use resting shadows or always-on glows on cards. Light is a response to interaction.",
+      "Don't use Press Start 2P outside the Games page, or for body text.",
+      "Don't make content cards circular. Circles mean identity.",
+      "Don't autoplay sound, or animate anything that ignores reduced motion or hidden tabs.",
+      "Don't hide the dashed placeholder badge on made-up content, or present placeholder illustrations as real project imagery."
+    ]
+  }
+}
