@@ -309,8 +309,11 @@
   background: none;
 }
 
+/* The DTU-to-work gap on the line is only two years wide, so the education fact keeps its own
+   distance from the work facts instead of running into them. */
 .route-overview.is-mapped .fact-edu {
   grid-column: 1;
+  padding-right: clamp(18px, 4vw, 36px);
   text-align: right;
 }
 

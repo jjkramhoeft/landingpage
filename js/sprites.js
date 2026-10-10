@@ -10,7 +10,7 @@ window.Sprites = (function () {
 
   const SPRITES = {
     coin: {
-      palette: { o: '#c98f00', Y: '#ffd447', w: '#fff6c2' },
+      palette: { o: '#8a6a26', Y: '#c9a04a', w: '#ecd9a0' },
       rows: [
         '..oooo..',
         '.oYYYYo.',
@@ -23,7 +23,7 @@ window.Sprites = (function () {
       ],
     },
     heart: {
-      palette: { M: '#ee5fb7', w: '#ffc2e6', d: '#a32c78' },
+      palette: { M: '#e9584c', w: '#f3a99f', d: '#9c2f26' },
       rows: [
         '.MM.MM.',
         'MwMMMMM',
@@ -35,7 +35,7 @@ window.Sprites = (function () {
       ],
     },
     star: {
-      palette: { Y: '#ffd447', w: '#fff6c2' },
+      palette: { Y: '#c9a04a', w: '#ecd9a0' },
       rows: [
         '...Y...',
         '..YwY..',
@@ -47,7 +47,7 @@ window.Sprites = (function () {
       ],
     },
     ship: {
-      palette: { C: '#f6ecff', W: '#7ef0c8', M: '#ee5fb7', Y: '#ffd447' },
+      palette: { C: '#efe6d4', W: '#c9a04a', M: '#e9584c', Y: '#c9a04a' },
       rows: [
         '....C....',
         '...CCC...',

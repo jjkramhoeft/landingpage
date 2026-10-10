@@ -1,47 +1,59 @@
-/* Games and Fun page: "The arcade". Magenta and yellow on deep purple, pixel font, cartridge cards. */
+/* Games and Fun page: "The arcade". Cream and marquee red on warm charcoal, like an old console in a dark room.
+   Pixel font for headings and labels, cartridge cards, and a red-and-brass trim band as the sheet's detail. */
 :root {
-  --bg: #150b29;
-  --bg-glow: #2a1452;
-  --surface: rgba(29, 17, 54, 0.94);
-  --surface-strong: #24143f;
-  --line: rgba(238, 95, 183, 0.28);
-  --text: #f6ecff;
-  --muted: #bfa9dd;
-  --accent: #ee5fb7;
-  --games: #ee5fb7;
-  --games-2: #ffd447;
-  --coin: #ffd447;
-  --on-coin: #1a1030;
-  --cart: #3b2766;
-  --cart-hover: #4d3285;
-  --cart-ridge: rgba(0, 0, 0, 0.28);
-  --star: rgba(255, 255, 255, 0.85);
-  --star-2: rgba(255, 212, 71, 0.9);
-  --land-far: #25134a;
-  --land-near: #331a62;
+  --bg: #14110e;
+  --bg-glow: #221b15;
+  --surface: rgba(30, 26, 22, 0.94);
+  --surface-strong: #1e1a16;
+  --line: rgba(239, 230, 212, 0.14);
+  --text: #efe6d4;
+  --muted: #a99c88;
+  --accent: #e9584c;
+  --games: #e9584c;
+  --games-2: #c9a04a;
+  --coin: #c9a04a;
+  --on-coin: #14110e;
+  --cart: #2b2520;
+  --cart-hover: #352e27;
+  --cart-ridge: rgba(0, 0, 0, 0.35);
+  --label-edge: #0e0c0a;
+  --star: rgba(239, 230, 212, 0.7);
+  --star-2: rgba(201, 160, 74, 0.8);
+  --land-far: #1b1713;
+  --land-near: #221d18;
+  --trail: #efe6d4;
   --pixel: "Press Start 2P", ui-monospace, monospace;
+  scrollbar-color: var(--cart-hover) var(--bg);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f6effc;
-    --bg-glow: #ead9fb;
-    --surface: rgba(255, 255, 255, 0.95);
-    --surface-strong: #ffffff;
-    --line: rgba(179, 33, 123, 0.25);
-    --text: #2a1245;
-    --muted: #6b4f8c;
-    --accent: #b3217b;
-    --games: #b3217b;
-    --games-2: #8f6c00;
-    --cart: #d9c6f2;
-    --cart-hover: #cbb2ee;
-    --cart-ridge: rgba(60, 20, 100, 0.18);
-    --star: rgba(120, 60, 170, 0.45);
-    --star-2: rgba(179, 33, 123, 0.55);
-    --land-far: #e6d6f7;
-    --land-near: #d8c0f1;
+    --bg: #f3ecdf;
+    --bg-glow: #e9dcc6;
+    --surface: rgba(255, 250, 242, 0.96);
+    --surface-strong: #fffaf2;
+    --line: rgba(60, 40, 20, 0.16);
+    --text: #221c16;
+    --muted: #665a4b;
+    --accent: #b3261e;
+    --games: #b3261e;
+    --games-2: #7a5c12;
+    --on-coin: #221c16;
+    --cart: #d8ccb6;
+    --cart-hover: #cdbfa6;
+    --cart-ridge: rgba(60, 40, 20, 0.2);
+    --label-edge: #4a4036;
+    --star: rgba(90, 70, 50, 0.35);
+    --star-2: rgba(179, 38, 30, 0.4);
+    --land-far: #e6dac5;
+    --land-near: #dccdb4;
+    --trail: #4a4036;
   }
+}
+
+::selection {
+  background: var(--games);
+  color: var(--bg);
 }
 
 /* Cursor trail sits above everything but never gets in the way. */
@@ -57,8 +69,6 @@
 .page-games h1,
 .page-games h2,
 .page-games h3,
-.hud-line,
-.press-start,
 .badge,
 .project-play,
 .pixel-button {
@@ -70,90 +80,50 @@
 .arcade-hero {
   max-width: 1120px;
   margin: 0 auto;
-  padding: calc(var(--header-h) + 40px) 16px 12px;
-  text-align: center;
-}
-
-.hud-line {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 28px;
-  margin: 0;
-  color: var(--games);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-}
-
-.hud-line strong {
-  color: var(--coin);
-  font-weight: 400;
-}
-
-@media (prefers-color-scheme: light) {
-  .hud-line strong {
-    color: var(--games-2);
-  }
-}
-
-.sprite-row {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin: 32px 0 20px;
-}
-
-/* Pixel sprites get their colours from the pixels themselves, not from the site's icon style. */
-svg.sprite {
-  stroke: none;
-}
-
-.sprite-row span {
-  animation: hop 1.2s steps(2) infinite;
-}
-
-.sprite-row span:nth-child(2) { animation-delay: 0.3s; }
-.sprite-row span:nth-child(3) { animation-delay: 0.6s; }
-.sprite-row span:nth-child(4) { animation-delay: 0.9s; }
-
-@keyframes hop {
-  50% { translate: 0 -6px; }
+  padding: calc(var(--header-h) + 56px) 16px 8px;
 }
 
 .arcade-hero h1 {
+  width: fit-content;
   margin: 0;
-  color: var(--games);
-  font-size: clamp(1.7rem, 7vw, 3.6rem);
+  color: var(--text);
+  font-size: clamp(1.6rem, 6vw, 3rem);
   line-height: 1.3;
-  text-shadow: 4px 4px 0 var(--coin);
+  text-wrap: balance;
 }
 
 .arcade-hero h1 span {
-  color: var(--coin);
-  text-shadow: 4px 4px 0 var(--games);
+  color: var(--games);
 }
 
-@media (prefers-color-scheme: light) {
-  .arcade-hero h1 {
-    text-shadow: 4px 4px 0 #ffd447;
+/* The trim band: a red stripe over a brass line with stepped pixel ends, like the trim on an old console.
+   It loads in once, in pixel steps, as the page opens. */
+.arcade-hero h1::after {
+  content: "";
+  display: block;
+  height: 10px;
+  margin-top: 18px;
+  background: linear-gradient(var(--games) 0 6px, transparent 6px 8px, var(--coin) 8px 10px);
+  clip-path: polygon(0 2px, 2px 2px, 2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
+    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%,
+    2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px));
+  transform-origin: left center;
+  animation: trim-load 0.9s steps(12) 0.15s both;
+}
+
+@keyframes trim-load {
+  from { transform: scaleX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcade-hero h1::after {
+    animation: none;
   }
-}
-
-.press-start {
-  margin: 26px 0 0;
-  color: var(--text);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  animation: blink 1.1s steps(1) infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
 }
 
 .arcade-hero .lead {
   max-width: 56ch;
-  margin: 24px auto 0;
+  margin: 28px 0 0;
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.7;
@@ -163,28 +133,46 @@ svg.sprite {
 .arcade-games {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 40px 16px 72px;
+  padding: 48px 16px 72px;
 }
 
 .arcade-games .section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  margin-bottom: 28px;
+  color: var(--text);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.game-count {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.game-count strong {
   color: var(--coin);
-  font-size: 0.95rem;
-  text-align: center;
+  font-weight: 600;
 }
 
 @media (prefers-color-scheme: light) {
-  .arcade-games .section-title {
+  .game-count strong {
     color: var(--games-2);
   }
 }
 
-.arcade-games .section-title::before,
-.arcade-games .section-title::after {
-  content: " ◆ ";
-  color: var(--games);
+/* Each cartridge is as tall as its own label, so opening one doesn't stretch its neighbours. */
+.arcade-games .project-grid {
+  align-items: start;
 }
 
-/* Cartridge cards: plastic shell with stepped pixel corners, grip ridges on top, and the image as the label. */
+/* Cartridge cards: a charcoal plastic shell with stepped pixel corners and grip ridges on top,
+   holding a label (the image and body). The label's edge turns red when the cartridge is picked up. */
 .page-games .project-card {
   --card-accent: var(--games);
   position: relative;
@@ -217,23 +205,33 @@ svg.sprite {
   background: var(--cart-hover);
 }
 
+.page-games .project-media,
+.page-games .project-body {
+  border: 4px solid var(--label-edge);
+  transition: border-color 0.2s steps(2);
+}
+
 .page-games .project-media {
-  border: 4px solid #140c26;
   border-bottom: none;
-  image-rendering: pixelated;
 }
 
 .page-games .project-body {
-  border: 4px solid #140c26;
   border-top: none;
   background: var(--surface);
 }
 
-@media (prefers-color-scheme: light) {
-  .page-games .project-media,
-  .page-games .project-body {
-    border-color: #6b4f8c;
-  }
+/* A card with no image is a label on its own, so it needs its top edge. */
+.page-games .project-body:first-child {
+  border-top: 4px solid var(--label-edge);
+}
+
+.page-games .project-card:hover :is(.project-media, .project-body),
+.page-games .project-card.is-open :is(.project-media, .project-body) {
+  border-color: var(--games);
+}
+
+.page-games .project-image[src$=".svg"] {
+  image-rendering: pixelated;
 }
 
 .page-games .project-card h3 {
@@ -259,9 +257,12 @@ svg.sprite {
   border-radius: 0;
 }
 
-/* Chunky pixel buttons */
+/* Pixel buttons: brass with a soft pixel bevel that presses in. */
 .project-play,
 .pixel-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   padding: 10px 14px;
   border: none;
   background: var(--coin);
@@ -269,7 +270,16 @@ svg.sprite {
   font-size: 0.65rem;
   line-height: 1;
   cursor: pointer;
-  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.3), inset 3px 3px 0 rgba(255, 255, 255, 0.45);
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.28), inset 2px 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* A stepped pixel triangle in front of "Play". */
+.project-play::before {
+  content: "";
+  width: 8px;
+  height: 10px;
+  background: currentColor;
+  clip-path: polygon(0 0, 25% 0, 25% 20%, 50% 20%, 50% 40%, 75% 40%, 75% 60%, 50% 60%, 50% 80%, 25% 80%, 25% 100%, 0 100%);
 }
 
 .project-play:hover,
@@ -280,7 +290,7 @@ svg.sprite {
 .project-play:active,
 .pixel-button:active {
   translate: 0 2px;
-  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.28);
 }
 
 .page-games .project-toggle {
@@ -292,12 +302,17 @@ svg.sprite {
   padding: 10px 12px;
 }
 
+.page-games .project-toggle:hover {
+  border-color: var(--games);
+}
+
 .page-games .project-link {
   font-family: var(--pixel);
   font-size: 0.6rem;
+  line-height: 1.6;
 }
 
-/* Game pop-up */
+/* Game pop-up: always a dark screen in a charcoal shell, whatever the colour scheme. */
 .arcade-modal {
   width: min(960px, calc(100vw - 24px));
   max-width: none;
@@ -305,16 +320,16 @@ svg.sprite {
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--text);
+  color: #efe6d4;
 }
 
 .arcade-modal::backdrop {
-  background: rgba(10, 4, 22, 0.8);
+  background: rgba(10, 8, 6, 0.82);
 }
 
 .arcade-modal-inner {
   padding: 6px;
-  background: var(--games);
+  background: #2b2520;
   clip-path: polygon(
     0 8px, 8px 8px, 8px 0,
     calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px,
@@ -327,33 +342,48 @@ svg.sprite {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 10px 12px;
-  background: #1a1030;
+  padding: 10px 12px 16px;
+  /* The trim band along the bottom of the bar. */
+  background:
+    linear-gradient(#e9584c, #e9584c) left bottom 2px / 100% 3px no-repeat,
+    linear-gradient(#c9a04a, #c9a04a) left bottom / 100% 1px no-repeat,
+    #0e0c0a;
 }
 
 .arcade-modal-bar h2 {
   margin: 0 auto 0 0;
-  color: #ffd447;
+  color: #efe6d4;
   font-size: 0.75rem;
 }
 
 .arcade-modal-bar a {
-  color: #f6ecff;
+  color: #a99c88;
   font-size: 0.85rem;
 }
 
+.arcade-modal-bar a:hover {
+  color: #efe6d4;
+}
+
 .arcade-close {
+  display: grid;
+  place-items: center;
   width: 34px;
   height: 34px;
-  border: 2px solid #ee5fb7;
+  border: 2px solid rgba(239, 230, 212, 0.3);
   background: transparent;
-  color: #f6ecff;
-  font-size: 1rem;
+  color: #efe6d4;
   cursor: pointer;
 }
 
 .arcade-close:hover {
-  background: #ee5fb7;
+  border-color: #e9584c;
+  background: #e9584c;
+  color: #0e0c0a;
+}
+
+.arcade-close svg {
+  shape-rendering: crispEdges;
 }
 
 #game-frame {
@@ -361,14 +391,14 @@ svg.sprite {
   width: 100%;
   height: min(620px, calc(100vh - 150px));
   border: none;
-  background: #1a1030;
+  background: #0e0c0a;
 }
 
 .arcade-modal-hint {
   margin: 0;
   padding: 8px 12px;
-  background: #1a1030;
-  color: #bfa9dd;
+  background: #0e0c0a;
+  color: #a99c88;
   font-size: 0.82rem;
   text-align: center;
 }
@@ -386,7 +416,7 @@ svg.sprite {
 }
 
 .konami-hint:hover {
-  color: var(--coin);
+  color: var(--games);
   opacity: 1;
 }
 
@@ -401,7 +431,7 @@ svg.sprite {
 }
 
 .arcade-game-on .quit-game {
-  display: block;
+  display: inline-flex;
 }
 
 .arcade-game-on main,

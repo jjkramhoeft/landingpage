@@ -1,7 +1,7 @@
 /*
   Games and Fun page: lists every "games" project from data/projects.js as a cartridge card.
   Games with a `play` URL get a Play button that opens them in a pop-up (a <dialog> with an iframe).
-  Also: high-score badges, the pixel cursor trail, the sprites in the header and the Konami code easter egg.
+  Also: high-score badges, the pixel cursor trail and the Konami code easter egg.
 */
 (function () {
   'use strict';
@@ -31,7 +31,7 @@
     const card = window.ProjectCards.create(project, {
       showSection: false,
       linkLabel: 'Open full screen →',
-      playLabel: '▶ Play',
+      playLabel: 'Play',
       onPlay: openGame,
       onToggle: () => sound('coin'),
     });
@@ -90,12 +90,6 @@
     if (e.source === frame.contentWindow && e.data && e.data.type === 'jjk-close-game') modal.close();
   });
 
-  // ---- Sprites in the header ----
-
-  document.querySelectorAll('[data-sprite]').forEach((el) => {
-    el.innerHTML = window.Sprites.svg(el.dataset.sprite, Number(el.dataset.size) || 4);
-  });
-
   // ---- Konami code: ↑ ↑ ↓ ↓ ← → ← → B A starts Star Catcher in the background ----
 
   let konami = 0;
@@ -130,11 +124,11 @@
     const tctx = trail.getContext('2d');
     const LIFE = 450;
     const SIZE = 6;
-    const COLORS = ['#ee5fb7', '#ffd447', '#7ef0c8'];
     let pixels = [];
     let running = false;
     let dpr = 1;
-    let count = 0;
+    // A faint single-colour trail, from the page's --trail colour.
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--trail').trim() || '#efe6d4';
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -148,8 +142,8 @@
       pixels = pixels.filter((p) => now - p.born < LIFE);
       pixels.forEach((p) => {
         const age = (now - p.born) / LIFE;
-        tctx.globalAlpha = 1 - age;
-        tctx.fillStyle = p.color;
+        tctx.globalAlpha = (1 - age) * 0.45;
+        tctx.fillStyle = color;
         const s = Math.max(2, Math.round(SIZE * (1 - age * 0.5)));
         tctx.fillRect(p.x - s / 2, p.y - s / 2 + age * 10, s, s);
       });
@@ -164,7 +158,6 @@
         x: Math.round(e.clientX / SIZE) * SIZE,
         y: Math.round(e.clientY / SIZE) * SIZE,
         born: performance.now(),
-        color: COLORS[count++ % COLORS.length],
       });
       if (pixels.length > 40) pixels.shift();
       if (!running) {

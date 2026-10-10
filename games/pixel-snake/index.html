@@ -8,7 +8,7 @@
   <link rel="preload" href="../../assets/fonts/press-start-2p-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../css/fonts.css">
   <style>
-    html, body { height: 100%; margin: 0; overflow: hidden; background: #1a1030; }
+    html, body { height: 100%; margin: 0; overflow: hidden; background: #12100d; }
     canvas { display: block; width: 100%; height: 100%; touch-action: none; }
   </style>
 </head>
@@ -33,9 +33,9 @@
       const LAST_KEY = 'jjk-lastplayed-pixel-snake';
       const FONT = '"Press Start 2P", ui-monospace, monospace';
       const COLORS = {
-        bg: '#1a1030', board: '#140c26', grid: 'rgba(238, 95, 183, 0.08)', frame: '#ee5fb7',
-        body: '#c2408f', body2: '#ee5fb7', head: '#ff8fd2', eye: '#1a1030',
-        apple: '#ffd447', leaf: '#7ef0c8', text: '#ffd447', text2: '#ee5fb7', dim: '#e9e3f7',
+        bg: '#12100d', board: '#0e0c0a', grid: 'rgba(239, 230, 212, 0.05)', frame: '#4a4036',
+        body: '#9c2f26', body2: '#e9584c', head: '#f3a99f', eye: '#12100d',
+        apple: '#c9a04a', leaf: '#a9c4ae', text: '#c9a04a', text2: '#e9584c', dim: '#efe6d4',
       };
 
       const canvas = document.getElementById('game');
@@ -205,7 +205,7 @@
         const small = Math.max(8, Math.min(14, Math.round(cell * 0.55)));
         const touch = matchMedia('(pointer: coarse)').matches;
         if (state !== 'playing') {
-          ctx.fillStyle = 'rgba(20, 12, 38, 0.72)';
+          ctx.fillStyle = 'rgba(14, 12, 10, 0.75)';
           ctx.fillRect(offsetX, cy - big * 2.2, cell * COLS, big * 4.4);
         }
         if (state === 'ready') {

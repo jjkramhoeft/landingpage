@@ -42,11 +42,11 @@ window.Starfield = (function () {
     const get = (name, fallback) => style.getPropertyValue(name).trim() || fallback;
     return {
       star: get('--star', 'rgba(255, 255, 255, 0.85)'),
-      star2: get('--star-2', 'rgba(255, 212, 71, 0.9)'),
-      '--land-far': get('--land-far', '#2a1650'),
-      '--land-near': get('--land-near', '#3a1d6b'),
-      hud: get('--coin', '#ffd447'),
-      hud2: get('--games', '#ee5fb7'),
+      star2: get('--star-2', 'rgba(201, 160, 74, 0.8)'),
+      '--land-far': get('--land-far', '#1b1713'),
+      '--land-near': get('--land-near', '#221d18'),
+      hud: get('--coin', '#c9a04a'),
+      hud2: get('--games', '#e9584c'),
     };
   }
 

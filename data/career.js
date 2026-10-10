@@ -91,6 +91,16 @@ window.CAREER = {
         { title: 'System Developer', start: '1997', end: '2000' },
       ],
     },
+    {
+      company: 'Tetraplan',
+      link: 'https://datacvr.virk.dk/enhed/virksomhed/20604182',
+      logo: 'resources/logos/tetraplan.png',
+      logoFit: 'cover',
+      logoBg: '#efe1d6',
+      roles: [
+        { title: 'Student Assistant', start: '1995', end: '1997' },
+      ],
+    },
   ],
 
   // "Influential persons", shown below Education. A group with no people shows a "To be added" card.

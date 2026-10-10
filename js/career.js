@@ -151,12 +151,14 @@
     return li;
   }
 
+  // The lines go first in the list so the stations (and their logo badges) are painted on top of them.
   function addLines(route, withDash) {
-    route.prepend(
+    const lines = [
       el('li', { class: 'route-track', 'aria-hidden': 'true' }),
       el('li', { class: 'route-line', 'aria-hidden': 'true' }),
-    );
-    if (withDash) route.append(el('li', { class: 'route-dash', 'aria-hidden': 'true' }));
+    ];
+    if (withDash) lines.push(el('li', { class: 'route-dash', 'aria-hidden': 'true' }));
+    route.prepend(...lines);
   }
 
   const NOTE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v11l-5 5H5z"/><path d="M14 20v-5h5"/><path d="M8.5 9h7M8.5 12.5h4"/></svg>';
@@ -445,7 +447,9 @@
   const firstJob = data.experience.flatMap((c) => c.roles || []).map((r) => parseDate(r.start).year).sort()[0];
   if (years && firstJob) years.textContent = String(new Date().getFullYear() - firstJob);
   const companies = document.getElementById('fact-companies');
-  if (companies) companies.textContent = String(data.experience.length);
+  // A group of related companies (the same `group`) counts as one company.
+  const companyKeys = new Set(data.experience.map((c) => c.group || c.company));
+  if (companies) companies.textContent = String(companyKeys.size);
 
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());

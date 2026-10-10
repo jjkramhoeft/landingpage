@@ -21,14 +21,18 @@ colors:
   blueprint-night: "#0a1726"
   signal-green: "#4cf5a0"
   signal-green-day: "#0a8a55"
-  arcade-magenta: "#ee5fb7"
-  arcade-magenta-day: "#b3217b"
-  coin-yellow: "#ffd447"
-  coin-yellow-day: "#8f6c00"
-  arcade-dusk-purple: "#150b29"
-  cartridge-plum: "#3b2766"
-  cartridge-plum-hover: "#4d3285"
-  on-coin: "#1a1030"
+  marquee-red: "#e9584c"
+  marquee-red-day: "#b3261e"
+  console-brass: "#c9a04a"
+  console-brass-day: "#7a5c12"
+  arcade-charcoal: "#14110e"
+  console-cream: "#efe6d4"
+  console-cream-muted: "#a99c88"
+  console-paper: "#f3ecdf"
+  cartridge-shell: "#2b2520"
+  cartridge-shell-hover: "#352e27"
+  label-edge: "#0e0c0a"
+  on-coin: "#14110e"
 typography:
   display:
     fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif"
@@ -77,7 +81,7 @@ typography:
     letterSpacing: "-0.02em"
   arcade-display:
     fontFamily: "Press Start 2P, ui-monospace, monospace"
-    fontSize: "clamp(1.7rem, 7vw, 3.6rem)"
+    fontSize: "clamp(1.6rem, 6vw, 3rem)"
     fontWeight: 400
     lineHeight: 1.3
   arcade-label:
@@ -117,11 +121,11 @@ components:
     backgroundColor: "{colors.night-map-surface}"
     rounded: "{rounded.blueprint}"
   project-card-cartridge:
-    backgroundColor: "{colors.cartridge-plum}"
+    backgroundColor: "{colors.cartridge-shell}"
     rounded: "{rounded.none}"
     padding: "18px 10px 10px"
   project-card-cartridge-hover:
-    backgroundColor: "{colors.cartridge-plum-hover}"
+    backgroundColor: "{colors.cartridge-shell-hover}"
   icon-button:
     backgroundColor: "{colors.night-map-surface}"
     textColor: "{colors.night-map-muted}"
@@ -147,7 +151,7 @@ components:
   filter-chip-active:
     textColor: "{colors.night-map-text}"
   coin-button:
-    backgroundColor: "{colors.coin-yellow}"
+    backgroundColor: "{colors.console-brass}"
     textColor: "{colors.on-coin}"
     typography: "{typography.arcade-label}"
     rounded: "{rounded.none}"
@@ -160,7 +164,7 @@ components:
 
 **Creative North Star: "The Atlas of Side Projects"**
 
-The site is a bound atlas of one person's work. Every page is a sheet from the same atlas. The main page is the night-map cover, covered in drifting contour lines. The Career sheet is a transit route, the Algorithms sheet a blueprint, and the Games sheet a margin doodle that turned into an arcade. They share one printing: the same slate ground, the same see-through panels, the same card anatomy, header, footer and sound toggle. A sheet changes only its background, accent, heading font and card shape. The projects are what the atlas is for, so the chrome stays thin and lets them lead.
+The site is a bound atlas of one person's work. Every page is a sheet from the same atlas. The main page is the night-map cover, covered in drifting contour lines. The Career sheet is a transit route, the Algorithms sheet a blueprint, and the Games sheet an old games console in a dark room. They share one printing: the same slate ground, the same see-through panels, the same card anatomy, header, footer and sound toggle. A sheet changes only its background, accent, heading font and card shape. The projects are what the atlas is for, so the chrome stays thin and lets them lead.
 
 Components are **crafted instruments**. Every card has a small, precise, hand-made detail that belongs to its sheet: corner brackets and a scan line on the blueprint, grip ridges and stepped pixel corners on the cartridge, a round logo badge on the route. These details are what make the site recognisable, and they show up where a person looks, not as decoration spread across the page. Behind everything, one `<canvas>` runs a slow generative background (noise contours, a pathfinding or sorting run, a parallax starfield, a pulsing map grid). It is dimmed well back, pauses when the tab is hidden, and becomes a still frame under reduced motion.
 
@@ -168,7 +172,7 @@ Dark ("Night over the map") is the default, and light follows the OS setting wit
 
 **Key Characteristics:**
 - One shared base with themed sheets, where only theme tokens change from page to page.
-- One accent per sheet, and in the arcade a second one (yellow).
+- One accent per sheet, and in the arcade a second one (brass).
 - See-through panels floating over a live, dimmed generative canvas.
 - One small hand-made detail per component that belongs to its sheet.
 - System sans for reading, monospace for labels, data and anything "technical".
@@ -187,19 +191,19 @@ The palette is a map legend: a deep night-slate ground with one saturated ink pe
 - **Signal Green** (#4cf5a0, day #0a8a55): the blueprint's "active" state only. It marks pressed filter chips, opened cards, the `$`/`>` prompt glyphs, the kicker and the live stats readout.
 
 ### Tertiary
-- **Arcade Magenta** (#ee5fb7, day #b3217b): the Games sheet accent. It colours headings, the HUD line and the modal frame, and it is the Games card's accent on the main page.
-- **Coin Yellow** (#ffd447, day #8f6c00): the arcade's second accent. It colours coin buttons (Play), the hi-score badge, the offset shadow behind the pixel title and the second colour in the joystick icon.
+- **Marquee Red** (#e9584c, day #b3261e): the Games sheet accent, like the red trim on an old console. It colours the ampersand in the title, the trim band, the label edge of a picked-up cartridge, toggle hover borders and text selection, and it is the Games card's accent on the main page.
+- **Console Brass** (#c9a04a, day #7a5c12): the arcade's second accent, used sparingly. It colours coin buttons (Play), the hi-score badge, the cartridge count, the thin line under the trim band and the second colour in the joystick icon.
 
 ### Neutral
 - **Night Map Slate** (#0d1418): the ground on home and Career, with a soft **Night Map Glow** (#12303a) pooled in an ellipse at the top of the page.
 - **Blueprint Night** (#0a1726): the Algorithms ground, under a fine 24px grid with a stronger line every 120px.
-- **Arcade Dusk Purple** (#150b29): the Games ground. **Cartridge Plum** (#3b2766, hover #4d3285) is the plastic of the cartridge shells, and **On-Coin** (#1a1030) is the dark ink on yellow and inside the game frame.
+- **Arcade Charcoal** (#14110e): the warm Games ground, with **Console Cream** text (#efe6d4) and **Cream Muted** (#a99c88). **Cartridge Shell** (#2b2520, hover #352e27) is the plastic of the cartridge shells, and the **Label Edge** (#0e0c0a) frames each label. **On-Coin** (#14110e) is the dark ink on brass. The game pop-up is always this dark screen. In light mode the arcade turns to **Console Paper** (#f3ecdf) with warm dark ink (#221c16), muted #665a4b and a #d8ccb6 shell with a #4a4036 label edge.
 - **Night Map Surface** (rgba(17, 27, 34, 0.82)) and **Surface Strong** (rgba(22, 35, 44, 0.95)): the see-through card and panel fill. Each sheet retints these to its own ground.
-- **Night Map Line** (rgba(160, 200, 210, 0.16)): every hairline border and divider. Each sheet retints it (blue on the blueprint, magenta on the arcade).
+- **Night Map Line** (rgba(160, 200, 210, 0.16)): every hairline border and divider. Each sheet retints it (blue on the blueprint, cream on the arcade).
 - **Night Map Text** (#e7eef1) and **Muted** (#9aabb5): text and secondary text. In light mode they become **Day Map Paper** (#eef3f4), **Day Map Text** (#10222b) and **Day Map Muted** (#4a606d).
 
 ### Named Rules
-**The One Ink Per Sheet Rule.** Each page has exactly one accent (the arcade has two: magenta and coin yellow). The main page is the only place where all the inks appear together, and only as the per-destination `--card-accent` on the three summits, where each ink also tints its own summit's contour rings.
+**The One Ink Per Sheet Rule.** Each page has exactly one accent (the arcade has two: marquee red and console brass). The main page is the only place where all the inks appear together, and only as the per-destination `--card-accent` on the three summits, where each ink also tints its own summit's contour rings.
 
 **The Day Ink Rule.** Every accent has a darker day version for light mode, chosen so text stays readable. A new accent isn't finished until its day version exists and is defined in a `prefers-color-scheme: light` block.
 
@@ -222,7 +226,7 @@ The palette is a map legend: a deep night-slate ground with one saturated ink pe
 - **Body** (400, 1rem, line-height 1.5; card text 1.55–1.6): all running text. Lead paragraphs step up to 1.05–1.125rem at line-height 1.65–1.7, with a max width of 56–62ch.
 - **Label** (monospace, 0.7–0.95rem, tracking 0.06–0.14em, often uppercase): taglines, kickers, badges, periods and tags.
 - **Blueprint Display** (monospace 700, clamp(2rem, 6vw, 3.4rem), line-height 1.1): Algorithms headings, wrapped in Blueprint Blue `{ }` braces.
-- **Arcade Display** (Press Start 2P 400, clamp(1.7rem, 7vw, 3.6rem), line-height 1.3): the Games title, with a hard 4px offset shadow in the other accent. Arcade labels and buttons drop to 0.55–0.8rem.
+- **Arcade Display** (Press Start 2P 400, clamp(1.6rem, 6vw, 3rem), line-height 1.3): the Games title, in cream with a Marquee Red ampersand and no shadow, left-aligned above the trim band. Arcade labels and buttons drop to 0.55–0.8rem.
 
 ### Named Rules
 **The Annotation Rule.** Anything that reads like data (dates, periods, counts, complexity, tags, filter labels, stats) is set in monospace. Anything that reads like prose is set in the system sans.
@@ -246,7 +250,7 @@ Depth is **layered over terrain**. The animated canvas is the lowest layer (z-in
 - **Portrait halo** (`box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 10%, transparent)`): a faint teal ring around the portrait.
 - **Route glow** (`box-shadow: 0 0 12px color-mix(in srgb, var(--line-color) 45%, transparent)`): the drawn route line.
 - **Station reached** (`box-shadow: 0 0 0 3px var(--station), 0 0 22px color-mix(in srgb, var(--station) 45%, transparent)`): a station badge once the route line reaches it.
-- **Pixel bevel** (`box-shadow: inset -3px -3px 0 rgba(0,0,0,0.3), inset 3px 3px 0 rgba(255,255,255,0.45)`): arcade coin buttons. When pressed, it flips to `inset 3px 3px 0 rgba(0,0,0,0.3)` and the button moves 2px down.
+- **Pixel bevel** (`box-shadow: inset -2px -2px 0 rgba(0,0,0,0.28), inset 2px 2px 0 rgba(255,255,255,0.3)`): arcade coin buttons. When pressed, it flips to `inset 2px 2px 0 rgba(0,0,0,0.28)` and the button moves 2px down.
 
 ### Named Rules
 **The Glow Is A Response Rule.** Panels are flat and see-through at rest. Accent-coloured light appears only for hover, focus, open or "reached". A glow that is always on means something is wrong.
@@ -264,7 +268,7 @@ The base shape is gently rounded: cards at 18px, fact tiles at 14px, circles for
 ### Buttons
 - **Icon button** (sound toggle): a 40px circle with a hairline border on a see-through surface, in Muted ink. Hover brightens the ink to Text. When on (`aria-pressed="true"`), the border and ink turn the sheet accent. On the main page it floats fixed in the top-right corner with an 8px backdrop blur.
 - **Pill toggle** ("more" on project cards): transparent, hairline border, full pill, 8px 14px, 0.9rem at weight 600. Hover turns the border to the card accent. The blueprint version is 6px radius, monospace, with a Signal Green `$ ` prefix. The arcade version is square, with a 2px border and pixel type.
-- **Coin button** (Play, arcade actions): Coin Yellow with On-Coin ink, pixel type at 0.65rem, square with a pixel bevel. Hover brightens it slightly, and pressing it pushes it in.
+- **Coin button** (Play, arcade actions): Console Brass with On-Coin ink, pixel type at 0.65rem, square with a soft pixel bevel. A stepped pixel triangle is drawn in front of "Play" with `clip-path`, never a ▶ glyph. Hover brightens it slightly, and pressing it pushes it in.
 - **Links in cards**: accent-coloured, weight 600, no underline until hover. The secondary link uses the Text colour.
 
 ### Chips
@@ -286,7 +290,12 @@ The base shape is gently rounded: cards at 18px, fact tiles at 14px, circles for
 Eight 14px×2px corner brackets drawn with background gradients 6px inside the card. On hover or open they turn Signal Green and move out to 3px. A faint 4px scan-line texture fades in over the image, and a Signal Green scan band sweeps down it every 1.8s. Complexity notes print as `complexity: O(n log n)`.
 
 ### Cartridge Card (signature)
-A plum plastic shell with stepped pixel corners and dark grip ridges across the top. The image and body sit inside a 4px dark label border. Hover lifts it 4px in two steps (`steps(2)`) and lightens the plastic. Badges go square with pixel type, and the hi-score badge is solid Coin Yellow.
+A charcoal plastic shell with stepped pixel corners and dark grip ridges across the top. The image and body sit inside a 4px Label Edge. Hover or open lifts it 4px in two steps (`steps(2)`), lightens the plastic and turns the label edge Marquee Red. Cartridges keep their own height (the grid aligns to the top), so opening one never stretches its neighbours. Badges go square with pixel type, and the hi-score badge is solid Console Brass.
+
+### Trim Band (signature)
+A Marquee Red stripe (6px) over a Console Brass line (2px), 2px apart, with stepped 2px pixel ends, set under the Games title at the title's width. It loads in once as the page opens, left to right in 12 pixel steps (0.9s), which is the arcade's one authored moment; under reduced motion it is simply there. A thinner version (3px red over 1px brass) runs along the bottom of the game pop-up's bar.
+
+**The Grown-Up Arcade Rule.** The arcade earns its charm through restraint: pixel type, cartridges, a slow starfield and one trim band. No HUD line, hopping sprites, blinking text, ornament glyphs or offset text shadows. The cursor trail is a faint single-colour pixel trail (`--trail`), and the Konami easter egg stays hidden in the footer.
 
 ### Route Line (signature)
 A 6px line in the Route Amber (experience) or Contour Teal (education) track, drawn as a scaled bar that grows as the visitor scrolls. A dotted segment marks gaps. Station badges light up as the line reaches them.
@@ -295,7 +304,7 @@ A 6px line in the Route Amber (experience) or Contour Teal (education) track, dr
 The Career hero: the whole route on one horizontal line, drawn to true time scale from the first school year to today, like the strip map above a train door. It is built from `data/career.js`. A teal education stretch, a dotted gap and an amber work stretch run between terminus bars, and every station is a 16px ring (3px, line colour, filled with the ground). Its short name stands slanted above the line (-45°, or -70° on phones so stations two years apart stay clear). A monospace decade scale bar runs underneath, and dimension brackets mark the stretches the facts measure (M.Sc. under DTU; years in software and companies under the work line). The facts are set as big monospace numbers aligned under their brackets. Each station links to its card in the timeline; hover or focus fills the ring and scales it 1.3×, turns the name to the line colour and, with sound on, chimes up the scale. The line draws itself once, left to right, as the page opens (about 1.4s, exponential ease-out); under reduced motion it is simply there.
 
 ### Summits (signature)
-The main page's terrain is the map the destinations sit on. `Background.peaks(elements, anchor)` in `js/background.js` raises a standing hill under each destination, topped exactly at its summit symbol, and follows it on scroll. Near a summit the noise is smoothed away (up to 80%), so its contours close into clean concentric rings, about seven at rest (height 0.75) and about twelve when hovered (1.25). A radial gradient redraws those rings in the destination's ink (62% at the top, fading to nothing at 1.6× the radius) so each summit is tinted amber, blue or magenta, blending into the teal terrain. The land rises once as the page opens. Under reduced motion the summits are drawn standing, and hover raises them instantly.
+The main page's terrain is the map the destinations sit on. `Background.peaks(elements, anchor)` in `js/background.js` raises a standing hill under each destination, topped exactly at its summit symbol, and follows it on scroll. Near a summit the noise is smoothed away (up to 80%), so its contours close into clean concentric rings, about seven at rest (height 0.75) and about twelve when hovered (1.25). A radial gradient redraws those rings in the destination's ink (62% at the top, fading to nothing at 1.6× the radius) so each summit is tinted amber, blue or red, blending into the teal terrain. The land rises once as the page opens. Under reduced motion the summits are drawn standing, and hover raises them instantly.
 
 ## Do's and Don'ts
 
@@ -310,7 +319,7 @@ The main page's terrain is the map the destinations sit on. `Background.peaks(el
 
 ### Don't:
 - **Don't** give a sheet a second layout, header or card structure. Page themes change tokens and details, not the base.
-- **Don't** put more than one accent on a subpage (the arcade's coin yellow is the only second accent), or use Signal Green for anything but active state.
+- **Don't** put more than one accent on a subpage (the arcade's console brass is the only second accent), or use Signal Green for anything but active state.
 - **Don't** use resting shadows or always-on glows on cards. Light is a response to interaction.
 - **Don't** use Press Start 2P outside the Games page, or for body text.
 - **Don't** make content cards circular. Circles mean identity.

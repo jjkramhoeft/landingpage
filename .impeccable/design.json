@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-28T22:05:46+00:00",
+  "generatedAt": "2026-10-10T12:00:00+00:00",
   "title": "Design System: JJKramhoeft Landing Page",
   "extensions": {
     "colorMeta": {
@@ -305,133 +305,197 @@
         ],
         "oklch": "oklch(55.9% 0.129 157.5)"
       },
-      "arcade-magenta": {
+      "marquee-red": {
         "role": "tertiary",
-        "displayName": "Arcade Magenta",
-        "canonical": "#ee5fb7",
+        "displayName": "Marquee Red",
+        "canonical": "#e9584c",
         "tonalRamp": [
-          "#1c0011",
-          "#45002f",
-          "#730051",
-          "#a30975",
-          "#cd3f9a",
-          "#f768bf",
-          "#feaeda",
-          "#ffe7f3"
+          "#1f0000",
+          "#450404",
+          "#710a0a",
+          "#a60c0f",
+          "#cd3d34",
+          "#ec6a5d",
+          "#ffaba0",
+          "#fee5e1"
         ],
-        "oklch": "oklch(69.4% 0.199 345.6)"
+        "oklch": "oklch(65.0% 0.182 27.9)"
       },
-      "arcade-magenta-day": {
+      "marquee-red-day": {
         "role": "tertiary",
-        "displayName": "Arcade Magenta (day)",
-        "canonical": "#b3217b",
+        "displayName": "Marquee Red (day)",
+        "canonical": "#b3261e",
         "tonalRamp": [
-          "#1c000f",
-          "#46002c",
-          "#74014d",
-          "#a5096f",
-          "#cf3f93",
-          "#f968b8",
-          "#feafd6",
-          "#fee7f1"
+          "#1e0000",
+          "#470001",
+          "#730002",
+          "#a5120f",
+          "#cb3f34",
+          "#eb6b5d",
+          "#feaca0",
+          "#ffe4e0"
         ],
-        "oklch": "oklch(52.1% 0.196 348.8)"
+        "oklch": "oklch(50.1% 0.178 28.7)"
       },
-      "coin-yellow": {
+      "console-brass": {
         "role": "tertiary",
-        "displayName": "Coin Yellow",
-        "canonical": "#ffd447",
-        "tonalRamp": [
-          "#100a00",
-          "#2d2301",
-          "#4e3e02",
-          "#725b05",
-          "#9b7c02",
-          "#c6a005",
-          "#f0c634",
-          "#ffeebc"
-        ],
-        "oklch": "oklch(88.3% 0.158 91.4)"
-      },
-      "coin-yellow-day": {
-        "role": "tertiary",
-        "displayName": "Coin Yellow (day)",
-        "canonical": "#8f6c00",
+        "displayName": "Console Brass",
+        "canonical": "#c9a04a",
         "tonalRamp": [
           "#110a00",
-          "#2f2200",
-          "#513c01",
-          "#765904",
-          "#9e7b1e",
-          "#c49f49",
-          "#ebc570",
-          "#ffedc5"
+          "#2d1f00",
+          "#4c3600",
+          "#70530d",
+          "#977009",
+          "#b79247",
+          "#dac191",
+          "#f6ead2"
         ],
-        "oklch": "oklch(55.1% 0.113 86.1)"
+        "oklch": "oklch(72.7% 0.115 83.6)"
       },
-      "arcade-dusk-purple": {
-        "role": "neutral",
-        "displayName": "Arcade Dusk Purple",
-        "canonical": "#150b29",
+      "console-brass-day": {
+        "role": "tertiary",
+        "displayName": "Console Brass (day)",
+        "canonical": "#7a5c12",
         "tonalRamp": [
-          "#0e0421",
-          "#271d3d",
-          "#42395b",
-          "#60577b",
-          "#8379a0",
-          "#a79ec6",
-          "#cdc4ed",
-          "#efecfe"
+          "#110a00",
+          "#2d1f01",
+          "#4b3703",
+          "#705301",
+          "#91722e",
+          "#b19459",
+          "#d5c29b",
+          "#f4ead6"
         ],
-        "oklch": "oklch(18.3% 0.059 295.4)"
+        "oklch": "oklch(49.3% 0.094 84.4)"
       },
-      "cartridge-plum": {
+      "arcade-charcoal": {
         "role": "neutral",
-        "displayName": "Cartridge Plum",
-        "canonical": "#3b2766",
+        "displayName": "Arcade Charcoal",
+        "canonical": "#14110e",
         "tonalRamp": [
-          "#0f0029",
-          "#291351",
-          "#443171",
-          "#625093",
-          "#8473b9",
-          "#a997e0",
-          "#cec0ff",
-          "#efebff"
+          "#0d0b09",
+          "#24211e",
+          "#3d3a36",
+          "#5b5753",
+          "#7b7773",
+          "#9b9794",
+          "#c6c3c1",
+          "#ecebe9"
         ],
-        "oklch": "oklch(33.3% 0.106 294.6)"
+        "oklch": "oklch(18.0% 0.008 67.3)"
       },
-      "cartridge-plum-hover": {
+      "console-cream": {
         "role": "neutral",
-        "displayName": "Cartridge Plum (hover)",
-        "canonical": "#4d3285",
+        "displayName": "Console Cream",
+        "canonical": "#efe6d4",
         "tonalRamp": [
-          "#100029",
-          "#2c065c",
-          "#462b7d",
-          "#644ba0",
-          "#866ec7",
-          "#aa93ef",
-          "#cec0fe",
-          "#efecfe"
+          "#0e0b05",
+          "#262116",
+          "#403a2c",
+          "#5f5748",
+          "#7e7666",
+          "#9f9788",
+          "#c9c3b9",
+          "#edebe5"
         ],
-        "oklch": "oklch(39.5% 0.133 294.5)"
+        "oklch": "oklch(92.7% 0.026 84.6)"
+      },
+      "console-cream-muted": {
+        "role": "neutral",
+        "displayName": "Cream Muted",
+        "canonical": "#a99c88",
+        "tonalRamp": [
+          "#100a03",
+          "#282013",
+          "#433928",
+          "#625644",
+          "#827562",
+          "#a29785",
+          "#cbc3b7",
+          "#efeae4"
+        ],
+        "oklch": "oklch(69.8% 0.032 78.7)"
+      },
+      "console-paper": {
+        "role": "neutral",
+        "displayName": "Console Paper",
+        "canonical": "#f3ecdf",
+        "tonalRamp": [
+          "#0d0b06",
+          "#252119",
+          "#3f3a30",
+          "#5d574c",
+          "#7d776b",
+          "#9d988d",
+          "#c8c4bc",
+          "#edebe7"
+        ],
+        "oklch": "oklch(94.5% 0.019 83.1)"
+      },
+      "label-edge": {
+        "role": "neutral",
+        "displayName": "Label Edge",
+        "canonical": "#0e0c0a",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#23211f",
+          "#3c3a38",
+          "#5a5755",
+          "#7a7774",
+          "#9a9895",
+          "#c5c4c2",
+          "#ecebea"
+        ],
+        "oklch": "oklch(15.6% 0.005 67.4)"
+      },
+      "cartridge-shell": {
+        "role": "neutral",
+        "displayName": "Cartridge Shell",
+        "canonical": "#2b2520",
+        "tonalRamp": [
+          "#0e0a08",
+          "#25211d",
+          "#3f3934",
+          "#5d5751",
+          "#7d7670",
+          "#9e9791",
+          "#c8c3bf",
+          "#edebe8"
+        ],
+        "oklch": "oklch(26.9% 0.013 62.1)"
+      },
+      "cartridge-shell-hover": {
+        "role": "neutral",
+        "displayName": "Cartridge Shell Hover",
+        "canonical": "#352e27",
+        "tonalRamp": [
+          "#0e0a07",
+          "#26211b",
+          "#403932",
+          "#5e574f",
+          "#7e766e",
+          "#9e978f",
+          "#c8c3be",
+          "#edebe8"
+        ],
+        "oklch": "oklch(30.6% 0.016 67.2)"
       },
       "on-coin": {
         "role": "neutral",
         "displayName": "On-Coin",
-        "canonical": "#1a1030",
+        "canonical": "#14110e",
         "tonalRamp": [
-          "#0e0422",
-          "#261d3e",
-          "#42395d",
-          "#60577d",
-          "#8279a2",
-          "#a79ec8",
-          "#cdc3ef",
-          "#efecfe"
+          "#0d0b09",
+          "#24211e",
+          "#3d3a36",
+          "#5b5753",
+          "#7b7773",
+          "#9b9794",
+          "#c6c3c1",
+          "#ecebe9"
         ],
-        "oklch": "oklch(20.6% 0.061 294.9)"
+        "oklch": "oklch(18.0% 0.008 67.3)"
       }
     },
     "typographyMeta": {
@@ -469,7 +533,7 @@
       },
       "arcade-display": {
         "displayName": "Arcade Display",
-        "purpose": "Games title only, with a hard 4px offset shadow in the other accent."
+        "purpose": "Games title only, in cream with a Marquee Red ampersand, above the trim band."
       },
       "arcade-label": {
         "displayName": "Arcade Label",
@@ -499,8 +563,8 @@
       },
       {
         "name": "pixel-bevel",
-        "value": "inset -3px -3px 0 rgba(0,0,0,0.3), inset 3px 3px 0 rgba(255,255,255,0.45)",
-        "purpose": "Arcade coin buttons; pressed: inset 3px 3px 0 rgba(0,0,0,0.3) plus a 2px push down."
+        "value": "inset -2px -2px 0 rgba(0,0,0,0.28), inset 2px 2px 0 rgba(255,255,255,0.3)",
+        "purpose": "Arcade coin buttons; pressed: inset 2px 2px 0 rgba(0,0,0,0.28) plus a 2px push down."
       }
     ],
     "motion": [
@@ -616,9 +680,9 @@
       "name": "Cartridge Card",
       "kind": "custom",
       "refersTo": "project-card-cartridge",
-      "description": "Signature: plum cartridge shell with stepped pixel corners, grip ridges and a label-bordered body.",
-      "html": "<article class=\"ds-cart\"><div class=\"ds-cart-label\"></div><div class=\"ds-cart-body\"><span class=\"ds-cart-badge\">Hi-score</span><h3>Chinese Checkers</h3><button class=\"ds-coin\" type=\"button\">&#9654; Play</button></div></article>",
-      "css": ".ds-cart{position:relative;max-width:280px;padding:18px 10px 10px;background:#3b2766;clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px));transition:transform .2s steps(2),background-color .2s steps(2)}.ds-cart::before{content:'';position:absolute;top:5px;left:30%;right:30%;height:8px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 8px)}.ds-cart:hover{transform:translateY(-4px);background:#4d3285}.ds-cart-label{aspect-ratio:16/10;border:4px solid #140c26;border-bottom:none;background:linear-gradient(#25134a,#331a62)}.ds-cart-body{display:flex;flex-direction:column;gap:10px;padding:14px;border:4px solid #140c26;border-top:none;background:rgba(29,17,54,.94);color:#f6ecff}.ds-cart-badge{align-self:flex-start;padding:5px 8px;background:#ffd447;color:#1a1030;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.55rem;text-transform:uppercase}.ds-cart h3{margin:0;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.8rem;font-weight:400;line-height:1.6}.ds-coin{align-self:flex-start;padding:10px 14px;border:none;background:#ffd447;color:#1a1030;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.65rem;line-height:1;cursor:pointer;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3),inset 3px 3px 0 rgba(255,255,255,.45)}.ds-coin:hover{filter:brightness(1.08)}.ds-coin:active{translate:0 2px;box-shadow:inset 3px 3px 0 rgba(0,0,0,.3)}.ds-coin:focus-visible{outline:2px solid #ee5fb7;outline-offset:3px}"
+      "description": "Signature: charcoal cartridge shell with stepped pixel corners, grip ridges and a label-bordered body.",
+      "html": "<article class=\"ds-cart\"><div class=\"ds-cart-label\"></div><div class=\"ds-cart-body\"><span class=\"ds-cart-badge\">Hi-score</span><h3>Chinese Checkers</h3><button class=\"ds-coin\" type=\"button\">Play</button></div></article>",
+      "css": ".ds-cart{position:relative;max-width:280px;padding:18px 10px 10px;background:#2b2520;clip-path:polygon(0 8px,8px 8px,8px 0,calc(100% - 8px) 0,calc(100% - 8px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 8px) calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 8px),0 calc(100% - 8px));transition:transform .2s steps(2),background-color .2s steps(2)}.ds-cart::before{content:'';position:absolute;top:5px;left:30%;right:30%;height:8px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 4px,transparent 4px 8px)}.ds-cart:hover{transform:translateY(-4px);background:#352e27}.ds-cart-label{aspect-ratio:16/10;border:4px solid #0e0c0a;border-bottom:none;background:linear-gradient(#1b1713,#221d18)}.ds-cart-body{display:flex;flex-direction:column;gap:10px;padding:14px;border:4px solid #0e0c0a;border-top:none;background:rgba(30,26,22,.94);color:#efe6d4}.ds-cart-badge{align-self:flex-start;padding:5px 8px;background:#c9a04a;color:#14110e;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.55rem;text-transform:uppercase}.ds-cart h3{margin:0;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.8rem;font-weight:400;line-height:1.6}.ds-coin{align-self:flex-start;padding:10px 14px;border:none;background:#c9a04a;color:#14110e;font-family:'Press Start 2P', ui-monospace, monospace;font-size:.65rem;line-height:1;cursor:pointer;box-shadow:inset -3px -3px 0 rgba(0,0,0,.3),inset 3px 3px 0 rgba(255,255,255,.45)}.ds-coin:hover{filter:brightness(1.08)}.ds-coin:active{translate:0 2px;box-shadow:inset 3px 3px 0 rgba(0,0,0,.3)}.ds-coin:focus-visible{outline:2px solid #e9584c;outline-offset:3px}"
     },
     {
       "name": "Route Station",
@@ -631,10 +695,10 @@
   ],
   "narrative": {
     "northStar": "The Atlas of Side Projects",
-    "overview": "The site is a bound atlas of one person's work. Every page is a sheet from the same atlas. The main page is the night-map cover, covered in drifting contour lines. The Career sheet is a transit route, the Algorithms sheet a blueprint, and the Games sheet a margin doodle that turned into an arcade. They share one printing: the same slate ground, the same see-through panels, the same card anatomy, header, footer and sound toggle. A sheet changes only its background, accent, heading font and card shape. The projects are what the atlas is for, so the chrome stays thin and lets them lead.\n\nComponents are **crafted instruments**. Every card has a small, precise, hand-made detail that belongs to its sheet: corner brackets and a scan line on the blueprint, grip ridges and stepped pixel corners on the cartridge, a round logo badge on the route. These details are what make the site recognisable, and they show up where a person looks, not as decoration spread across the page. Behind everything, one `<canvas>` runs a slow generative background (noise contours, a pathfinding or sorting run, a parallax starfield, a pulsing map grid). It is dimmed well back, pauses when the tab is hidden, and becomes a still frame under reduced motion.\n\nDark (\"Night over the map\") is the default, and light follows the OS setting with its own darker, readable accent values. Density is calm: one content column of at most 1120px, generous section spacing, and body text kept to about 60 characters per line.",
+    "overview": "The site is a bound atlas of one person's work. Every page is a sheet from the same atlas. The main page is the night-map cover, covered in drifting contour lines. The Career sheet is a transit route, the Algorithms sheet a blueprint, and the Games sheet an old games console in a dark room. They share one printing: the same slate ground, the same see-through panels, the same card anatomy, header, footer and sound toggle. A sheet changes only its background, accent, heading font and card shape. The projects are what the atlas is for, so the chrome stays thin and lets them lead.\n\nComponents are **crafted instruments**. Every card has a small, precise, hand-made detail that belongs to its sheet: corner brackets and a scan line on the blueprint, grip ridges and stepped pixel corners on the cartridge, a round logo badge on the route. These details are what make the site recognisable, and they show up where a person looks, not as decoration spread across the page. Behind everything, one `<canvas>` runs a slow generative background (noise contours, a pathfinding or sorting run, a parallax starfield, a pulsing map grid). It is dimmed well back, pauses when the tab is hidden, and becomes a still frame under reduced motion.\n\nDark (\"Night over the map\") is the default, and light follows the OS setting with its own darker, readable accent values. Density is calm: one content column of at most 1120px, generous section spacing, and body text kept to about 60 characters per line.",
     "keyCharacteristics": [
       "One shared base with themed sheets, where only theme tokens change from page to page.",
-      "One accent per sheet, and in the arcade a second one (yellow).",
+      "One accent per sheet, and in the arcade a second one (brass).",
       "See-through panels floating over a live, dimmed generative canvas.",
       "One small hand-made detail per component that belongs to its sheet.",
       "System sans for reading, monospace for labels, data and anything \"technical\".",
@@ -643,7 +707,7 @@
     "rules": [
       {
         "name": "The One Ink Per Sheet Rule",
-        "body": "Each page has exactly one accent (the arcade has two: magenta and coin yellow). The main page is the only place where all the inks appear together, and only as the per-destination `--card-accent` on the three summits, where each ink also tints its own summit's contour rings.",
+        "body": "Each page has exactly one accent (the arcade has two: marquee red and console brass). The main page is the only place where all the inks appear together, and only as the per-destination `--card-accent` on the three summits, where each ink also tints its own summit's contour rings.",
         "section": "colors"
       },
       {
@@ -698,7 +762,7 @@
     ],
     "donts": [
       "Don't give a sheet a second layout, header or card structure. Page themes change tokens and details, not the base.",
-      "Don't put more than one accent on a subpage (the arcade's coin yellow is the only second accent), or use Signal Green for anything but active state.",
+      "Don't put more than one accent on a subpage (the arcade's console brass is the only second accent), or use Signal Green for anything but active state.",
       "Don't use resting shadows or always-on glows on cards. Light is a response to interaction.",
       "Don't use Press Start 2P outside the Games page, or for body text.",
       "Don't make content cards circular. Circles mean identity.",

@@ -6,8 +6,8 @@
   <title>Games and Fun · Jakob Kramhøft</title>
   <meta name="description" content="Games and playful experiments by Jakob Kramhøft, built just for the fun of it.">
   <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#150b29" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#f6effc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#14110e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f3ecdf" media="(prefers-color-scheme: light)">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/press-start-2p-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
@@ -44,19 +44,7 @@
 
   <main id="main">
     <section class="arcade-hero" aria-labelledby="arcade-title">
-      <p class="hud-line">
-        <span>1UP</span>
-        <span>HI-SCORE <strong id="hiscore">000000</strong></span>
-        <span>GAMES <strong id="game-count">00</strong></span>
-      </p>
-      <div class="sprite-row" aria-hidden="true">
-        <span data-sprite="coin" data-size="4"></span>
-        <span data-sprite="heart" data-size="4"></span>
-        <span data-sprite="star" data-size="4"></span>
-        <span data-sprite="coin" data-size="4"></span>
-      </div>
       <h1 id="arcade-title">Games <span>&amp;</span> Fun</h1>
-      <p class="press-start" aria-hidden="true">Press start</p>
       <p class="lead">
         Games and playful experiments, built just for the fun of it.
         Turn the sound on for the full arcade experience.
@@ -64,7 +52,7 @@
     </section>
 
     <section class="arcade-games" aria-labelledby="games-title">
-      <h2 id="games-title" class="section-title">Select game</h2>
+      <h2 id="games-title" class="section-title">Select game <span class="game-count"><strong id="game-count">–</strong> cartridges</span></h2>
       <div id="project-list" class="project-grid"></div>
       <noscript><p class="empty">Turn on JavaScript to see and play the games.</p></noscript>
     </section>
@@ -78,14 +66,14 @@
     </p>
   </footer>
 
-  <button type="button" id="quit-game" class="pixel-button quit-game">✕ Quit game</button>
+  <button type="button" id="quit-game" class="pixel-button quit-game">Quit game</button>
 
   <dialog id="game-modal" class="arcade-modal" aria-labelledby="game-modal-title">
     <div class="arcade-modal-inner">
       <div class="arcade-modal-bar">
         <h2 id="game-modal-title">Game</h2>
         <a id="game-modal-tab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
-        <button type="button" id="game-modal-close" class="arcade-close" aria-label="Close game">✕</button>
+        <button type="button" id="game-modal-close" class="arcade-close" aria-label="Close game"><svg viewBox="0 0 7 7" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M0 0h1v1h-1zM1 1h1v1h-1zM2 2h1v1h-1zM3 3h1v1h-1zM4 4h1v1h-1zM5 5h1v1h-1zM6 6h1v1h-1zM6 0h1v1h-1zM5 1h1v1h-1zM4 2h1v1h-1zM2 4h1v1h-1zM1 5h1v1h-1zM0 6h1v1h-1z"/></svg></button>
       </div>
       <iframe id="game-frame" title="Game" src="about:blank"></iframe>
       <p id="game-modal-hint" class="arcade-modal-hint" hidden></p>
