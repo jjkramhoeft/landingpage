@@ -6,6 +6,7 @@
 
   Add ?bg=astar, dijkstra, quicksort, heapsort or insertion to the URL to pick one.
   The name and complexity of the running algorithm are written into #viz-name and #viz-complexity.
+  The #viz-pause button pauses and resumes it, and #viz-next switches to the next algorithm in the list.
   Pauses while the tab is hidden; draws a single finished frame with "reduce motion" on.
 */
 (function () {
@@ -28,12 +29,12 @@
   ];
   // A specific algorithm can be chosen with ?bg=<id>, e.g. algorithms.html?bg=astar.
   const requested = new URLSearchParams(location.search).get('bg');
-  const algo = ALGORITHMS.find((a) => a.id === requested)
+  let algo = ALGORITHMS.find((a) => a.id === requested)
     || ALGORITHMS[Math.floor(Math.random() * ALGORITHMS.length)];
 
   let width = 0, height = 0, dpr = 1;
   let colors = readColors();
-  let running = false, rafId = 0, lastFrame = 0;
+  let running = false, paused = false, rafId = 0, lastFrame = 0;
   let mode = null;
 
   function readColors() {
@@ -423,7 +424,7 @@
   }
 
   function start() {
-    if (running || reduceMotion.matches || document.hidden) return;
+    if (running || paused || reduceMotion.matches || document.hidden) return;
     running = true;
     lastFrame = 0;
     rafId = requestAnimationFrame(frame);
@@ -432,6 +433,38 @@
   function stop() {
     running = false;
     cancelAnimationFrame(rafId);
+  }
+
+  function createMode() {
+    return algo.mode === 'graph' ? graphMode() : sortMode();
+  }
+
+  // ---------------------------------------------------------------- Pause and Next
+
+  const controls = document.getElementById('viz-controls');
+  const pauseButton = document.getElementById('viz-pause');
+  const nextButton = document.getElementById('viz-next');
+
+  function setPaused(value) {
+    paused = value;
+    pauseButton.textContent = paused ? 'Play' : 'Pause';
+    if (paused) stop(); else start();
+  }
+
+  // Next starts the following algorithm from the beginning. While paused, it shows its first frame and stays paused.
+  function showNext() {
+    algo = ALGORITHMS[(ALGORITHMS.indexOf(algo) + 1) % ALGORITHMS.length];
+    mode = createMode();
+    caption();
+    resize();
+  }
+
+  if (controls && pauseButton && nextButton) {
+    controls.hidden = false;
+    // With "reduce motion" on, nothing moves, so there is nothing to pause.
+    pauseButton.hidden = reduceMotion.matches;
+    pauseButton.addEventListener('click', () => setPaused(!paused));
+    nextButton.addEventListener('click', showNext);
   }
 
   let resizeTimer = 0;
@@ -443,6 +476,7 @@
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
 
   reduceMotion.addEventListener('change', () => {
+    if (pauseButton) pauseButton.hidden = reduceMotion.matches;
     if (reduceMotion.matches) { stop(); mode.finishInstantly(); render(); } else { start(); }
   });
 
@@ -451,7 +485,7 @@
     render();
   });
 
-  mode = algo.mode === 'graph' ? graphMode() : sortMode();
+  mode = createMode();
   caption();
   resize();
   start();
