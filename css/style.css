@@ -227,33 +227,50 @@ main,
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Hero */
+/* Hero: the title of the map sheet, set at full strength in the top-left corner. */
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 96px 16px 8px;
-  text-align: center;
-  background: radial-gradient(ellipse 46% 42% at 50% 52%, color-mix(in srgb, var(--bg) 80%, transparent), transparent 75%);
+  position: relative;
+  isolation: isolate;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 88px 16px 8px;
 }
 
-.page-home #explore {
-  padding-top: 48px;
+/* A cartographic label halo: it clears the contour lines behind the text without boxing it in. */
+.hero::before,
+.portal::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bg) 90%, transparent) 62%, transparent);
+}
+
+.hero::before {
+  inset: 40px -8% -40px -12%;
+  max-width: 900px;
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
 }
 
 .portrait {
-  width: 128px;
-  height: 128px;
+  width: 76px;
+  height: 76px;
+  flex: none;
   display: grid;
   place-items: center;
-  margin-bottom: 28px;
   overflow: hidden;
   border: 2px solid var(--accent);
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, var(--surface-strong), var(--surface));
-  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 10%, transparent), var(--shadow);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 10%, transparent), var(--shadow);
   color: var(--accent);
-  font-size: 2.4rem;
+  font-size: 1.45rem;
   font-weight: 650;
   letter-spacing: 0.04em;
 }
@@ -266,26 +283,32 @@ main,
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(2.5rem, 7vw, 4.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-size: clamp(3rem, 10.5vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
 .tagline {
-  margin: 16px 0 0;
+  margin: 22px 0 0;
   color: var(--accent);
   font-family: var(--mono);
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 1.6vw, 0.95rem);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .intro {
-  max-width: 58ch;
-  margin: 22px auto 0;
+  max-width: 54ch;
+  margin: 22px 0 0;
   color: var(--muted);
   font-size: 1.125rem;
   line-height: 1.65;
+}
+
+.page-home #explore {
+  padding-top: 40px;
+  padding-bottom: 96px;
 }
 
 /* Sections */
@@ -301,52 +324,64 @@ main,
   letter-spacing: -0.015em;
 }
 
-/* Portal cards to the three subpages */
+/* The three destinations are summits on the contour map (js/background.js raises a hill under each),
+   labelled like peaks on a map rather than boxed as cards. */
 .portals {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 8px;
 }
 
 .portal {
   --card-accent: var(--accent);
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 28px;
-  border: 1px solid var(--line);
+  padding: 28px 4px;
   border-radius: var(--radius);
-  background: var(--surface);
   color: var(--text);
   text-decoration: none;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Only the text gets a halo; the summit marker above it stays in the open among its contour rings. */
+.portal::before {
+  inset: 72px -32px -12px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bg) 88%, transparent) 70%, transparent);
 }
 
 .portal-career { --card-accent: var(--career); }
 .portal-algo { --card-accent: var(--algo); }
 .portal-games { --card-accent: var(--games); }
 
-.portal:hover,
 .portal:focus-visible {
-  transform: translateY(-4px);
-  border-color: var(--card-accent);
-  box-shadow: 0 18px 40px -14px color-mix(in srgb, var(--card-accent) 55%, transparent);
-  outline: none;
+  outline: 2px solid var(--card-accent);
+  outline-offset: 4px;
+  border-radius: var(--radius);
 }
 
+/* The summit symbol: a bare map symbol at the top of its hill, with a ground-coloured halo so the rings
+   pass behind it cleanly. The box is also the anchor js/background.js centres the hill on. */
 .portal-icon {
   width: 52px;
   height: 52px;
   display: grid;
   place-items: center;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--card-accent) 14%, transparent);
   color: var(--card-accent);
+  filter: drop-shadow(0 0 2px var(--bg)) drop-shadow(0 0 5px var(--bg));
+  transition: scale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portal:hover .portal-icon,
+.portal:focus-visible .portal-icon {
+  scale: 1.12;
 }
 
 .portal-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
+  stroke-width: 1.6;
 }
 
 .portal-icon .accent-2 {
@@ -354,12 +389,22 @@ main,
   stroke: var(--games-2);
 }
 
-.portal h3 {
-  margin: 8px 0 0;
-  font-size: 1.35rem;
+.portal h2 {
+  margin: 10px 0 0;
+  font-size: clamp(1.55rem, 2.7vw, 2.05rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  transition: color 0.25s ease;
+}
+
+.portal:hover h2,
+.portal:focus-visible h2 {
+  color: var(--card-accent);
 }
 
 .portal p {
+  max-width: 34ch;
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
@@ -612,8 +657,33 @@ main,
   .site-footer { padding: 28px 28px 44px; }
 }
 
+@media (min-width: 720px) {
+  .hero { padding: 120px 28px 8px; }
+
+  .hero-title {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .portrait {
+    width: 92px;
+    height: 92px;
+    font-size: 1.7rem;
+  }
+}
+
+/* On wide screens the summits scatter across the terrain instead of lining up in a row. */
 @media (min-width: 880px) {
-  .portals { grid-template-columns: repeat(3, 1fr); }
+  .portals {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .portal-career { margin-top: 72px; }
+  .portal-algo { margin-top: 0; }
+  .portal-games { margin-top: 128px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,5 +1,6 @@
 /*
-  Main page behaviour: wires the portal cards to the background and sound, and reveals them on scroll.
+  Main page behaviour: turns the three destinations into summits on the contour map, wires them to sound,
+  and reveals them on scroll.
 */
 (function () {
   'use strict';
@@ -7,7 +8,10 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function wirePortals() {
-    document.querySelectorAll('.portal').forEach((portal, i) => {
+    const portals = document.querySelectorAll('.portal');
+    // Each destination is a summit on the contour map; hovering one raises it.
+    if (window.Background) window.Background.peaks(portals, '.portal-icon');
+    portals.forEach((portal, i) => {
       portal.style.setProperty('--delay', `${i * 0.08}s`);
       const enter = () => {
         if (window.Background) window.Background.focus(portal);

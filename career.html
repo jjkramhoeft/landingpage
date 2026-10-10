@@ -39,7 +39,6 @@
 
   <main id="main">
     <section class="career-intro" aria-labelledby="career-title">
-      <p class="kicker">Career · The route travelled</p>
       <h1 id="career-title">From COWI to BiQ</h1>
       <div class="about">
         <p>
@@ -49,11 +48,15 @@
           where I work as a senior developer.
         </p>
       </div>
-      <ul class="facts" aria-label="Career in numbers">
-        <li class="fact"><strong id="fact-years">29</strong><span>years in software</span></li>
-        <li class="fact"><strong id="fact-companies">7</strong><span>companies</span></li>
-        <li class="fact"><strong>M.Sc.</strong><span>Computer Modelling, DTU</span></li>
-      </ul>
+      <!-- The line map is drawn from data/career.js by js/career.js; the facts line up under the stretch they measure. -->
+      <div class="route-overview">
+        <nav id="route-map" class="route-map" aria-label="The whole route at a glance"></nav>
+        <ul class="facts" aria-label="Career in numbers">
+          <li class="fact fact-edu"><strong>M.Sc.</strong><span>Computer Modelling, DTU</span></li>
+          <li class="fact fact-work"><strong id="fact-years">29</strong><span>years in software</span></li>
+          <li class="fact fact-work"><strong id="fact-companies">7</strong><span>companies</span></li>
+        </ul>
+      </div>
     </section>
 
     <section class="timeline-section" aria-labelledby="experience-title">

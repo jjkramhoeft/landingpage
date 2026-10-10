@@ -3,7 +3,8 @@
   traced with marching squares on a <canvas id="bg">.
 
   - The mouse raises a gentle "hill" the lines flow around.
-  - Background.focus(element) raises a hill under an element (used for the hovered card).
+  - Background.peaks(elements) turns elements into summits: each gets a standing hill that follows it on scroll.
+  - Background.focus(element) raises that summit higher (or a new hill under any other element).
   - Pauses while the tab is hidden; draws a single still frame with "reduce motion" on.
 */
 (function () {
@@ -19,6 +20,9 @@
   const LEVELS = 12;        // contour lines from -LEVELS*STEP to +LEVELS*STEP
   const FPS = 30;
   const MOUSE_RADIUS = 170;
+  const PEAK_REST = 0.75;   // height of a summit at rest (about seven contour lines)
+  const PEAK_RAISED = 1.25; // height of the hovered summit
+  const PEAK_RADIUS = 150;  // CSS pixels; smaller on narrow screens
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const lightScheme = window.matchMedia('(prefers-color-scheme: light)');
@@ -108,6 +112,18 @@
 
   const mouse = { x: 0, y: 0, tx: 0, ty: 0, amp: 0, target: 0, seen: false };
   const focus = { el: null, x: 0, y: 0, radius: 200, amp: 0, target: 0 };
+  let peaks = [];
+
+  // A summit's top sits on its anchor (the destination's marker), like a peak symbol on a map.
+  function measurePeaks() {
+    const radius = Math.min(PEAK_RADIUS, width * 0.32);
+    peaks.forEach((peak) => {
+      const r = peak.anchor.getBoundingClientRect();
+      peak.x = r.left + r.width / 2;
+      peak.y = r.top + r.height / 2;
+      peak.radius = radius;
+    });
+  }
 
   function readColors() {
     const style = getComputedStyle(document.documentElement);
@@ -151,17 +167,27 @@
           const dx = x - focus.x, dy = y - focus.y;
           v += focusAmp * Math.exp(-(dx * dx + dy * dy) / focusR2);
         }
+        // Near a summit the noise is smoothed away, so its contours close into clean rings around the marker.
+        for (let p = 0; p < peaks.length; p++) {
+          const peak = peaks[p];
+          if (peak.amp < 0.001) continue;
+          const dx = x - peak.x, dy = y - peak.y;
+          const w = Math.exp(-(dx * dx + dy * dy) / (peak.radius * peak.radius));
+          const settle = Math.min(peak.amp / PEAK_REST, 1);
+          v = v * (1 - 0.8 * w * settle) + peak.amp * w;
+        }
         field[idx++] = v;
       }
     }
   }
 
-  // Marching squares for one contour level. Corners: a = top-left, b = top-right, c = bottom-right, d = bottom-left.
-  function trace(level) {
-    for (let gy = 0; gy < rows - 1; gy++) {
+  // Marching squares for one contour level, optionally only over a block of cells.
+  // Corners: a = top-left, b = top-right, c = bottom-right, d = bottom-left.
+  function trace(level, gx0 = 0, gy0 = 0, gx1 = cols - 1, gy1 = rows - 1) {
+    for (let gy = gy0; gy < gy1; gy++) {
       const y = gy * CELL;
-      let i = gy * cols;
-      for (let gx = 0; gx < cols - 1; gx++, i++) {
+      let i = gy * cols + gx0;
+      for (let gx = gx0; gx < gx1; gx++, i++) {
         const a = field[i], b = field[i + 1], c = field[i + cols + 1], d = field[i + cols];
         let code = 0;
         if (a > level) code |= 8;
@@ -205,6 +231,51 @@
       trace(k * STEP + 0.0001);
       ctx.stroke();
     }
+    drawSummits();
+  }
+
+  // "#f2a541" or "rgb(242, 165, 65)" -> "rgba(242, 165, 65, a)".
+  function withAlpha(color, alpha) {
+    let r = 0, g = 0, b = 0;
+    const hex = color.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+    if (hex) {
+      const h = hex[1].length === 3 ? hex[1].replace(/./g, '$&$&') : hex[1];
+      r = parseInt(h.slice(0, 2), 16); g = parseInt(h.slice(2, 4), 16); b = parseInt(h.slice(4, 6), 16);
+    } else {
+      [r, g, b] = (color.match(/[\d.]+/g) || [0, 0, 0]).map(Number);
+    }
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  // Each summit's rings are redrawn in its destination's colour, fading out into the teal terrain.
+  function drawSummits() {
+    peaks.forEach((peak) => {
+      if (peak.amp < 0.02 || !peak.color) return;
+      const reach = peak.radius * 1.6;
+      if (peak.x + reach < 0 || peak.x - reach > width || peak.y + reach < 0 || peak.y - reach > height) return;
+      const strength = Math.min(peak.amp / PEAK_REST, 1.7);
+      const gradient = ctx.createRadialGradient(peak.x, peak.y, 0, peak.x, peak.y, reach);
+      gradient.addColorStop(0, withAlpha(peak.color, 0.62 * strength));
+      gradient.addColorStop(0.55, withAlpha(peak.color, 0.34 * strength));
+      gradient.addColorStop(1, withAlpha(peak.color, 0));
+      const gx0 = Math.max(0, Math.floor((peak.x - reach) / CELL));
+      const gy0 = Math.max(0, Math.floor((peak.y - reach) / CELL));
+      const gx1 = Math.min(cols - 1, Math.ceil((peak.x + reach) / CELL));
+      const gy1 = Math.min(rows - 1, Math.ceil((peak.y + reach) / CELL));
+      ctx.strokeStyle = gradient;
+      for (let k = -LEVELS; k <= LEVELS; k++) {
+        ctx.lineWidth = k % 5 === 0 ? 1.8 : 1.2;
+        ctx.beginPath();
+        trace(k * STEP + 0.0001, gx0, gy0, gx1, gy1);
+        ctx.stroke();
+      }
+    });
+  }
+
+  function readPeakColors() {
+    peaks.forEach((peak) => {
+      peak.color = getComputedStyle(peak.el).getPropertyValue('--card-accent').trim();
+    });
   }
 
   function frame(now) {
@@ -226,7 +297,22 @@
     }
     focus.amp += (focus.target - focus.amp) * 0.06;
 
+    measurePeaks();
+    peaks.forEach((peak) => { peak.amp += (peak.target - peak.amp) * 0.045; });
+
     draw();
+  }
+
+  // Without animation (reduced motion, or before the first frame) the still map still follows the page.
+  let stillPending = false;
+  function redrawStill() {
+    if (running || stillPending) return;
+    stillPending = true;
+    requestAnimationFrame(() => {
+      stillPending = false;
+      measurePeaks();
+      draw();
+    });
   }
 
   function start() {
@@ -248,6 +334,8 @@
     resizeTimer = setTimeout(resize, 150);
   });
 
+  window.addEventListener('scroll', redrawStill, { passive: true });
+
   window.addEventListener('pointermove', (e) => {
     if (e.pointerType === 'touch') return;
     mouse.tx = e.clientX;
@@ -266,17 +354,42 @@
 
   lightScheme.addEventListener('change', () => {
     colors = readColors();
+    readPeakColors();
     draw();
   });
 
   window.Background = {
-    // Raise a hill under an element (or pass null to let it settle again).
+    // Give each element a standing summit, topped at its `anchor` child if one matches.
+    // The land rises under them as the page opens.
+    peaks(elements, anchor) {
+      const still = reduceMotion.matches;
+      peaks = Array.from(elements).map((el) => ({
+        el,
+        anchor: (anchor && el.querySelector(anchor)) || el,
+        x: 0, y: 0, radius: PEAK_RADIUS,
+        amp: still ? PEAK_REST : 0,
+        target: PEAK_REST,
+        color: '',
+      }));
+      readPeakColors();
+      measurePeaks();
+      if (still) draw();
+    },
+
+    // Raise the summit under an element higher, or a new hill under any other element.
+    // Pass null to let everything settle again.
     focus(element) {
-      if (element) {
+      const peak = peaks.find((p) => p.el === element);
+      peaks.forEach((p) => { p.target = p === peak ? PEAK_RAISED : PEAK_REST; });
+      if (element && !peak) {
         focus.el = element;
         focus.target = 0.55;
       } else {
         focus.target = 0;
+      }
+      if (reduceMotion.matches) {
+        peaks.forEach((p) => { p.amp = p.target; });
+        redrawStill();
       }
     },
   };

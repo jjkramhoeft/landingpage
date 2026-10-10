@@ -52,6 +52,32 @@
     return length ? `${span} · ${length}` : span;
   }
 
+  // "2012-01" -> 2012.0, "1997" -> 1997.0; null means now.
+  function yearFraction(value) {
+    if (!value) {
+      const now = new Date();
+      return now.getFullYear() + now.getMonth() / 12;
+    }
+    const d = parseDate(value);
+    return d.year + (d.month ? (d.month - 1) / 12 : 0);
+  }
+
+  // The short name used on the line map: "BiQ A/S - Better Data & Decision Quality" -> "BiQ".
+  function shortName(name) {
+    return name.split(' - ')[0].replace(/\s+(A\/S|a\/s|Inc|Gymnasium)$/, '').trim();
+  }
+
+  function slug(name) {
+    return shortName(name).toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  // Big start year for the timetable column, followed by the exact period.
+  function when(start, end) {
+    const p = el('p', { class: 'station-when' });
+    p.append(el('span', { class: 'station-year' }, String(parseDate(start).year)), el('span', { class: 'station-period' }, period(start, end)));
+    return p;
+  }
+
   const PIN_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>';
 
   function pin(location) {
@@ -83,13 +109,13 @@
   function companyStation(company) {
     const roles = company.roles || [];
     const multi = roles.length > 1;
-    const li = el('li', { class: `station reveal${multi ? ' station-multi' : ''}` });
+    const li = el('li', { class: `station reveal${multi ? ' station-multi' : ''}`, id: `station-${slug(company.company)}` });
     const card = el('div', { class: 'station-card' });
 
     // The station's period covers all its roles.
     const start = roles.map((r) => r.start).sort()[0];
     const end = roles.some((r) => !r.end) ? null : roles.map((r) => r.end).sort().slice(-1)[0];
-    card.append(el('p', { class: 'station-period' }, period(start, end)), heading(company.company, company.link));
+    card.append(when(start, end), heading(company.company, company.link));
 
     const stops = el('ul', { class: 'stops' });
     roles.forEach((role) => {
@@ -110,9 +136,9 @@
   }
 
   function schoolStation(school) {
-    const li = el('li', { class: 'station reveal' });
+    const li = el('li', { class: 'station reveal', id: `station-${slug(school.school)}` });
     const card = el('div', { class: 'station-card' });
-    card.append(el('p', { class: 'station-period' }, period(school.start, school.end)), heading(school.school, school.link));
+    card.append(when(school.start, school.end), heading(school.school, school.link));
     if (school.degree) {
       const stops = el('ul', { class: 'stops' });
       const stop = el('li', { class: 'stop' });
@@ -253,6 +279,89 @@
     });
   }
 
+  // ---- The line map at the top: the whole route to true time scale ----
+
+  function renderRouteMap() {
+    const map = document.getElementById('route-map');
+    const education = (data.education || []).slice().reverse();
+    const experience = (data.experience || []).slice().reverse();
+    if (!map || !education.length || !experience.length) return;
+
+    const eduStart = yearFraction(education[0].start);
+    const eduEnd = Math.max(...education.map((s) => yearFraction(s.end)));
+    const workStart = Math.min(...experience.flatMap((c) => (c.roles || []).map((r) => yearFraction(r.start))));
+    const now = yearFraction(null);
+    const x = (year) => ((year - eduStart) / (now - eduStart)) * 100;
+    const pct = (value) => value.toFixed(2);
+
+    const line = el('div', { class: 'rm-line', 'aria-hidden': 'true' });
+    [
+      ['rm-seg-edu', eduStart, eduEnd],
+      ['rm-seg-gap', eduEnd, workStart],
+      ['rm-seg-work', workStart, now],
+    ].forEach(([kind, from, to]) => {
+      const seg = el('span', { class: `rm-seg ${kind}` });
+      seg.style.setProperty('--from', pct(x(from)));
+      seg.style.setProperty('--to', pct(x(to)));
+      line.append(seg);
+    });
+    line.append(el('span', { class: 'rm-cap rm-cap-start' }), el('span', { class: 'rm-cap rm-cap-end' }));
+
+    const stops = [
+      ...education.map((s) => ({ name: s.school, start: s.start, kind: 'edu' })),
+      ...experience.map((c) => ({ name: c.company, start: (c.roles || []).map((r) => r.start).sort()[0], kind: 'work' })),
+    ];
+    const list = el('ol', { class: 'rm-stations' });
+    stops.forEach((stop, i) => {
+      const year = parseDate(stop.start).year;
+      const li = el('li', { class: `rm-stop rm-stop-${stop.kind}` });
+      li.style.setProperty('--x', pct(x(yearFraction(stop.start))));
+      const link = el('a', { class: 'rm-station', href: `#station-${slug(stop.name)}` });
+      link.append(
+        el('span', { class: 'rm-dot', 'aria-hidden': 'true' }),
+        el('span', { class: 'rm-name' }, shortName(stop.name)),
+        el('span', { class: 'visually-hidden' }, `, from ${year}`),
+      );
+      link.addEventListener('pointerenter', () => window.Sound && window.Sound.chime(i));
+      li.append(link);
+      list.append(li);
+    });
+
+    // Decades as a scale bar, plus the first year and this year at the ends.
+    const axis = el('div', { class: 'rm-axis', 'aria-hidden': 'true' });
+    const mark = (label, pos, extra) => {
+      const tick = el('span', { class: `rm-tick${extra ? ` ${extra}` : ''}` }, label);
+      tick.style.setProperty('--x', pct(pos));
+      axis.append(tick);
+    };
+    mark(String(Math.floor(eduStart)), 0, 'rm-tick-start');
+    for (let decade = Math.ceil(eduStart / 10) * 10; decade < now; decade += 10) {
+      const pos = x(decade);
+      if (pos > 9 && pos < 91) mark(String(decade), pos);
+    }
+    mark(String(new Date().getFullYear()), 100, 'rm-tick-end');
+
+    // Dimension lines over the stretches the facts below measure.
+    const dims = el('div', { class: 'rm-dims', 'aria-hidden': 'true' });
+    const dtu = education.find((s) => /DTU/.test(s.school)) || education[education.length - 1];
+    [
+      ['rm-dim-edu', x(yearFraction(dtu.start)), x(yearFraction(dtu.end))],
+      ['rm-dim-work', x(workStart), 100],
+    ].forEach(([kind, from, to]) => {
+      const dim = el('span', { class: `rm-dim ${kind}` });
+      dim.style.setProperty('--from', pct(from));
+      dim.style.setProperty('--to', pct(to));
+      dims.append(dim);
+    });
+
+    map.append(line, list, axis, dims);
+
+    const overview = map.closest('.route-overview');
+    overview.style.setProperty('--edu-end', pct(x(eduEnd)));
+    overview.style.setProperty('--work-start', pct(x(workStart)));
+    overview.classList.add('is-mapped');
+  }
+
   // ---- Drawing the route on scroll ----
 
   const routes = [];
@@ -325,6 +434,7 @@
   // ---- Start ----
 
   render();
+  renderRouteMap();
   renderInfluences();
   updatePersonToggles();
   window.addEventListener('resize', updatePersonToggles);
