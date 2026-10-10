@@ -12,14 +12,17 @@
     date         optional "YYYY-MM", used to sort newest first; projects without one come after the dated ones
     summary      one sentence shown on the card
     description  optional longer text shown when the card is expanded; a list of paragraphs
-    image        optional path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png")
+    image        optional path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png");
+                 it can also be a short .mp4 or .webm video, which plays silently on a loop while on screen
     imageAlt     short description of the image, or "" if it is only decoration
+    imagePoster  for a video: an image shown before it starts and for visitors who prefer reduced motion
     imagePosition optional CSS object-position for cropping the image, e.g. "50% 75%" to keep its lower part
     imageOpen    optional second image that replaces the first while the card is expanded
     imageOpenAlt short description of the second image
     tags         optional short keywords
     complexity   optional, e.g. "O(n log n)"
     link         optional URL to the project or live demo
+    linkLabel    optional text for the link, when the page's default ("Live demo →", "Open full screen →") doesn't fit
     source       optional URL to the source code
     play         for games: URL of a playable page; the Games page shows a Play button that opens it in a pop-up
     playHint     for games: one line about the controls, shown under the pop-up
@@ -139,7 +142,12 @@ window.PROJECTS = [
     section: 'algorithms',
     kind: 'hobby',
     topics: ['graphics'],
-    summary: 'Turns an image into a picture built from Lego bricks.',
+    summary: 'Turns an image into a picture built from Lego bricks. I used it to build Danish painter Carl Bloch\'s The Sermon on the Mount, which now hangs in my home office.',
+    image: 'assets/projects/lego2.png',
+    imageAlt: 'Carl Bloch\'s The Sermon on the Mount rebuilt as a mosaic of Lego bricks in a red and black Lego frame, hanging on a white wall',
+    imagePosition: '50% 100%',
+    link: 'https://commons.wikimedia.org/wiki/File:Bloch-SermonOnTheMount.jpg',
+    linkLabel: 'The original painting →',
   },
   {
     id: 'svg-playing-cards',
@@ -163,6 +171,8 @@ window.PROJECTS = [
     kind: 'hobby',
     topics: ['graphics'],
     summary: 'A sandbox for virtual reality experiments.',
+    image: 'assets/projects/VR-demo.png',
+    imageAlt: 'A first-person view of a cyan gun in a grey room of white blocks, with frame-time graphs and FPS stats drawn over the scene',
   },
   {
     id: 'unreal-sandbox',
@@ -193,7 +203,10 @@ window.PROJECTS = [
     section: 'algorithms',
     kind: 'hobby',
     topics: ['graphics'],
-    summary: 'Morphs one picture into another.',
+    summary: 'Morphs one picture into another. My first son and the young proud father.',
+    image: 'assets/projects/D2JK.mp4',
+    imagePoster: 'assets/projects/D2JK-poster.jpg',
+    imageAlt: 'My first son as a sleeping baby morphing into me as a young, proud father',
   },
   {
     id: 'dijkstra-shortest-route',

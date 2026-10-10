@@ -32,6 +32,39 @@ window.ProjectCards = (function () {
     return el('a', attrs, label);
   }
 
+  function isVideo(src) {
+    return /\.(mp4|webm)$/i.test(src);
+  }
+
+  // A silent, looping video in place of the image. It only loads and plays while the card is on screen,
+  // and it stays on its poster for visitors who prefer reduced motion.
+  function createVideo(project) {
+    const video = el('video', {
+      class: 'project-image',
+      src: project.image,
+      width: '640',
+      height: '400',
+      preload: 'none',
+      playsinline: '',
+      loop: '',
+      role: 'img',
+      'aria-label': project.imageAlt || '',
+    });
+    if (project.imagePoster) video.setAttribute('poster', project.imagePoster);
+    video.muted = true;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotion.matches || !('IntersectionObserver' in window)) return video;
+
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      });
+    }, { threshold: 0.25 }).observe(video);
+    return video;
+  }
+
   function create(project, options) {
     const opts = Object.assign({ showSection: true, linkLabel: 'Open project →' }, options);
     const detailsId = `project-${project.id}-details`;
@@ -39,7 +72,7 @@ window.ProjectCards = (function () {
 
     if (project.image) {
       const media = el('div', { class: 'project-media' });
-      const image = el('img', {
+      const image = isVideo(project.image) ? createVideo(project) : el('img', {
         class: 'project-image',
         src: project.image,
         alt: project.imageAlt || '',
@@ -106,7 +139,7 @@ window.ProjectCards = (function () {
     }
     if (project.link || project.source) {
       const links = el('p', { class: 'project-links' });
-      if (project.link) links.append(linkTo(project.link, opts.linkLabel, 'project-link'));
+      if (project.link) links.append(linkTo(project.link, project.linkLabel || opts.linkLabel, 'project-link'));
       if (project.source) links.append(linkTo(project.source, 'Source code', 'project-link project-link-secondary'));
       inner.append(links);
     }
