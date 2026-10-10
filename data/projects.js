@@ -313,7 +313,7 @@ window.PROJECTS = [
     title: 'Name Generator',
     section: 'algorithms',
     kind: 'hobby',
-    summary: 'Generates names.',
+    summary: 'Generates names. Using the Markov N-th (3-4) gram model on characters in CPRs Real data set from Danish names.',
   },
   {
     id: 'wikipedia-extractor',
@@ -354,7 +354,7 @@ window.PROJECTS = [
     section: 'algorithms',
     kind: 'hobby',
     topics: ['graphics'],
-    summary: 'Hearts drawn with Bézier splines.',
+    summary: 'Hearts drawn with Bézier splines. Showing my girl friend what I learn at Uni.',
     image: 'assets/projects/hearts.png',
     imageAlt: 'Nine small plots in a grid, where a straight line bends step by step into a heart shape drawn with Bézier curves',
   },
