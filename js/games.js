@@ -25,7 +25,7 @@
 
   const games = (window.PROJECTS || [])
     .filter((p) => p.section === 'games')
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .sort(window.ProjectCards.compare);
 
   const cards = games.map((project, i) => {
     const card = window.ProjectCards.create(project, {

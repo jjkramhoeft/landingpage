@@ -1,26 +1,350 @@
 /*
-  All projects on the site. The Algorithms and Games pages list every project in their section.
+  All projects on the site. The Algorithms and Games pages list every project in their section:
+  real projects first, newest first, then projects without a date, then the examples.
 
   To add a project, copy one of the objects below and fill in:
     id           unique, lowercase with dashes, e.g. "pixel-snake"
     title        project name
     section      "algorithms" (Algorithms and Utilities) or "games" (Games and Fun)
     kind         "professional" or "hobby"
-    topics       for Algorithms and Utilities: any of "data-quality", "geo", "tools" (used by the filter chips)
-    date         "YYYY-MM", used to sort newest first
+    topics       for Algorithms and Utilities: any of "data-quality", "geo", "tools", "graphics", "ai"
+                 (used by the filter chips)
+    date         optional "YYYY-MM", used to sort newest first; projects without one come after the dated ones
     summary      one sentence shown on the card
-    description  longer text shown when the card is expanded; a list of paragraphs
-    image        path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png")
+    description  optional longer text shown when the card is expanded; a list of paragraphs
+    image        optional path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png")
     imageAlt     short description of the image, or "" if it is only decoration
-    tags         short keywords
+    tags         optional short keywords
     complexity   optional, e.g. "O(n log n)"
-    link         URL to the project or live demo, or null
+    link         optional URL to the project or live demo
     source       optional URL to the source code
     play         for games: URL of a playable page; the Games page shows a Play button that opens it in a pop-up
     playHint     for games: one line about the controls, shown under the pop-up
     example      true for placeholder projects; delete the line for real ones
+
+  A card with no description, tags, link or source has no "Read more" button.
 */
 window.PROJECTS = [
+  // ---- Games and Fun ----
+
+  {
+    id: 'chinese-checkers',
+    title: 'Chinese Checkers',
+    section: 'games',
+    kind: 'hobby',
+    summary: 'The star-shaped board game Chinese checkers.',
+  },
+  {
+    id: 'keyboard-smasher',
+    title: 'Keyboard Smasher for the Kids',
+    section: 'games',
+    kind: 'hobby',
+    summary: 'A page for small children to bash the keyboard on.',
+  },
+  {
+    id: 'the-first-garden',
+    title: 'The First Garden',
+    section: 'games',
+    kind: 'hobby',
+    date: '2026-03',
+    summary: 'A Sunday school game project: a top-down RPG where you create the map while you play, casting magic to place tiles, unlock biomes and fill the world with life.',
+    description: [
+      'Subtitled The Gardener\'s Apprentice, and inspired by Genesis and C.S. Lewis\' The Magician\'s Nephew. You play as Adam or Eve, start on rock and grow the world one biome at a time: desert, grass, forest, swamp, crystal, water, lava and mountains.',
+      'Sheep, lambs, chickens and piglets wander the world you make, and spiders, snakes, lizardmen and skeletons chase you through it. The tile map has six layers, so trees and mountains are drawn in front of or behind the player depending on where you stand.',
+      'Built with Phaser 4, TypeScript and Vite, with state machines for the characters and the game progression, and unit and smoke tests with Vitest and Playwright.',
+    ],
+    tags: ['Phaser 4', 'TypeScript', 'Tile maps'],
+    source: 'https://github.com/jjkramhoeft/tilegame',
+  },
+  {
+    id: 'minecraft-clone',
+    title: 'Minecraft Clone in C#',
+    section: 'games',
+    kind: 'hobby',
+    date: '2026-07',
+    summary: 'A Minecraft-style voxel sandbox for Windows: an infinite, procedurally generated world to explore, dig into, build on and survive in.',
+    description: [
+      'Plains, forests, deserts, mountains and lakes are generated from a single seed and stream in around you on background threads. Mine coal and iron, chop trees, craft tools, smelt in a furnace, store loot in chests and light the caves with torches. Water flows as a cellular automaton, pigs and chickens wander the grass, and everything you change is saved.',
+      'It is plain C# on top of MonoGame\'s rendering primitives: chunk meshing, physics, raycasting, lighting, texture generation, sound synthesis and saving are all written from scratch. There are no art or audio files; every texture and sound is generated in code at startup.',
+    ],
+    tags: ['C#', 'MonoGame', 'Voxels', 'Procedural generation'],
+    source: 'https://github.com/jjkramhoeft/minecraftclone',
+  },
+  {
+    id: 'themed-bullet-heaven',
+    title: 'Themed Bullet Heaven',
+    section: 'games',
+    kind: 'hobby',
+    date: '2026-09',
+    summary: 'A bullet-heaven game where every theme plays the same game and only changes how it looks and sounds.',
+    description: [
+      'Survive a ten-minute run while your weapons fire on their own, then beat the boss. Pick up to four of seven weapons, level them up to five, and open chests dropped by elite enemies to trigger a short cutscene for the weapon that levels up.',
+      'Themes are skins: Plague Village, Buccaneer Bay, Kabukicho, Dead Man\'s Gulch and Suburban Outbreak each supply their own art, names, music and cutscenes, but never change a rule. The characters are assembled from the Universal LPC Spritesheet Generator, and a test checks that every theme is complete.',
+    ],
+    tags: ['Phaser 4', 'TypeScript', 'LPC sprites'],
+    source: 'https://github.com/jjkramhoeft/ThemedBulletHeavenGame',
+  },
+  {
+    id: 'phaser-demo',
+    title: 'Phaser Demo Game',
+    section: 'games',
+    kind: 'hobby',
+    date: '2026-03',
+    summary: 'Tech demos for AI-assisted game development with Phaser and TypeScript, made in spring 2026.',
+    description: [
+      'Player character animation and movement, layered tile maps for good-looking game worlds, and chunked tile maps for very large worlds that can be saved and loaded.',
+      'Inspired by Genesis 1-3, C.S. Lewis\' The Magician\'s Nephew and earlier experiments with procedurally generated worlds.',
+    ],
+    image: 'assets/projects/phaser-demo.png',
+    imageAlt: 'The demo\'s main menu with buttons for Player Demo, Tile Demo, Chunked Tilemap and Game',
+    tags: ['Phaser', 'TypeScript', 'Vite'],
+    source: 'https://github.com/jjkramhoeft/phaser-demo',
+  },
+  {
+    id: 'build-your-own-universe',
+    title: 'Build Your Own Universe',
+    section: 'games',
+    kind: 'hobby',
+    summary: 'A game about building your own universe.',
+  },
+
+  // ---- Algorithms and Utilities ----
+
+  {
+    id: 'mosaic-picture-generator',
+    title: 'Mosaic Picture Generator',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'Turns a picture into a mosaic.',
+  },
+  {
+    id: 'lego-picture-frame',
+    title: 'Lego Brick Picture Frame from Image',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'Turns an image into a picture built from Lego bricks.',
+  },
+  {
+    id: 'svg-playing-cards',
+    title: 'SVG Playing Cards',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    date: '2014-10',
+    summary: 'A full deck of playing cards in pure SVG, kept on GitHub for card game projects.',
+    description: [
+      'The cards are drawn by David Bellot and published under the LGPL. I put a copy on GitHub because it makes them easy to pull into a project.',
+      'Every card is its own SVG group, such as king_spade or 1_club, with French-style kings, queens and jacks, two jokers and a card back.',
+    ],
+    tags: ['SVG', 'LGPL'],
+    source: 'https://github.com/jjkramhoeft/SVG-Cards',
+  },
+  {
+    id: 'vr-sandbox',
+    title: 'VR Sandbox',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'A sandbox for virtual reality experiments.',
+  },
+  {
+    id: 'unreal-sandbox',
+    title: 'Unreal Engine Sandbox',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'A sandbox for experiments in Unreal Engine.',
+  },
+  {
+    id: 'procedural-worlds',
+    title: 'World and Landscape Procedural Generation',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['geo', 'graphics'],
+    summary: 'Worlds and landscapes generated by code.',
+  },
+  {
+    id: 'sudoku-solver',
+    title: 'Sudoku Solver',
+    section: 'algorithms',
+    kind: 'hobby',
+    summary: 'Solves sudoku puzzles.',
+  },
+  {
+    id: 'picture-morpher',
+    title: 'Picture Morpher',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'Morphs one picture into another.',
+  },
+  {
+    id: 'dijkstra-shortest-route',
+    title: 'Dijkstra Shortest Route',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['geo'],
+    summary: 'An implementation of Dijkstra\'s algorithm for finding the shortest route.',
+  },
+  {
+    id: 'npc-generator',
+    title: 'Synthetic NPC Generator',
+    section: 'algorithms',
+    kind: 'hobby',
+    summary: 'Generates non-player characters for games.',
+  },
+  {
+    id: 'youtube-jump-page',
+    title: 'YouTube Jump Page',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['tools'],
+    date: '2026-08',
+    summary: 'Shows every YouTube channel you subscribe to as one dense, searchable grid, because YouTube\'s own subscriptions page doesn\'t.',
+    description: [
+      'A snippet you paste into the browser console on YouTube collects your subscriptions into a data file, and the page shows them all at once. Pin favourites, hide channels you never watch, and sort by name, subscribers or how often you open them.',
+      'It is one local HTML page with no server, no install and no API keys. The search handles Danish letters both ways, so Æblegrød is found by typing aeblegroed or ablegrod.',
+    ],
+    tags: ['JavaScript', 'No dependencies'],
+    source: 'https://github.com/jjkramhoeft/youtubejumppage',
+  },
+  {
+    id: 'mateo5',
+    title: 'Birthday Card for Mateo',
+    section: 'algorithms',
+    kind: 'hobby',
+    date: '2026-09',
+    summary: 'A birthday card with a small game for my nephew Mateo\'s 5th birthday, in one HTML file.',
+    description: [
+      'Tap the card to open it, then walk Mateo around with the arrow keys, WASD or by tapping on a phone, and open all five presents.',
+      'Everything is drawn in code, including Mateo, the presents, the confetti and the Happy Birthday melody, so the page needs no images, libraries or internet connection. It was made by chatting with Claude in Claude Code.',
+    ],
+    tags: ['HTML', 'JavaScript', 'Claude Code'],
+    link: 'https://jjkramhoeft.github.io/mateo5/',
+    source: 'https://github.com/jjkramhoeft/mateo5',
+  },
+  {
+    id: 'news-headlines',
+    title: 'News Scraper and Real Headline Generator',
+    section: 'algorithms',
+    kind: 'hobby',
+    summary: 'A news scraper and a headline generator.',
+  },
+  {
+    id: 'aurora-forecast',
+    title: 'Aurora Forecast App',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['geo'],
+    date: '2023-04',
+    summary: 'A free app with aurora forecast data.',
+  },
+  {
+    id: 'comfyui-nodes',
+    title: 'ComfyUI Custom Nodes',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['ai', 'tools'],
+    date: '2023-08',
+    summary: 'A small set of custom nodes for ComfyUI, focused on text and parameters.',
+    description: [
+      'Nodes for entering text, showing text, joining up to five texts, and picking one of the recommended SDXL image sizes.',
+    ],
+    tags: ['Python', 'ComfyUI', 'Stable Diffusion'],
+    source: 'https://github.com/jjkramhoeft/ComfyUI-Jjk-Nodes',
+  },
+  {
+    id: 'color-wheel',
+    title: 'Colour Wheel',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'A colour wheel.',
+  },
+  {
+    id: 'bible-reader',
+    title: 'Bible Reader',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['tools'],
+    summary: 'An app for reading the Bible.',
+  },
+  {
+    id: 'name-generator',
+    title: 'Name Generator',
+    section: 'algorithms',
+    kind: 'hobby',
+    summary: 'Generates names.',
+  },
+  {
+    id: 'wikipedia-extractor',
+    title: 'Wikipedia Extractor',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['ai', 'tools'],
+    date: '2025-01',
+    summary: 'Cleans and indexes the full English Wikipedia into a personal encyclopedia, with search powered by LLM embeddings.',
+    description: [
+      'The monthly XML dump is trimmed, cleaned to plain text and indexed with vector embeddings: 8.5 million pages, with all redirects skipped. Cleaning takes about 6 hours and indexing another 6, and then everything loads into memory in 12 seconds and a search for the 10 best matching pages takes about 400 ms.',
+      'Most of the work went into turning Wikipedia\'s page markup into plain text while keeping it fast, which meant char arrays and StringBuilder instead of ordinary string handling.',
+    ],
+    tags: ['C#', 'SQLite', 'Embeddings'],
+    source: 'https://github.com/jjkramhoeft/JjkWiki',
+  },
+  {
+    id: 'perlin-simplex-noise',
+    title: 'Perlin and Simplex Noise',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'An implementation of Perlin and simplex noise.',
+  },
+  {
+    id: 'npc-dialog-testbed',
+    title: 'NPC Dialog Testbed',
+    section: 'algorithms',
+    kind: 'hobby',
+    summary: 'A testbed for conversations with non-player characters.',
+  },
+  {
+    id: 'bezier-hearts',
+    title: 'Bézier Spline Hearts',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'Hearts drawn with Bézier splines.',
+  },
+  {
+    id: 'fractal-generator',
+    title: 'Fractal Generator',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['graphics'],
+    summary: 'Generates and draws fractals.',
+  },
+  {
+    id: 'trello-clone',
+    title: 'Trello Clone',
+    section: 'algorithms',
+    kind: 'hobby',
+    topics: ['tools'],
+    date: '2026-10',
+    summary: 'A simple, single-user Trello clone where the whole board is one JSON file on your own computer.',
+    description: [
+      'Lists and cards with drag and drop, also on touch screens, with coloured labels, descriptions and images embedded in the file. Trello\'s own JSON exports open directly, so an existing board can be brought over.',
+      'It is one self-contained HTML file with no accounts, no server and no sync. In Chrome and Edge, Ctrl+S saves straight back to the file you opened.',
+    ],
+    image: 'assets/projects/trello-clone.png',
+    imageAlt: 'A board called Drone build with five lists of cards with coloured labels',
+    tags: ['JavaScript', 'File System Access API', 'No dependencies'],
+    link: 'https://jjkramhoeft.github.io/TrelloClone/',
+    source: 'https://github.com/jjkramhoeft/TrelloClone',
+  },
+
+  // ---- Examples (placeholders from the template) ----
+
   {
     id: 'pixel-snake',
     title: 'Pixel Snake',

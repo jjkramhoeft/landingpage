@@ -11,6 +11,8 @@
     { id: 'data-quality', label: 'Data quality', test: hasTopic('data-quality') },
     { id: 'geo', label: 'Geo', test: hasTopic('geo') },
     { id: 'tools', label: 'Tools', test: hasTopic('tools') },
+    { id: 'graphics', label: 'Graphics', test: hasTopic('graphics') },
+    { id: 'ai', label: 'AI', test: hasTopic('ai') },
     { id: 'professional', label: 'Professional', test: (p) => p.kind === 'professional' },
     { id: 'hobby', label: 'Hobby', test: (p) => p.kind === 'hobby' },
   ];
@@ -23,7 +25,7 @@
 
   const projects = (window.PROJECTS || [])
     .filter((p) => p.section === 'algorithms')
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .sort(window.ProjectCards.compare);
 
   const cards = projects.map((project, i) => {
     const card = window.ProjectCards.create(project, {

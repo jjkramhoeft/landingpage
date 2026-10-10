@@ -8,6 +8,8 @@
     onToggle     called with true/false when the card opens or closes
     onPlay       if given, projects with a `play` URL get a Play button that calls onPlay(project, button)
     playLabel    text for the Play button (default "Play")
+
+  ProjectCards.compare(a, b) is the sort order the project pages use.
 */
 window.ProjectCards = (function () {
   'use strict';
@@ -63,6 +65,23 @@ window.ProjectCards = (function () {
     }
     body.append(el('p', { class: 'project-summary' }, project.summary));
 
+    const actions = el('div', { class: 'project-actions' });
+    if (project.play && opts.onPlay) {
+      const play = el('button', { class: 'project-play', type: 'button' }, opts.playLabel || 'Play');
+      play.setAttribute('aria-label', `Play ${project.title}`);
+      play.addEventListener('click', () => opts.onPlay(project, play));
+      actions.append(play);
+    }
+
+    // Projects that are only a title so far have nothing to expand, so they get no "Read more".
+    const hasDetails = [].concat(project.description || []).length
+      || (project.tags && project.tags.length) || project.link || project.source;
+    if (!hasDetails) {
+      if (actions.childElementCount) body.append(actions);
+      card.append(body);
+      return card;
+    }
+
     const details = el('div', { class: 'project-details', id: detailsId, inert: '' });
     const inner = el('div', { class: 'project-details-inner' });
     [].concat(project.description || []).forEach((paragraph) => inner.append(el('p', {}, paragraph)));
@@ -89,13 +108,6 @@ window.ProjectCards = (function () {
       if (opts.onToggle) opts.onToggle(open);
     });
 
-    const actions = el('div', { class: 'project-actions' });
-    if (project.play && opts.onPlay) {
-      const play = el('button', { class: 'project-play', type: 'button' }, opts.playLabel || 'Play');
-      play.setAttribute('aria-label', `Play ${project.title}`);
-      play.addEventListener('click', () => opts.onPlay(project, play));
-      actions.append(play);
-    }
     actions.append(toggle);
 
     body.append(details, actions);
@@ -103,5 +115,13 @@ window.ProjectCards = (function () {
     return card;
   }
 
-  return { create, SECTION_LABELS };
+  // Sort order for the project lists: real projects before examples, then newest first,
+  // and undated projects after the dated ones, in the order they appear in data/projects.js.
+  function compare(a, b) {
+    if (!a.example !== !b.example) return a.example ? 1 : -1;
+    if (!a.date !== !b.date) return a.date ? -1 : 1;
+    return String(b.date || '').localeCompare(String(a.date || ''));
+  }
+
+  return { create, compare, SECTION_LABELS };
 })();
