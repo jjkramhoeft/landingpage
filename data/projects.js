@@ -14,6 +14,7 @@
     description  optional longer text shown when the card is expanded; a list of paragraphs
     image        optional path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png")
     imageAlt     short description of the image, or "" if it is only decoration
+    imagePosition optional CSS object-position for cropping the image, e.g. "50% 75%" to keep its lower part
     imageOpen    optional second image that replaces the first while the card is expanded
     imageOpenAlt short description of the second image
     tags         optional short keywords
@@ -35,6 +36,8 @@ window.PROJECTS = [
     section: 'games',
     kind: 'hobby',
     summary: 'The star-shaped board game Chinese checkers.',
+    image: 'assets/projects/kinaskak.png',
+    imageAlt: 'Jakob\'s Kinaskak til Mathias: a star-shaped board with six colours of pieces over an old Chinese painting, with move counters, timers and a victory barometer beside it',
   },
   {
     id: 'keyboard-smasher',
@@ -55,6 +58,9 @@ window.PROJECTS = [
       'Sheep, lambs, chickens and piglets wander the world you make, and spiders, snakes, lizardmen and skeletons chase you through it. The tile map has six layers, so trees and mountains are drawn in front of or behind the player depending on where you stand.',
       'Built with Phaser 4, TypeScript and Vite, with state machines for the characters and the game progression, and unit and smoke tests with Vitest and Playwright.',
     ],
+    image: 'assets/projects/tilegame-demo.png',
+    imageAlt: 'The player standing on a patchwork of grass, rock, sand and water tiles, next to a chest and supplies, with the dark unmade world around it',
+    imagePosition: '50% 75%',
     tags: ['Phaser 4', 'TypeScript', 'Tile maps'],
     source: 'https://github.com/jjkramhoeft/tilegame',
   },
@@ -69,6 +75,8 @@ window.PROJECTS = [
       'Plains, forests, deserts, mountains and lakes are generated from a single seed and stream in around you on background threads. Mine coal and iron, chop trees, craft tools, smelt in a furnace, store loot in chests and light the caves with torches. Water flows as a cellular automaton, pigs and chickens wander the grass, and everything you change is saved.',
       'It is plain C# on top of MonoGame\'s rendering primitives: chunk meshing, physics, raycasting, lighting, texture generation, sound synthesis and saving are all written from scratch. There are no art or audio files; every texture and sound is generated in code at startup.',
     ],
+    image: 'assets/projects/minecraftclone.png',
+    imageAlt: 'A blocky grassy hillside with flowers and a pig, a lake, forest and desert in the distance, and the player\'s hearts and hotbar at the bottom',
     tags: ['C#', 'MonoGame', 'Voxels', 'Procedural generation'],
     source: 'https://github.com/jjkramhoeft/minecraftclone',
   },

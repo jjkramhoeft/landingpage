@@ -39,14 +39,16 @@ window.ProjectCards = (function () {
 
     if (project.image) {
       const media = el('div', { class: 'project-media' });
-      media.append(el('img', {
+      const image = el('img', {
         class: 'project-image',
         src: project.image,
         alt: project.imageAlt || '',
         width: '640',
         height: '400',
         loading: 'lazy',
-      }));
+      });
+      if (project.imagePosition) image.style.objectPosition = project.imagePosition;
+      media.append(image);
       // An optional second image fades in over the first while the card is open.
       if (project.imageOpen) {
         media.append(el('img', {
