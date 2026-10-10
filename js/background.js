@@ -2,7 +2,7 @@
   Animated topographic background: contour lines of a slowly changing noise field,
   traced with marching squares on a <canvas id="bg">.
 
-  - The mouse raises a gentle "hill" the lines flow around.
+  - The mouse raises a hill the lines flow around, and a click (or tap) sends a ring-shaped wave out across the map.
   - Background.peaks(elements) turns elements into summits: each gets a standing hill that follows it on scroll.
   - Background.focus(element) raises that summit higher (or a new hill under any other element).
   - Pauses while the tab is hidden; draws a single still frame with "reduce motion" on.
@@ -19,7 +19,14 @@
   const STEP = 0.1;         // height difference between contour lines
   const LEVELS = 12;        // contour lines from -LEVELS*STEP to +LEVELS*STEP
   const FPS = 30;
-  const MOUSE_RADIUS = 170;
+  const DRIFT_SPEED = 0.006; // how fast the terrain slides sideways
+  const EVOLVE_SPEED = 0.022; // how fast the terrain changes shape
+  const MOUSE_RADIUS = 240;
+  const MOUSE_HEIGHT = 0.7;
+  const PULSE_LIFE = 2.6;     // seconds a click wave lasts
+  const PULSE_SPEED = 420;    // CSS pixels per second the wave front travels
+  const PULSE_WIDTH = 70;     // CSS pixels, the width of the wave front
+  const PULSE_HEIGHT = 0.9;
   const PEAK_REST = 0.75;   // height of a summit at rest (about seven contour lines)
   const PEAK_RAISED = 1.25; // height of the hovered summit
   const PEAK_RADIUS = 150;  // CSS pixels; smaller on narrow screens
@@ -113,6 +120,7 @@
   const mouse = { x: 0, y: 0, tx: 0, ty: 0, amp: 0, target: 0, seen: false };
   const focus = { el: null, x: 0, y: 0, radius: 200, amp: 0, target: 0 };
   let peaks = [];
+  let pulses = [];
 
   // A summit's top sits on its anchor (the destination's marker), like a peak symbol on a map.
   function measurePeaks() {
@@ -146,8 +154,8 @@
   }
 
   function computeField() {
-    const z = time * 0.045;
-    const drift = time * 0.012;
+    const z = time * EVOLVE_SPEED;
+    const drift = time * DRIFT_SPEED;
     const mouseAmp = mouse.amp;
     const focusAmp = focus.amp;
     const mouseR2 = MOUSE_RADIUS * MOUSE_RADIUS;
@@ -166,6 +174,14 @@
         if (focusAmp > 0.001) {
           const dx = x - focus.x, dy = y - focus.y;
           v += focusAmp * Math.exp(-(dx * dx + dy * dy) / focusR2);
+        }
+        // A click wave: a ring that travels outwards and fades, with a short-lived bump where it started.
+        for (let p = 0; p < pulses.length; p++) {
+          const pulse = pulses[p];
+          const dx = x - pulse.x, dy = y - pulse.y;
+          const d = Math.sqrt(dx * dx + dy * dy) - pulse.front;
+          v += pulse.amp * Math.exp(-(d * d) / (PULSE_WIDTH * PULSE_WIDTH))
+             + pulse.bump * Math.exp(-(dx * dx + dy * dy) / (MOUSE_RADIUS * MOUSE_RADIUS));
         }
         // Near a summit the noise is smoothed away, so its contours close into clean rings around the marker.
         for (let p = 0; p < peaks.length; p++) {
@@ -251,20 +267,25 @@
   function drawSummits() {
     peaks.forEach((peak) => {
       if (peak.amp < 0.02 || !peak.color) return;
-      const reach = peak.radius * 1.6;
-      if (peak.x + reach < 0 || peak.x - reach > width || peak.y + reach < 0 || peak.y - reach > height) return;
-      const strength = Math.min(peak.amp / PEAK_REST, 1.7);
-      const gradient = ctx.createRadialGradient(peak.x, peak.y, 0, peak.x, peak.y, reach);
-      gradient.addColorStop(0, withAlpha(peak.color, 0.62 * strength));
-      gradient.addColorStop(0.55, withAlpha(peak.color, 0.34 * strength));
+      // The tint starts at the summit and spreads further down than up, over the destination's text below it:
+      // the gradient's outer circle is centred below the summit.
+      const reach = peak.radius * 2.1;
+      const cy = peak.y + peak.radius * 1.05;
+      const top = cy - reach, bottom = cy + reach;
+      if (peak.x + reach < 0 || peak.x - reach > width || bottom < 0 || top > height) return;
+      const strength = Math.min(peak.amp / PEAK_REST, 1.5);
+      const gradient = ctx.createRadialGradient(peak.x, peak.y, 0, peak.x, cy, reach);
+      gradient.addColorStop(0, withAlpha(peak.color, Math.min(0.85 * strength, 1)));
+      gradient.addColorStop(0.5, withAlpha(peak.color, 0.55 * strength));
+      gradient.addColorStop(0.8, withAlpha(peak.color, 0.22 * strength));
       gradient.addColorStop(1, withAlpha(peak.color, 0));
       const gx0 = Math.max(0, Math.floor((peak.x - reach) / CELL));
-      const gy0 = Math.max(0, Math.floor((peak.y - reach) / CELL));
+      const gy0 = Math.max(0, Math.floor(top / CELL));
       const gx1 = Math.min(cols - 1, Math.ceil((peak.x + reach) / CELL));
-      const gy1 = Math.min(rows - 1, Math.ceil((peak.y + reach) / CELL));
+      const gy1 = Math.min(rows - 1, Math.ceil(bottom / CELL));
       ctx.strokeStyle = gradient;
       for (let k = -LEVELS; k <= LEVELS; k++) {
-        ctx.lineWidth = k % 5 === 0 ? 1.8 : 1.2;
+        ctx.lineWidth = k % 5 === 0 ? 2 : 1.4;
         ctx.beginPath();
         trace(k * STEP + 0.0001, gx0, gy0, gx1, gy1);
         ctx.stroke();
@@ -299,6 +320,14 @@
 
     measurePeaks();
     peaks.forEach((peak) => { peak.amp += (peak.target - peak.amp) * 0.045; });
+
+    pulses = pulses.filter((pulse) => (pulse.age += dt) < PULSE_LIFE);
+    pulses.forEach((pulse) => {
+      const fade = 1 - pulse.age / PULSE_LIFE;
+      pulse.front = pulse.age * PULSE_SPEED;
+      pulse.amp = PULSE_HEIGHT * fade * fade;
+      pulse.bump = 0.8 * Math.max(0, 1 - pulse.age / 0.9) * Math.min(pulse.age / 0.12, 1);
+    });
 
     draw();
   }
@@ -341,7 +370,14 @@
     mouse.tx = e.clientX;
     mouse.ty = e.clientY;
     if (!mouse.seen) { mouse.x = mouse.tx; mouse.y = mouse.ty; mouse.seen = true; }
-    mouse.target = 0.35;
+    mouse.target = MOUSE_HEIGHT;
+  }, { passive: true });
+
+  // Clicks and taps drop a wave into the terrain. Only while animating; a still map has nothing to ripple.
+  window.addEventListener('pointerdown', (e) => {
+    if (!running) return;
+    pulses.push({ x: e.clientX, y: e.clientY, age: 0, front: 0, amp: 0, bump: 0 });
+    if (pulses.length > 4) pulses.shift();
   }, { passive: true });
 
   document.documentElement.addEventListener('pointerleave', () => { mouse.target = 0; });
