@@ -14,6 +14,8 @@
     description  optional longer text shown when the card is expanded; a list of paragraphs
     image        optional path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png")
     imageAlt     short description of the image, or "" if it is only decoration
+    imageOpen    optional second image that replaces the first while the card is expanded
+    imageOpenAlt short description of the second image
     tags         optional short keywords
     complexity   optional, e.g. "O(n log n)"
     link         optional URL to the project or live demo
@@ -81,7 +83,12 @@ window.PROJECTS = [
       'Survive a ten-minute run while your weapons fire on their own, then beat the boss. Pick up to four of seven weapons, level them up to five, and open chests dropped by elite enemies to trigger a short cutscene for the weapon that levels up.',
       'Themes are skins: Plague Village, Buccaneer Bay, Kabukicho, Dead Man\'s Gulch and Suburban Outbreak each supply their own art, names, music and cutscenes, but never change a rule. The characters are assembled from the Universal LPC Spritesheet Generator, and a test checks that every theme is complete.',
     ],
+    image: 'assets/projects/themed-bullet-heaven-gulch-run.webp',
+    imageAlt: 'A late run in Dead Man\'s Gulch: level 19, 2458 kills, with outlaws closing in on the player',
+    imageOpen: 'assets/projects/themed-bullet-heaven-kabukicho-boss.webp',
+    imageOpenAlt: 'The Yakuza Boss fight in Kabukicho: level 25, 3368 kills, with the street packed with enemies',
     tags: ['Phaser 4', 'TypeScript', 'LPC sprites'],
+    link: 'https://jjkramhoeft.github.io/ThemedBulletHeavenGame/',
     source: 'https://github.com/jjkramhoeft/ThemedBulletHeavenGame',
   },
   {

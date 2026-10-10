@@ -47,6 +47,18 @@ window.ProjectCards = (function () {
         height: '400',
         loading: 'lazy',
       }));
+      // An optional second image fades in over the first while the card is open.
+      if (project.imageOpen) {
+        media.append(el('img', {
+          class: 'project-image project-image-open',
+          src: project.imageOpen,
+          alt: project.imageOpenAlt || '',
+          width: '640',
+          height: '400',
+          loading: 'lazy',
+          'aria-hidden': 'true',
+        }));
+      }
       card.append(media);
     }
 
@@ -105,6 +117,11 @@ window.ProjectCards = (function () {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.textContent = open ? 'Show less' : 'Read more';
       if (open) details.removeAttribute('inert'); else details.setAttribute('inert', '');
+      const images = card.querySelectorAll('.project-image');
+      if (images.length > 1) {
+        images[0].setAttribute('aria-hidden', String(open));
+        images[1].setAttribute('aria-hidden', String(!open));
+      }
       if (opts.onToggle) opts.onToggle(open);
     });
 
