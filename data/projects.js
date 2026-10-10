@@ -364,7 +364,7 @@ window.PROJECTS = [
     section: 'algorithms',
     kind: 'hobby',
     topics: ['graphics'],
-    summary: 'Generates and draws fractals.',
+    summary: 'Generates and draws fractals. A highschool mathproject. The Julia set along the Mandelbrot border.',
   },
   {
     id: 'trello-clone',
