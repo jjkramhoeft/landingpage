@@ -6,7 +6,7 @@
     id           unique, lowercase with dashes, e.g. "pixel-snake"
     title        project name
     section      "algorithms" (Algorithms and Utilities) or "games" (Games and Fun)
-    kind         "professional" or "hobby"
+    kind         "professional", "hobby" or "tool"
     topics       for Algorithms and Utilities: any of "data-quality", "geo", "tools", "graphics", "ai"
                  (used by the filter chips)
     date         optional "YYYY-MM", used to sort newest first; projects without one come after the dated ones
@@ -290,12 +290,15 @@ window.PROJECTS = [
     source: 'https://github.com/jjkramhoeft/ComfyUI-Jjk-Nodes',
   },
   {
-    id: 'color-wheel',
-    title: 'Colour Wheel',
+    id: 'color-picker',
+    title: 'Color Picker',
     section: 'algorithms',
-    kind: 'hobby',
-    topics: ['graphics'],
-    summary: 'A colour wheel.',
+    kind: 'tool',
+    topics: ['graphics', 'tools'],
+    summary: 'A colour picker built from hexagons.',
+    image: 'assets/projects/color.png',
+    imageAlt: 'The colour picker: a triangle of hexagons blending red, green and blue, a smaller triangle of shades and tints of the selected blue, and the chosen rgb value shown above',
+    link: 'https://jjkramhoeft.github.io/color-picker/',
   },
   {
     id: 'bible-reader',

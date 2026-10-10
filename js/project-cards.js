@@ -19,6 +19,12 @@ window.ProjectCards = (function () {
     games: 'Games & Fun',
   };
 
+  const KIND_LABELS = {
+    professional: 'Professional',
+    hobby: 'Hobby',
+    tool: 'Tool',
+  };
+
   function el(tag, attrs, text) {
     const node = document.createElement(tag);
     Object.entries(attrs || {}).forEach(([key, value]) => node.setAttribute(key, value));
@@ -103,7 +109,7 @@ window.ProjectCards = (function () {
     if (opts.showSection) {
       badges.append(el('span', { class: 'badge badge-section' }, SECTION_LABELS[project.section] || project.section));
     }
-    badges.append(el('span', { class: 'badge' }, project.kind === 'professional' ? 'Professional' : 'Hobby'));
+    badges.append(el('span', { class: 'badge' }, KIND_LABELS[project.kind] || 'Hobby'));
     if (project.example) badges.append(el('span', { class: 'badge badge-example' }, 'Example'));
 
     body.append(badges, el('h3', {}, project.title));
