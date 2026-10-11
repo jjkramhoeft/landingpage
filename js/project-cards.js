@@ -9,7 +9,7 @@
     playLabel    text for the Play button (default "Play")
 
   Only one card in a grid is open at a time: opening a card closes the one that was open.
-  An open card shows the project's date in its bottom right corner.
+  A card shows the project's date in its bottom right corner.
 
   ProjectCards.layout(grid) widens the grid column holding the open card and narrows the others,
   so a long description reads at a comfortable line length instead of in a tall, slim card.
@@ -126,10 +126,15 @@ window.ProjectCards = (function () {
       actions.append(play);
     }
 
+    const date = project.date
+      ? el('time', { class: 'project-date', datetime: project.date }, formatDate(project.date))
+      : null;
+
     // Projects that are only a title so far have nothing to expand, so they get no "Read more".
     const hasDetails = [].concat(project.description || []).length
       || (project.tags && project.tags.length) || project.link || project.source;
     if (!hasDetails) {
+      if (date) actions.append(date);
       if (actions.childElementCount) body.append(actions);
       card.append(body);
       return card;
@@ -176,7 +181,7 @@ window.ProjectCards = (function () {
     });
 
     actions.append(toggle);
-    if (project.date) actions.append(el('time', { class: 'project-date', datetime: project.date }, formatDate(project.date)));
+    if (date) actions.append(date);
 
     body.append(details, actions);
     card.append(body);

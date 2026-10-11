@@ -307,6 +307,10 @@
   border-color: var(--games);
 }
 
+.page-games .project-actions {
+  min-height: 33px;
+}
+
 .page-games .project-date {
   font-size: 0.6rem;
 }

@@ -192,7 +192,7 @@ window.PROJECTS = [
     id: 'sudoku-solver',
     title: 'Sudoku Solver',
     section: 'algorithms',
-    date: '20219-06',
+    date: '2021-06',
     summary: 'Solves sudoku puzzles. Handcoded - uses my own typical approaches, and brute forces when running out of options.',
   },
   {
