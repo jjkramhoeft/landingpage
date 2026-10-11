@@ -384,6 +384,24 @@ window.PROJECTS = [
     link: 'https://jjkramhoeft.github.io/TrelloClone/',
     source: 'https://github.com/jjkramhoeft/TrelloClone',
   },
+  {
+    id: 'location-mapper',
+    title: 'Location Mapper',
+    section: 'algorithms',
+    kind: 'tool',
+    topics: ['geo', 'tools'],
+    date: '2026-10',
+    summary: 'A personal world map of the places you care about: where you have lived, travelled and worked, and where you want to go.',
+    description: [
+      'Places are sorted into groups with their own colour and icon, and can have a note, a picture and a date range as precise as you remember it, from just a year to the exact day. Click the map to add a place, and the address and title are filled in by looking up the spot in OpenStreetMap. Pins cluster when crowded, and a display mode hides everything but the map for showing it on a wall screen.',
+      'It runs entirely in the browser with no accounts and no server. Everything is saved in browser storage, and a JSON export and import moves it between devices.',
+    ],
+    image: 'assets/projects/locationmapper.png',
+    imageAlt: 'A world map with purple, grey and gold pins and clusters for jobs, wish-list sights and the Seven Wonders, next to a sidebar listing the groups and places',
+    tags: ['TypeScript', 'React', 'Leaflet'],
+    link: 'https://jjkramhoeft.github.io/LocationMapper/',
+    source: 'https://github.com/jjkramhoeft/LocationMapper',
+  },
 
   // ---- Examples (placeholders from the template) ----
 
