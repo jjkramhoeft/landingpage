@@ -58,13 +58,13 @@ window.PROJECTS = [
     summary: 'A Sunday school game project: a top-down RPG where you create the map while you play, casting magic to place tiles, unlock biomes and fill the world with life.',
     description: [
       'Subtitled The Gardener\'s Apprentice, and inspired by Genesis and C.S. Lewis\' The Magician\'s Nephew. You play as Adam or Eve, start on rock and grow the world one biome at a time: desert, grass, forest, swamp, crystal, water, lava and mountains.',
-      'Sheep, lambs, chickens and piglets wander the world you make, and spiders, snakes, lizardmen and skeletons chase you through it. The tile map has six layers, so trees and mountains are drawn in front of or behind the player depending on where you stand.',
       'Built with Phaser 4, TypeScript and Vite, with state machines for the characters and the game progression, and unit and smoke tests with Vitest and Playwright.',
     ],
-    image: 'assets/projects/tilegame-demo.png',
+    image: 'assets/projects/tilegame.png',
     imageAlt: 'The player standing on a patchwork of grass, rock, sand and water tiles, next to a chest and supplies, with the dark unmade world around it',
     imagePosition: '50% 75%',
     tags: ['Phaser 4', 'TypeScript', 'Tile maps'],
+    link: 'https://jjkramhoeft.github.io/tilegame/',
     source: 'https://github.com/jjkramhoeft/tilegame',
   },
   {
