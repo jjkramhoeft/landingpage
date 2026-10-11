@@ -199,7 +199,7 @@ window.PROJECTS = [
     title: 'Sudoku Solver',
     section: 'algorithms',
     kind: 'tool',
-    summary: 'Solves sudoku puzzles.',
+    summary: 'Solves sudoku puzzles. Handcoded - uses my own typical approaches, and brute forces when running out of options.',
   },
   {
     id: 'picture-morpher',
@@ -226,6 +226,8 @@ window.PROJECTS = [
     section: 'algorithms',
     kind: 'hobby',
     summary: 'Generates non-player characters for games.',
+    image: 'assets/projects/chargen.png',
+    imageAlt: 'A character generator page',
   },
   {
     id: 'youtube-jump-page',
@@ -239,6 +241,8 @@ window.PROJECTS = [
       'A snippet you paste into the browser console on YouTube collects your subscriptions into a data file, and the page shows them all at once. Pin favourites, hide channels you never watch, and sort by name, subscribers or how often you open them.',
       'It is one local HTML page with no server, no install and no API keys. The search handles Danish letters both ways, so Æblegrød is found by typing aeblegroed or ablegrod.',
     ],
+    image: 'assets/projects/jumppage.png',
+    imageAlt: 'A Browser jumppage',
     tags: ['JavaScript', 'No dependencies'],
     source: 'https://github.com/jjkramhoeft/youtubejumppage',
   },
@@ -307,6 +311,8 @@ window.PROJECTS = [
     kind: 'hobby',
     topics: ['tools'],
     summary: 'An app for reading or listening to the Bible, taking notes and tracking progress.',
+    image: 'assets/projects/biblereader.png',
+    imageAlt: 'The Bible Reader app interface, showing a passage of text and navigation controls',
   },
   {
     id: 'name-generator',
