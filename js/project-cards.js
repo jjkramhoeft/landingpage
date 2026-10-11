@@ -8,12 +8,24 @@
     onPlay       if given, projects with a `play` URL get a Play button that calls onPlay(project, button)
     playLabel    text for the Play button (default "Play")
 
+  Only one card in a grid is open at a time: opening a card closes the one that was open.
+
+  ProjectCards.layout(grid) widens the grid column holding the open card and narrows the others,
+  so a long description reads at a comfortable line length instead of in a tall, slim card.
+  It returns { update }, to call after cards are shown or hidden.
+
   ProjectCards.compare(a, b) is the sort order the project pages use.
 */
 window.ProjectCards = (function () {
   'use strict';
 
   const el = window.Site.el;
+
+  // How much wider the open card's column is than the others, by number of columns.
+  const WIDE_COLUMN = { 2: 1.5, 3: 2 };
+
+  // Opens or closes a card without telling the page, keyed by card.
+  const setters = new WeakMap();
 
   const KIND_LABELS = {
     professional: 'Professional',
@@ -138,8 +150,7 @@ window.ProjectCards = (function () {
     details.append(inner);
 
     const toggle = el('button', { class: 'project-toggle', type: 'button', 'aria-expanded': 'false', 'aria-controls': detailsId }, 'Read more');
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') !== 'true';
+    function setOpen(open) {
       card.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', String(open));
       toggle.textContent = open ? 'Show less' : 'Read more';
@@ -149,6 +160,16 @@ window.ProjectCards = (function () {
         images[0].setAttribute('aria-hidden', String(open));
         images[1].setAttribute('aria-hidden', String(!open));
       }
+    }
+    setters.set(card, setOpen);
+
+    toggle.addEventListener('click', () => {
+      const open = !card.classList.contains('is-open');
+      if (open && card.parentElement) {
+        card.parentElement.querySelectorAll('.project-card.is-open').forEach((other) => setters.get(other)(false));
+      }
+      setOpen(open);
+      card.dispatchEvent(new CustomEvent('project-toggle', { bubbles: true, detail: { open } }));
       if (opts.onToggle) opts.onToggle(open);
     });
 
@@ -159,6 +180,40 @@ window.ProjectCards = (function () {
     return card;
   }
 
+  function layout(grid) {
+    function update() {
+      // A card hidden by a filter can't stay open.
+      grid.querySelectorAll('.project-card.is-open[hidden]').forEach((card) => setters.get(card)(false));
+
+      const cols = parseInt(getComputedStyle(grid).getPropertyValue('--cols'), 10) || 1;
+      const visible = Array.from(grid.children).filter((card) => !card.hidden);
+      const open = visible.findIndex((card) => card.classList.contains('is-open'));
+      const wide = open >= 0 && WIDE_COLUMN[cols] ? open % cols : -1;
+      const tracks = [];
+      for (let i = 0; i < cols; i++) tracks.push(`minmax(0, ${i === wide ? WIDE_COLUMN[cols] : 1}fr)`);
+      grid.style.gridTemplateColumns = tracks.join(' ');
+    }
+
+    // When another card closes above the one just opened, the opened card moves up and can end up
+    // above the top of the screen; bring it back once the columns have settled.
+    grid.addEventListener('project-toggle', (e) => {
+      update();
+      if (!e.detail.open) return;
+      const card = e.target;
+      setTimeout(() => {
+        const header = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+        if (card.getBoundingClientRect().top < header) {
+          card.scrollIntoView({ block: 'start', behavior: window.Site.reduceMotion.matches ? 'auto' : 'smooth' });
+        }
+      }, 380);
+    });
+
+    if ('ResizeObserver' in window) new ResizeObserver(update).observe(grid);
+    else window.addEventListener('resize', update);
+    update();
+    return { update };
+  }
+
   // Sort order for the project lists: real projects before examples, then newest first,
   // and undated projects after the dated ones, in the order they appear in data/projects.js.
   function compare(a, b) {
@@ -167,5 +222,5 @@ window.ProjectCards = (function () {
     return String(b.date || '').localeCompare(String(a.date || ''));
   }
 
-  return { create, compare };
+  return { create, layout, compare };
 })();

@@ -36,6 +36,7 @@
     list.append(card);
     return { project, card };
   });
+  const grid = window.ProjectCards.layout(list);
 
   const chips = FILTERS.map((filter) => {
     const count = projects.filter(filter.test).length;
@@ -63,6 +64,7 @@
       ? `Showing all ${projects.length} projects`
       : `Showing ${shown} of ${projects.length} projects · ${filter.label}`;
     empty.hidden = shown > 0;
+    grid.update();
     if (updateHash) {
       const base = location.pathname + location.search;
       history.replaceState(null, '', filter.id === 'all' ? base : `${base}#${filter.id}`);

@@ -39,6 +39,7 @@
     list.append(card);
     return { project, card };
   });
+  window.ProjectCards.layout(list);
 
   // A game that keeps its best score in localStorage as "jjk-hiscore-<id>" gets a HI badge on its card.
   function refreshScores() {

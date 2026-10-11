@@ -430,11 +430,23 @@ main,
 }
 
 /* Project cards (rendered by js/project-cards.js from data/projects.js) */
+/* At most three cards per row, so there is room for the text; fewer on narrow screens.
+   js/project-cards.js reads --cols and widens the column of the open card, so the breakpoints live here
+   (each is a 250px column minimum plus the page's side padding). */
 .project-grid {
+  --cols: 1;
   display: grid;
-  /* At most three cards per row, so there is room for the text; fewer on narrow screens. */
-  grid-template-columns: repeat(auto-fill, minmax(max(250px, calc((100% - 40px) / 3)), 1fr));
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   gap: 20px;
+  transition: grid-template-columns 0.35s ease;
+}
+
+@media (min-width: 552px) {
+  .project-grid { --cols: 2; }
+}
+
+@media (min-width: 846px) {
+  .project-grid { --cols: 3; }
 }
 
 .project-card {
