@@ -318,6 +318,37 @@ main,
   padding: 64px 16px;
 }
 
+.page-home #explore + .contact {
+  padding-top: 0;
+}
+
+.contact-title {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.contact .phone {
+  /* Two screen pixels per font pixel keeps the digits sharp. */
+  width: 150px;
+  height: 14px;
+  margin-left: 0.15em;
+  fill: var(--text);
+  vertical-align: baseline;
+  shape-rendering: crispEdges;
+}
+
 .section-title {
   margin: 0 0 24px;
   font-size: clamp(1.6rem, 3.5vw, 2.1rem);

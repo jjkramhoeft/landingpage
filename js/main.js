@@ -23,5 +23,14 @@
     portal.addEventListener('blur', leave);
   });
 
+  // The mail address is put together here, so it never appears whole in the HTML for harvesters to find.
+  document.querySelectorAll('.mail').forEach((span) => {
+    const address = `${span.dataset.user}@${span.dataset.domain}`;
+    const link = document.createElement('a');
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+    span.replaceWith(link);
+  });
+
   window.Site.reveal(document.querySelectorAll('.reveal'));
 })();
