@@ -21,5 +21,5 @@ It is easy to add projects to the lists.
 
 ## Tech
 Should be able to be hosted on GitHub Pages and/or a small private web server.
-[github pages](https://jjkramhoeft.github.io/landingpage/index.html)
+[GitHub Pages](https://jjkramhoeft.github.io/landingpage/index.html)
 

@@ -106,7 +106,7 @@ window.PROJECTS = [
     summary: 'Tech demos for AI-assisted game development with Phaser and TypeScript, made in early spring 2026 using only free AI tools.',
     description: [
       'Player character animation and movement, layered tile maps for good-looking game worlds, and chunked tile maps for very large worlds that can be saved and loaded.',
-      'My first introuction to Phaser.',
+      'My first introduction to Phaser.',
     ],
     image: 'assets/projects/demogame.png',
     imageAlt: 'The demo\'s character animation tester.',
@@ -193,7 +193,7 @@ window.PROJECTS = [
     title: 'Sudoku Solver',
     section: 'algorithms',
     date: '2021-06',
-    summary: 'Solves sudoku puzzles. Handcoded - uses my own typical approaches, and brute forces when running out of options.',
+    summary: 'Solves sudoku puzzles. Hand-coded - uses my own typical approaches, and brute-forces when running out of options.',
   },
   {
     id: 'picture-morpher',
@@ -236,7 +236,7 @@ window.PROJECTS = [
       'It is one local HTML page with no server, no install and no API keys. The search handles Danish letters both ways, so Æblegrød is found by typing aeblegroed or ablegrod.',
     ],
     image: 'assets/projects/jumppage.png',
-    imageAlt: 'A Browser jumppage',
+    imageAlt: 'A browser jump page',
     tags: ['JavaScript', 'No dependencies'],
     source: 'https://github.com/jjkramhoeft/youtubejumppage',
   },
@@ -312,7 +312,7 @@ window.PROJECTS = [
     section: 'algorithms',
     topics: ['ai'],
     date: '2018',
-    summary: 'Generates names. Using the Markov N-th (3-4) gram model on characters in CPRs Real data set from Danish names.',
+    summary: 'Generates names using a character-level Markov n-gram model (n = 3–4) on CPR\'s Real data set from Danish names.',
   },
   {
     id: 'wikipedia-extractor',
@@ -336,7 +336,7 @@ window.PROJECTS = [
     date: '2023-10',
     summary: 'An implementation of Perlin and simplex noise.',
     image: 'assets/projects/noise-map-demo.png',
-    imageAlt: 'A grey-scale height map made from noise, with blue water in the low areas, next to panels of frequency, amplitude and warp settings',
+    imageAlt: 'A greyscale height map made from noise, with blue water in the low areas, next to panels of frequency, amplitude and warp settings',
     imagePosition: '0% 50%',
   },
   {
@@ -345,7 +345,7 @@ window.PROJECTS = [
     section: 'algorithms',
     topics: ['ai'],
     date: '2024-08',
-    summary: 'A testbed for conversations with non-player characters. Text to speech and Speech to text using Google\'s API.',
+    summary: 'A testbed for conversations with non-player characters. Text-to-speech and speech-to-text using Google\'s API.',
   },
   {
     id: 'bezier-hearts',
@@ -353,7 +353,7 @@ window.PROJECTS = [
     section: 'algorithms',
     topics: ['graphics'],
     date: '1995-09',
-    summary: 'Hearts drawn with Bézier splines. Showing my girl friend what I learn at Uni.',
+    summary: 'Hearts drawn with Bézier splines. Showing my girlfriend what I learn at Uni.',
     image: 'assets/projects/hearts.png',
     imageAlt: 'Nine small plots in a grid, where a straight line bends step by step into a heart shape drawn with Bézier curves',
   },
