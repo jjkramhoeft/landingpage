@@ -339,14 +339,15 @@ main,
   line-height: 1.7;
 }
 
+/* resources/tn.png is black text on a transparent background, so it is inverted to light text on the dark theme. */
 .contact .phone {
-  /* Two screen pixels per font pixel keeps the digits sharp. */
-  width: 150px;
-  height: 14px;
   margin-left: 0.15em;
-  fill: var(--text);
-  vertical-align: baseline;
-  shape-rendering: crispEdges;
+  vertical-align: middle;
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: light) {
+  .contact .phone { filter: none; }
 }
 
 .section-title {
