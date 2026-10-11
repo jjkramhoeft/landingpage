@@ -635,6 +635,18 @@ main,
   border-color: var(--card-accent);
 }
 
+.project-date {
+  display: none;
+  margin-left: auto;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.project-card.is-open .project-date {
+  display: block;
+}
+
 .empty {
   color: var(--muted);
 }

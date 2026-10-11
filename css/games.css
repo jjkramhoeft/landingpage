@@ -71,6 +71,7 @@
 .page-games h3,
 .badge,
 .project-play,
+.project-date,
 .pixel-button {
   font-family: var(--pixel);
   font-weight: 400;
@@ -304,6 +305,10 @@
 
 .page-games .project-toggle:hover {
   border-color: var(--games);
+}
+
+.page-games .project-date {
+  font-size: 0.6rem;
 }
 
 .page-games .project-link {

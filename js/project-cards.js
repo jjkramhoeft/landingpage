@@ -9,6 +9,7 @@
     playLabel    text for the Play button (default "Play")
 
   Only one card in a grid is open at a time: opening a card closes the one that was open.
+  An open card shows the project's date in its bottom right corner.
 
   ProjectCards.layout(grid) widens the grid column holding the open card and narrows the others,
   so a long description reads at a comfortable line length instead of in a tall, slim card.
@@ -31,6 +32,14 @@ window.ProjectCards = (function () {
     const attrs = { class: className, href };
     if (/^https?:/.test(href)) Object.assign(attrs, { target: '_blank', rel: 'noopener' });
     return el('a', attrs, label);
+  }
+
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // "2024-05" reads as "May 2024"; a plain year such as "2018" stays as it is.
+  function formatDate(date) {
+    const [year, month] = String(date).split('-');
+    return MONTHS[month - 1] ? `${MONTHS[month - 1]} ${year}` : year;
   }
 
   function isVideo(src) {
@@ -167,6 +176,7 @@ window.ProjectCards = (function () {
     });
 
     actions.append(toggle);
+    if (project.date) actions.append(el('time', { class: 'project-date', datetime: project.date }, formatDate(project.date)));
 
     body.append(details, actions);
     card.append(body);
