@@ -518,6 +518,11 @@ main,
   margin: 0;
 }
 
+/* Kept on every card so games.js can add a HI badge; hidden until something is in it. */
+.badges:empty {
+  display: none;
+}
+
 .badge {
   padding: 5px 8px;
   border: 1px solid var(--line);

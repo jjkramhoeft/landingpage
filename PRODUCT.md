@@ -35,7 +35,7 @@ A working data and modelling specialist whose hobby output is as big as his prof
 
 - **Stack:** plain static HTML, CSS and JavaScript with no build step. It is hosted on GitHub Pages (`jjkramhoeft/landingpage`, `main` root, `.nojekyll`) and must also run on a small private web server. Local preview: `python -m http.server 8765`.
 - **Content as data:** projects live in `data/projects.js` and career entries in `data/career.js`. Adding a project means copying an object; that ease of editing is a requirement (README).
-- **One project list, two sections:** each project is `section: "algorithms"` or `section: "games"`, `kind: "professional"`, `"hobby"` or `"tool"`, and has optional `link`, `source` and `play` (a playable pop-up).
+- **One project list, two sections:** each project is `section: "algorithms"` or `section: "games"` and has optional `link`, `source` and `play` (a playable pop-up).
 - **Built-in behaviours (README):** sound is off by default and the setting is remembered; animated backgrounds run on one `<canvas>`, pause when the tab is hidden and become a still image under reduced motion; light and dark mode both work; subpages have a small fixed header with the name, a link home and the sound toggle, while the main page has only the sound toggle.
 - **Undecided:** which projects from `rework.md` get a link, source or playable build, and the final wording for each.
 

@@ -27,12 +27,6 @@ window.ProjectCards = (function () {
   // Opens or closes a card without telling the page, keyed by card.
   const setters = new WeakMap();
 
-  const KIND_LABELS = {
-    professional: 'Professional',
-    hobby: 'Hobby',
-    tool: 'Tool',
-  };
-
   function linkTo(href, label, className) {
     const attrs = { class: className, href };
     if (/^https?:/.test(href)) Object.assign(attrs, { target: '_blank', rel: 'noopener' });
@@ -107,7 +101,6 @@ window.ProjectCards = (function () {
     const body = el('div', { class: 'project-body' });
 
     const badges = el('p', { class: 'badges' });
-    badges.append(el('span', { class: 'badge' }, KIND_LABELS[project.kind] || 'Hobby'));
     if (project.example) badges.append(el('span', { class: 'badge badge-example' }, 'Example'));
 
     body.append(badges, el('h3', {}, project.title));
