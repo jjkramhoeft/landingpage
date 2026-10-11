@@ -339,15 +339,14 @@ main,
   line-height: 1.7;
 }
 
-/* resources/tn.png is black text on a transparent background, so it is inverted to light text on the dark theme. */
-.contact .phone {
+.contact .tnummr {
   margin-left: 0.15em;
   vertical-align: middle;
   filter: invert(1);
 }
 
 @media (prefers-color-scheme: light) {
-  .contact .phone { filter: none; }
+  .contact .tnummr { filter: none; }
 }
 
 .section-title {
