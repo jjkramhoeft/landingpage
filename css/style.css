@@ -110,7 +110,7 @@ svg {
   top: 12px;
 }
 
-/* Animated contour background (js/background.js). */
+/* Animated page background (js/site.js; the contour map is js/background.js). */
 #bg {
   position: fixed;
   inset: 0;
@@ -429,7 +429,7 @@ main,
   transform: translateX(4px);
 }
 
-/* Project cards (rendered by js/main.js from data/projects.js) */
+/* Project cards (rendered by js/project-cards.js from data/projects.js) */
 .project-grid {
   display: grid;
   /* At most three cards per row, so there is room for the text; fewer on narrow screens. */
@@ -484,12 +484,6 @@ main,
   opacity: 1;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .project-image-open {
-    transition: none;
-  }
-}
-
 .project-complexity {
   align-self: flex-start;
   color: var(--card-accent);
@@ -523,11 +517,6 @@ main,
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.badge-section {
-  border-color: color-mix(in srgb, var(--card-accent) 45%, transparent);
-  color: var(--card-accent);
 }
 
 .badge-example {
@@ -674,9 +663,6 @@ main,
   .site-header { padding: 0 28px; }
   .section { padding: 72px 28px; }
   .site-footer { padding: 28px 28px 44px; }
-}
-
-@media (min-width: 720px) {
   .hero { padding: 120px 28px 8px; }
 
   .hero-title {
@@ -701,7 +687,6 @@ main,
   }
 
   .portal-career { margin-top: 72px; }
-  .portal-algo { margin-top: 0; }
   .portal-games { margin-top: 128px; }
 }
 

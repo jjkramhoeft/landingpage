@@ -10,15 +10,10 @@
 (function () {
   'use strict';
 
-  const canvas = document.getElementById('bg');
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext('2d');
-
   const CELL = 14;          // grid spacing in CSS pixels
   const SCALE = 1 / 460;    // noise feature size
   const STEP = 0.1;         // height difference between contour lines
   const LEVELS = 12;        // contour lines from -LEVELS*STEP to +LEVELS*STEP
-  const FPS = 30;
   const DRIFT_SPEED = 0.006; // how fast the terrain slides sideways
   const EVOLVE_SPEED = 0.022; // how fast the terrain changes shape
   const MOUSE_RADIUS = 240;
@@ -31,8 +26,20 @@
   const PEAK_RAISED = 1.25; // height of the hovered summit
   const PEAK_RADIUS = 150;  // CSS pixels; smaller on narrow screens
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lightScheme = window.matchMedia('(prefers-color-scheme: light)');
+  const reduceMotion = window.Site.reduceMotion;
+  const view = window.Site.backdrop({
+    colors: {
+      line: ['--contour', 'rgba(53, 208, 192, 0.12)'],
+      strong: ['--contour-strong', 'rgba(53, 208, 192, 0.3)'],
+    },
+    resize,
+    update,
+    draw,
+    onColors: readPeakColors,
+  });
+  if (!view) return;
+  const ctx = view.ctx;
+  const colors = view.colors;
 
   // ---- 3D simplex noise (after Stefan Gustavson's reference implementation) ----
   const GRAD3 = new Float32Array([
@@ -111,11 +118,9 @@
   }
 
   // ---- State ----
-  let width = 0, height = 0, dpr = 1, cols = 0, rows = 0;
+  let cols = 0, rows = 0;
   let field = new Float32Array(0);
-  let colors = readColors();
   let time = Math.random() * 100;
-  let running = false, rafId = 0, lastFrame = 0;
 
   const mouse = { x: 0, y: 0, tx: 0, ty: 0, amp: 0, target: 0, seen: false };
   const focus = { el: null, x: 0, y: 0, radius: 200, amp: 0, target: 0 };
@@ -124,7 +129,7 @@
 
   // A summit's top sits on its anchor (the destination's marker), like a peak symbol on a map.
   function measurePeaks() {
-    const radius = Math.min(PEAK_RADIUS, width * 0.32);
+    const radius = Math.min(PEAK_RADIUS, view.width * 0.32);
     peaks.forEach((peak) => {
       const r = peak.anchor.getBoundingClientRect();
       peak.x = r.left + r.width / 2;
@@ -133,24 +138,10 @@
     });
   }
 
-  function readColors() {
-    const style = getComputedStyle(document.documentElement);
-    return {
-      line: style.getPropertyValue('--contour').trim() || 'rgba(53, 208, 192, 0.12)',
-      strong: style.getPropertyValue('--contour-strong').trim() || 'rgba(53, 208, 192, 0.3)',
-    };
-  }
-
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    cols = Math.ceil(width / CELL) + 2;
-    rows = Math.ceil(height / CELL) + 2;
+    cols = Math.ceil(view.width / CELL) + 2;
+    rows = Math.ceil(view.height / CELL) + 2;
     field = new Float32Array(cols * rows);
-    draw();
   }
 
   function computeField() {
@@ -235,8 +226,6 @@
   }
 
   function draw() {
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, width, height);
     computeField();
     ctx.lineCap = 'round';
     for (let k = -LEVELS; k <= LEVELS; k++) {
@@ -272,7 +261,7 @@
       const reach = peak.radius * 2.1;
       const cy = peak.y + peak.radius * 1.05;
       const top = cy - reach, bottom = cy + reach;
-      if (peak.x + reach < 0 || peak.x - reach > width || bottom < 0 || top > height) return;
+      if (peak.x + reach < 0 || peak.x - reach > view.width || bottom < 0 || top > view.height) return;
       const strength = Math.min(peak.amp / PEAK_REST, 1.5);
       const gradient = ctx.createRadialGradient(peak.x, peak.y, 0, peak.x, cy, reach);
       gradient.addColorStop(0, withAlpha(peak.color, Math.min(0.85 * strength, 1)));
@@ -299,11 +288,7 @@
     });
   }
 
-  function frame(now) {
-    rafId = requestAnimationFrame(frame);
-    if (now - lastFrame < 1000 / FPS) return;
-    const dt = Math.min((now - lastFrame) / 1000, 0.1);
-    lastFrame = now;
+  function update(dt) {
     time += dt;
 
     mouse.x += (mouse.tx - mouse.x) * 0.08;
@@ -328,41 +313,21 @@
       pulse.amp = PULSE_HEIGHT * fade * fade;
       pulse.bump = 0.8 * Math.max(0, 1 - pulse.age / 0.9) * Math.min(pulse.age / 0.12, 1);
     });
-
-    draw();
   }
 
   // Without animation (reduced motion, or before the first frame) the still map still follows the page.
   let stillPending = false;
   function redrawStill() {
-    if (running || stillPending) return;
+    if (view.running || stillPending) return;
     stillPending = true;
     requestAnimationFrame(() => {
       stillPending = false;
       measurePeaks();
-      draw();
+      view.redraw();
     });
   }
 
-  function start() {
-    if (running || reduceMotion.matches || document.hidden) return;
-    running = true;
-    lastFrame = 0;
-    rafId = requestAnimationFrame(frame);
-  }
-
-  function stop() {
-    running = false;
-    cancelAnimationFrame(rafId);
-  }
-
   // ---- Events ----
-  let resizeTimer = 0;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(resize, 150);
-  });
-
   window.addEventListener('scroll', redrawStill, { passive: true });
 
   window.addEventListener('pointermove', (e) => {
@@ -375,24 +340,12 @@
 
   // Clicks and taps drop a wave into the terrain. Only while animating; a still map has nothing to ripple.
   window.addEventListener('pointerdown', (e) => {
-    if (!running) return;
+    if (!view.running) return;
     pulses.push({ x: e.clientX, y: e.clientY, age: 0, front: 0, amp: 0, bump: 0 });
     if (pulses.length > 4) pulses.shift();
   }, { passive: true });
 
   document.documentElement.addEventListener('pointerleave', () => { mouse.target = 0; });
-
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
-
-  reduceMotion.addEventListener('change', () => {
-    if (reduceMotion.matches) { stop(); draw(); } else { start(); }
-  });
-
-  lightScheme.addEventListener('change', () => {
-    colors = readColors();
-    readPeakColors();
-    draw();
-  });
 
   window.Background = {
     // Give each element a standing summit, topped at its `anchor` child if one matches.
@@ -409,7 +362,7 @@
       }));
       readPeakColors();
       measurePeaks();
-      if (still) draw();
+      if (still) view.redraw();
     },
 
     // Raise the summit under an element higher, or a new hill under any other element.
@@ -430,6 +383,5 @@
     },
   };
 
-  resize();
-  start();
+  view.begin();
 })();

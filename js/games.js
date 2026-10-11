@@ -7,7 +7,7 @@
   'use strict';
 
   const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reduceMotion = window.Site.reduceMotion;
   const sound = (name) => { if (window.Sound && window.Sound[name]) window.Sound[name](); };
 
   const list = document.getElementById('project-list');
@@ -29,9 +29,7 @@
 
   const cards = games.map((project, i) => {
     const card = window.ProjectCards.create(project, {
-      showSection: false,
       linkLabel: 'Open full screen →',
-      playLabel: 'Play',
       onPlay: openGame,
       onToggle: () => sound('coin'),
     });
@@ -42,23 +40,15 @@
     return { project, card };
   });
 
+  // A game that keeps its best score in localStorage as "jjk-hiscore-<id>" gets a HI badge on its card.
   function refreshScores() {
-    let best = 0;
     cards.forEach(({ project, card }) => {
       const score = storedNumber(`jjk-hiscore-${project.id}`);
-      best = Math.max(best, score);
+      if (!score) return;
       let badge = card.querySelector('.badge-hiscore');
-      if (score > 0) {
-        if (!badge) {
-          badge = document.createElement('span');
-          badge.className = 'badge badge-hiscore';
-          card.querySelector('.badges').append(badge);
-        }
-        badge.textContent = `HI ${String(score).padStart(4, '0')}`;
-      }
+      if (!badge) badge = card.querySelector('.badges').appendChild(window.Site.el('span', { class: 'badge badge-hiscore' }));
+      badge.textContent = `HI ${String(score).padStart(4, '0')}`;
     });
-    const hiscore = document.getElementById('hiscore');
-    if (hiscore) hiscore.textContent = String(best).padStart(6, '0');
   }
 
   // ---- Game pop-up ----
@@ -170,30 +160,10 @@
     resize();
   }
 
-  // ---- Scroll reveal ----
-
-  function reveal(nodes) {
-    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
-      nodes.forEach((node) => node.classList.add('is-visible'));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    nodes.forEach((node) => observer.observe(node));
-  }
-
   const count = document.getElementById('game-count');
   if (count) count.textContent = String(games.length).padStart(2, '0');
 
-  const year = document.getElementById('year');
-  if (year) year.textContent = String(new Date().getFullYear());
-
   refreshScores();
   pixelTrail();
-  reveal(Array.from(document.querySelectorAll('.reveal')));
+  window.Site.reveal(document.querySelectorAll('.reveal'));
 })();

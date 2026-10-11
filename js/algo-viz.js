@@ -12,13 +12,7 @@
 (function () {
   'use strict';
 
-  const canvas = document.getElementById('bg');
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext('2d');
-
-  const FPS = 30;
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lightScheme = window.matchMedia('(prefers-color-scheme: light)');
+  const reduceMotion = window.Site.reduceMotion;
 
   const ALGORITHMS = [
     { id: 'astar', mode: 'graph', name: 'A* search', complexity: 'O(E log V)', heuristic: true },
@@ -32,24 +26,37 @@
   let algo = ALGORITHMS.find((a) => a.id === requested)
     || ALGORITHMS[Math.floor(Math.random() * ALGORITHMS.length)];
 
-  let width = 0, height = 0, dpr = 1;
-  let colors = readColors();
-  let running = false, paused = false, rafId = 0, lastFrame = 0;
+  const controls = document.getElementById('viz-controls');
+  const pauseButton = document.getElementById('viz-pause');
+  const nextButton = document.getElementById('viz-next');
+
+  let paused = false;
   let mode = null;
 
-  function readColors() {
-    const style = getComputedStyle(document.documentElement);
-    const get = (name, fallback) => style.getPropertyValue(name).trim() || fallback;
-    return {
-      line: get('--viz-line', 'rgba(120, 170, 255, 0.12)'),
-      node: get('--viz-node', 'rgba(150, 190, 255, 0.35)'),
-      visited: get('--viz-visited', 'rgba(90, 162, 255, 0.5)'),
-      frontier: get('--viz-frontier', 'rgba(76, 245, 160, 0.75)'),
-      path: get('--viz-path', 'rgba(76, 245, 160, 0.9)'),
-      goal: get('--viz-goal', 'rgba(242, 165, 65, 0.85)'),
-      bar: get('--viz-bar', 'rgba(90, 162, 255, 0.16)'),
-    };
-  }
+  const view = window.Site.backdrop({
+    colors: {
+      line: ['--viz-line', 'rgba(120, 170, 255, 0.12)'],
+      node: ['--viz-node', 'rgba(150, 190, 255, 0.35)'],
+      visited: ['--viz-visited', 'rgba(90, 162, 255, 0.5)'],
+      frontier: ['--viz-frontier', 'rgba(76, 245, 160, 0.75)'],
+      path: ['--viz-path', 'rgba(76, 245, 160, 0.9)'],
+      goal: ['--viz-goal', 'rgba(242, 165, 65, 0.85)'],
+      bar: ['--viz-bar', 'rgba(90, 162, 255, 0.16)'],
+    },
+    resize() {
+      mode.resize();
+      if (reduceMotion.matches) mode.finishInstantly();
+    },
+    update: (dt) => mode.update(dt),
+    draw: () => mode.draw(),
+    canRun: () => !paused && !reduceMotion.matches,
+    onMotionChange() {
+      if (pauseButton) pauseButton.hidden = reduceMotion.matches;
+      if (reduceMotion.matches) mode.finishInstantly();
+    },
+  });
+  if (!view) return;
+  const { ctx, colors } = view;
 
   const plural = (n, word) => `${n.toLocaleString('en')} ${word}${n === 1 ? '' : 's'}`;
 
@@ -70,6 +77,7 @@
     let search = null;
 
     function build() {
+      const { width, height } = view;
       const count = Math.max(30, Math.min(140, Math.round((width * height) / 15000)));
       const minDist = Math.sqrt((width * height) / count) * 0.55;
       nodes = [];
@@ -329,7 +337,7 @@
     let timer = 0;
 
     function reset() {
-      const count = Math.max(24, Math.min(120, Math.floor(width / 12)));
+      const count = Math.max(24, Math.min(120, Math.floor(view.width / 12)));
       values = Array.from({ length: count }, () => 0.06 + Math.random() * 0.94);
       steps = algo.sort(values);
       highlight = null;
@@ -368,6 +376,7 @@
     }
 
     function draw() {
+      const { width, height } = view;
       const n = values.length;
       const barWidth = width / n;
       const maxHeight = height * 0.4;
@@ -395,60 +404,16 @@
     };
   }
 
-  // ---------------------------------------------------------------- Loop
-
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    mode.resize();
-    if (reduceMotion.matches) mode.finishInstantly();
-    render();
-  }
-
-  function render() {
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, width, height);
-    mode.draw();
-  }
-
-  function frame(now) {
-    rafId = requestAnimationFrame(frame);
-    if (now - lastFrame < 1000 / FPS) return;
-    const dt = lastFrame ? Math.min((now - lastFrame) / 1000, 0.1) : 0;
-    lastFrame = now;
-    mode.update(dt);
-    render();
-  }
-
-  function start() {
-    if (running || paused || reduceMotion.matches || document.hidden) return;
-    running = true;
-    lastFrame = 0;
-    rafId = requestAnimationFrame(frame);
-  }
-
-  function stop() {
-    running = false;
-    cancelAnimationFrame(rafId);
-  }
-
   function createMode() {
     return algo.mode === 'graph' ? graphMode() : sortMode();
   }
 
   // ---------------------------------------------------------------- Pause and Next
 
-  const controls = document.getElementById('viz-controls');
-  const pauseButton = document.getElementById('viz-pause');
-  const nextButton = document.getElementById('viz-next');
-
   function setPaused(value) {
     paused = value;
     pauseButton.textContent = paused ? 'Play' : 'Pause';
-    if (paused) stop(); else start();
+    if (paused) view.stop(); else view.start();
   }
 
   // Next starts the following algorithm from the beginning. While paused, it shows its first frame and stays paused.
@@ -456,7 +421,7 @@
     algo = ALGORITHMS[(ALGORITHMS.indexOf(algo) + 1) % ALGORITHMS.length];
     mode = createMode();
     caption();
-    resize();
+    view.begin();
   }
 
   if (controls && pauseButton && nextButton) {
@@ -467,26 +432,7 @@
     nextButton.addEventListener('click', showNext);
   }
 
-  let resizeTimer = 0;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(resize, 200);
-  });
-
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
-
-  reduceMotion.addEventListener('change', () => {
-    if (pauseButton) pauseButton.hidden = reduceMotion.matches;
-    if (reduceMotion.matches) { stop(); mode.finishInstantly(); render(); } else { start(); }
-  });
-
-  lightScheme.addEventListener('change', () => {
-    colors = readColors();
-    render();
-  });
-
   mode = createMode();
   caption();
-  resize();
-  start();
+  view.begin();
 })();

@@ -9,16 +9,9 @@
   const TRIGGER = 0.65; // how far down the viewport the "train" is, 0 = top, 1 = bottom
 
   const data = window.CAREER || { experience: [], education: [] };
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const { el, reduceMotion } = window.Site;
 
   // ---- Helpers ----
-
-  function el(tag, attrs, text) {
-    const node = document.createElement(tag);
-    Object.entries(attrs || {}).forEach(([key, value]) => node.setAttribute(key, value));
-    if (text != null) node.textContent = text;
-    return node;
-  }
 
   function parseDate(value) {
     const [year, month] = String(value).split('-').map(Number);
@@ -418,21 +411,6 @@
     });
   }
 
-  function reveal(nodes) {
-    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
-      nodes.forEach((node) => node.classList.add('is-visible'));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    nodes.forEach((node) => observer.observe(node));
-  }
-
   // ---- Start ----
 
   render();
@@ -451,9 +429,6 @@
   const companyKeys = new Set(data.experience.map((c) => c.group || c.company));
   if (companies) companies.textContent = String(companyKeys.size);
 
-  const year = document.getElementById('year');
-  if (year) year.textContent = String(new Date().getFullYear());
-
   // Show the whole line when printing, whatever the scroll position.
   window.addEventListener('beforeprint', () => routes.forEach((r) => r.el.style.setProperty('--draw', '1')));
   window.addEventListener('afterprint', update);
@@ -466,6 +441,6 @@
   }
   reduceMotion.addEventListener('change', layout);
 
-  reveal(Array.from(document.querySelectorAll('.reveal')));
+  window.Site.reveal(document.querySelectorAll('.reveal'));
   layout();
 })();

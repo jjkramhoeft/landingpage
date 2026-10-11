@@ -6,26 +6,30 @@
 (function () {
   'use strict';
 
-  const canvas = document.getElementById('bg');
-  if (!canvas || !canvas.getContext) return;
-  const ctx = canvas.getContext('2d');
-
   const SPACING = 72;          // px between latitude lines
   const MERIDIAN_GAP = 96;     // px between meridians, measured mid-screen
   const RADIAL_SPEED = 4;      // px per second the grid drifts down
   const ANGULAR_SPEED = 0.0012; // radians per second the grid turns
   const PULSE_SECONDS = 4;
   const POINT_COUNT = 11;
-  const FPS = 30;
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lightScheme = window.matchMedia('(prefers-color-scheme: light)');
+  const reduceMotion = window.Site.reduceMotion;
+  const view = window.Site.backdrop({
+    colors: {
+      line: ['--grid-line', 'rgba(154, 171, 181, 0.07)'],
+      major: ['--grid-major', 'rgba(154, 171, 181, 0.14)'],
+      point: ['--grid-point', 'rgba(53, 208, 192, 0.75)'],
+      home: ['--grid-home', 'rgba(242, 165, 65, 0.9)'],
+    },
+    resize,
+    update: (dt) => { time += dt; },
+    draw,
+  });
+  if (!view) return;
+  const { ctx, colors } = view;
 
-  let width = 0, height = 0, dpr = 1;
   let cx = 0, cy = 0, rMin = 0, rMax = 0, aMin = 0, aMax = 0, dA = 0.05;
-  let colors = readColors();
   let time = 0;
-  let running = false, rafId = 0, lastFrame = 0;
 
   // Points live in grid coordinates (u along the arcs, v along the meridians, both 0..1) so they drift with the grid.
   const points = Array.from({ length: POINT_COUNT }, (_, i) => ({
@@ -35,24 +39,8 @@
     home: i === 0,
   }));
 
-  function readColors() {
-    const style = getComputedStyle(document.documentElement);
-    const get = (name, fallback) => style.getPropertyValue(name).trim() || fallback;
-    return {
-      line: get('--grid-line', 'rgba(154, 171, 181, 0.07)'),
-      major: get('--grid-major', 'rgba(154, 171, 181, 0.14)'),
-      point: get('--grid-point', 'rgba(53, 208, 192, 0.75)'),
-      home: get('--grid-home', 'rgba(242, 165, 65, 0.9)'),
-    };
-  }
-
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-
+    const { width, height } = view;
     // The projection's centre sits far above the screen, so latitudes are gentle arcs and meridians fan out.
     cx = width / 2;
     cy = -height * 1.4;
@@ -63,12 +51,10 @@
     aMin = Math.min(...angles) - 0.05;
     aMax = Math.max(...angles) + 0.05;
     dA = MERIDIAN_GAP / ((rMin + rMax) / 2);
-    draw();
   }
 
   function draw() {
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, width, height);
+    const { width, height } = view;
     ctx.lineWidth = 1;
 
     // Latitude arcs. Every fifth line is stronger; the counter keeps that stable while the grid drifts.
@@ -124,44 +110,5 @@
     ctx.globalAlpha = 1;
   }
 
-  function frame(now) {
-    rafId = requestAnimationFrame(frame);
-    if (now - lastFrame < 1000 / FPS) return;
-    const dt = lastFrame ? Math.min((now - lastFrame) / 1000, 0.1) : 0;
-    lastFrame = now;
-    time += dt;
-    draw();
-  }
-
-  function start() {
-    if (running || reduceMotion.matches || document.hidden) return;
-    running = true;
-    lastFrame = 0;
-    rafId = requestAnimationFrame(frame);
-  }
-
-  function stop() {
-    running = false;
-    cancelAnimationFrame(rafId);
-  }
-
-  let resizeTimer = 0;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(resize, 150);
-  });
-
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
-
-  reduceMotion.addEventListener('change', () => {
-    if (reduceMotion.matches) { stop(); draw(); } else { start(); }
-  });
-
-  lightScheme.addEventListener('change', () => {
-    colors = readColors();
-    draw();
-  });
-
-  resize();
-  start();
+  view.begin();
 })();

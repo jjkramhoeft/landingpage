@@ -14,11 +14,6 @@
 window.Starfield = (function () {
   'use strict';
 
-  const canvas = document.getElementById('bg');
-  if (!canvas || !canvas.getContext) return { startGame() {}, stopGame() {}, isPlaying: () => false };
-  const ctx = canvas.getContext('2d');
-
-  const FPS = 30;
   const BLOCK = 8; // hill "pixel" size
   const LAYERS = [
     { speed: 5, size: 2, density: 1 / 9000, parallax: 0.03, alpha: 0.45 },
@@ -31,34 +26,35 @@ window.Starfield = (function () {
   ];
   const FONT = '"Press Start 2P", ui-monospace, monospace';
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const lightScheme = window.matchMedia('(prefers-color-scheme: light)');
+  const reduceMotion = window.Site.reduceMotion;
+  const view = window.Site.backdrop({
+    colors: {
+      star: ['--star', 'rgba(255, 255, 255, 0.85)'],
+      star2: ['--star-2', 'rgba(201, 160, 74, 0.8)'],
+      '--land-far': ['--land-far', '#1b1713'],
+      '--land-near': ['--land-near', '#221d18'],
+      hud: ['--coin', '#c9a04a'],
+      hud2: ['--games', '#e9584c'],
+    },
+    resize,
+    update(dt) {
+      if (!reduceMotion.matches || game.active) time += dt;
+      if (game.active) updateGame(dt);
+    },
+    draw,
+    // With "reduce motion" on, the background stands still, but a started game still runs.
+    canRun: () => !reduceMotion.matches || game.active,
+  });
+  if (!view) return { startGame() {}, stopGame() {}, isPlaying: () => false };
+  const { ctx, colors } = view;
 
-  let width = 0, height = 0, dpr = 1;
+  // The canvas size, kept in step with the view on resize.
+  let width = 0, height = 0;
   let stars = [];
-  let colors = readColors();
   let time = 0;
-  let running = false, rafId = 0, lastFrame = 0;
-
-  function readColors() {
-    const style = getComputedStyle(document.documentElement);
-    const get = (name, fallback) => style.getPropertyValue(name).trim() || fallback;
-    return {
-      star: get('--star', 'rgba(255, 255, 255, 0.85)'),
-      star2: get('--star-2', 'rgba(201, 160, 74, 0.8)'),
-      '--land-far': get('--land-far', '#1b1713'),
-      '--land-near': get('--land-near', '#221d18'),
-      hud: get('--coin', '#c9a04a'),
-      hud2: get('--games', '#e9584c'),
-    };
-  }
 
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
+    ({ width, height } = view);
     stars = [];
     LAYERS.forEach((layer, li) => {
       const count = Math.round(width * height * layer.density);
@@ -74,7 +70,6 @@ window.Starfield = (function () {
       }
     });
     if (game.active) game.shipX = Math.min(Math.max(game.shipX, 30), width - 30);
-    draw();
   }
 
   // Height of a hill column, as a smooth function of its position in the (endless) landscape.
@@ -138,7 +133,7 @@ window.Starfield = (function () {
     });
     document.body.classList.add('arcade-game-on');
     if (window.Sound) window.Sound.jump();
-    start();
+    view.start();
   }
 
   function stopGame() {
@@ -149,7 +144,7 @@ window.Starfield = (function () {
     game.invaders = [];
     game.explosions = [];
     document.body.classList.remove('arcade-game-on');
-    if (reduceMotion.matches) { stop(); draw(); }
+    if (reduceMotion.matches) { view.stop(); view.redraw(); }
   }
 
   function shipY() {
@@ -323,57 +318,15 @@ window.Starfield = (function () {
   // ---------------------------------------------------------------- Loop
 
   function draw() {
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, width, height);
     drawStars();
     drawHills();
     if (game.active) drawGame();
   }
 
-  function frame(now) {
-    rafId = requestAnimationFrame(frame);
-    if (now - lastFrame < 1000 / FPS) return;
-    const dt = lastFrame ? Math.min((now - lastFrame) / 1000, 0.1) : 0;
-    lastFrame = now;
-    if (!reduceMotion.matches || game.active) time += dt;
-    if (game.active) updateGame(dt);
-    draw();
-  }
-
-  function start() {
-    if (running || document.hidden || (reduceMotion.matches && !game.active)) return;
-    running = true;
-    lastFrame = 0;
-    rafId = requestAnimationFrame(frame);
-  }
-
-  function stop() {
-    running = false;
-    cancelAnimationFrame(rafId);
-  }
-
-  let resizeTimer = 0;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(resize, 150);
-  });
-
   // With the animation stopped, still redraw when scrolling so the parallax follows.
-  window.addEventListener('scroll', () => { if (!running) draw(); }, { passive: true });
+  window.addEventListener('scroll', () => { if (!view.running) view.redraw(); }, { passive: true });
 
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
-
-  reduceMotion.addEventListener('change', () => {
-    if (reduceMotion.matches && !game.active) { stop(); draw(); } else { start(); }
-  });
-
-  lightScheme.addEventListener('change', () => {
-    colors = readColors();
-    draw();
-  });
-
-  resize();
-  start();
+  view.begin();
 
   return { startGame, stopGame, isPlaying: () => game.active };
 })();

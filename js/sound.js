@@ -65,7 +65,32 @@
     osc.start();
   }
 
-  // ---- Tracks: each returns { start(), stop() } ----
+  // Plays a track bar by bar. playBar(bar, time) schedules one bar starting at `time` and returns its length in seconds.
+  // Bars are scheduled a little ahead of time so timers can't make the rhythm stumble.
+  function sequencer(playBar) {
+    let timer = 0;
+    let bar = 0;
+    let nextBar = 0;
+
+    function schedule() {
+      while (nextBar < ctx.currentTime + 0.6) nextBar += playBar(bar++, nextBar);
+    }
+
+    return {
+      start() {
+        if (timer) return;
+        nextBar = ctx.currentTime + 0.1;
+        schedule();
+        timer = setInterval(schedule, 200);
+      },
+      stop() {
+        clearInterval(timer);
+        timer = 0;
+      },
+    };
+  }
+
+  // ---- Tracks: each returns a sequencer ----
 
   // Main page: slow, warm synth chords with a soft wind texture.
   function padTrack() {
@@ -101,12 +126,8 @@
     wind.connect(musicIn);
     noise.start();
 
-    let timer = 0;
-    let index = 0;
-
-    function playChord() {
-      const notes = CHORDS[index++ % CHORDS.length];
-      const t = ctx.currentTime;
+    return sequencer((bar, t) => {
+      const notes = CHORDS[bar % CHORDS.length];
       const attack = 3, hold = CHORD_SECONDS - attack, release = 5;
       const end = t + attack + hold + release;
       notes.forEach((note) => {
@@ -127,19 +148,8 @@
           osc.stop(end + 0.1);
         });
       });
-    }
-
-    return {
-      start() {
-        if (timer) return;
-        playChord();
-        timer = setInterval(playChord, CHORD_SECONDS * 1000);
-      },
-      stop() {
-        clearInterval(timer);
-        timer = 0;
-      },
-    };
+      return CHORD_SECONDS;
+    });
   }
 
   // Career page: a calm, slightly lo-fi piano loop (Fmaj7, Em7, Dm7, Cmaj7 at 72 BPM).
@@ -162,10 +172,6 @@
     tone.frequency.value = 2400;
     tone.connect(musicIn);
 
-    let timer = 0;
-    let bar = 0;
-    let nextBar = 0;
-
     function note(midi, time, velocity, length) {
       const f = midiToHz(midi);
       const env = ctx.createGain();
@@ -187,34 +193,17 @@
       });
     }
 
-    // Schedules notes a little ahead of time so timers can't make the rhythm stumble.
-    function schedule() {
-      while (nextBar < ctx.currentTime + 0.6) {
-        const chord = BARS[bar % BARS.length];
-        PATTERN.forEach(([beat, index, velocity]) => {
-          if (index >= 0 && Math.random() < 0.15) return; // leave out the odd note for variation
-          const time = nextBar + beat * BEAT + (index >= 0 ? (Math.random() - 0.5) * 0.02 : 0);
-          const v = velocity * (0.85 + Math.random() * 0.3);
-          if (index < 0) note(chord.bass, time, v, 3.5);
-          else note(chord.notes[index], time, v, 2.4);
-        });
-        nextBar += 4 * BEAT;
-        bar++;
-      }
-    }
-
-    return {
-      start() {
-        if (timer) return;
-        nextBar = ctx.currentTime + 0.1;
-        schedule();
-        timer = setInterval(schedule, 200);
-      },
-      stop() {
-        clearInterval(timer);
-        timer = 0;
-      },
-    };
+    return sequencer((bar, start) => {
+      const chord = BARS[bar % BARS.length];
+      PATTERN.forEach(([beat, index, velocity]) => {
+        if (index >= 0 && Math.random() < 0.15) return; // leave out the odd note for variation
+        const time = start + beat * BEAT + (index >= 0 ? (Math.random() - 0.5) * 0.02 : 0);
+        const v = velocity * (0.85 + Math.random() * 0.3);
+        if (index < 0) note(chord.bass, time, v, 3.5);
+        else note(chord.notes[index], time, v, 2.4);
+      });
+      return 4 * BEAT;
+    });
   }
 
   // Algorithms page: a minimal, synthwave-light loop (Am, F, C, G at 96 BPM) with arpeggio, bass and soft drums.
@@ -242,10 +231,6 @@
     bassFilter.connect(musicIn);
 
     const hatNoise = noiseBuffer(0.2);
-
-    let timer = 0;
-    let bar = 0;
-    let nextBar = 0;
 
     function pluck(midi, time) {
       const osc = ctx.createOscillator();
@@ -306,33 +291,17 @@
       src.stop(time + 0.05);
     }
 
-    function schedule() {
-      while (nextBar < ctx.currentTime + 0.6) {
-        const chord = CHORDS[Math.floor(bar / 2) % CHORDS.length];
-        for (let step = 0; step < 16; step++) {
-          const time = nextBar + step * STEP;
-          pluck(chord.arp[ARP[step]] + (bar % 4 === 3 && step > 11 ? 12 : 0), time);
-          if (BASS_STEPS.includes(step)) bass(chord.bass, time);
-          if (step === 0 || step === 8) kick(time);
-          if (step % 4 === 2) hat(time);
-        }
-        nextBar += 16 * STEP;
-        bar++;
+    return sequencer((bar, start) => {
+      const chord = CHORDS[Math.floor(bar / 2) % CHORDS.length];
+      for (let step = 0; step < 16; step++) {
+        const time = start + step * STEP;
+        pluck(chord.arp[ARP[step]] + (bar % 4 === 3 && step > 11 ? 12 : 0), time);
+        if (BASS_STEPS.includes(step)) bass(chord.bass, time);
+        if (step === 0 || step === 8) kick(time);
+        if (step % 4 === 2) hat(time);
       }
-    }
-
-    return {
-      start() {
-        if (timer) return;
-        nextBar = ctx.currentTime + 0.1;
-        schedule();
-        timer = setInterval(schedule, 200);
-      },
-      stop() {
-        clearInterval(timer);
-        timer = 0;
-      },
-    };
+      return 16 * STEP;
+    });
   }
 
   // A pulse wave like the square channels of an 8-bit console (duty 0.25 = the classic thin "NES" tone).
@@ -358,10 +327,6 @@
 
     const lead = pulseWave(0.25);
     const drumNoise = noiseBuffer(0.3);
-
-    let timer = 0;
-    let bar = 0;
-    let nextBar = 0;
 
     function tone(wave, frequency, time, length, level) {
       const osc = ctx.createOscillator();
@@ -407,39 +372,23 @@
       osc.stop(time + 0.18);
     }
 
-    function schedule() {
-      while (nextBar < ctx.currentTime + 0.6) {
-        const index = bar % 4;
-        const lift = Math.floor(bar / 4) % 2 === 1 && index >= 2 ? 12 : 0; // every other round, end an octave up
-        MELODY[index].forEach((note, eighth) => {
-          if (note != null) tone(lead, midiToHz(note + lift), nextBar + eighth * 2 * STEP, STEP * 1.8, 0.05);
-        });
-        for (let eighth = 0; eighth < 8; eighth++) {
-          const time = nextBar + eighth * 2 * STEP;
-          tone('triangle', midiToHz(BASS[index] + (eighth % 2 ? 12 : 0)), time, STEP * 1.7, 0.16);
-          noise(time + STEP, 0.03, 0.03, 8000);
-        }
-        kick(nextBar);
-        kick(nextBar + 8 * STEP);
-        noise(nextBar + 4 * STEP, 0.12, 0.09, 1500);
-        noise(nextBar + 12 * STEP, 0.12, 0.09, 1500);
-        nextBar += 16 * STEP;
-        bar++;
+    return sequencer((bar, start) => {
+      const index = bar % 4;
+      const lift = Math.floor(bar / 4) % 2 === 1 && index >= 2 ? 12 : 0; // every other round, end an octave up
+      MELODY[index].forEach((note, eighth) => {
+        if (note != null) tone(lead, midiToHz(note + lift), start + eighth * 2 * STEP, STEP * 1.8, 0.05);
+      });
+      for (let eighth = 0; eighth < 8; eighth++) {
+        const time = start + eighth * 2 * STEP;
+        tone('triangle', midiToHz(BASS[index] + (eighth % 2 ? 12 : 0)), time, STEP * 1.7, 0.16);
+        noise(time + STEP, 0.03, 0.03, 8000);
       }
-    }
-
-    return {
-      start() {
-        if (timer) return;
-        nextBar = ctx.currentTime + 0.1;
-        schedule();
-        timer = setInterval(schedule, 200);
-      },
-      stop() {
-        clearInterval(timer);
-        timer = 0;
-      },
-    };
+      kick(start);
+      kick(start + 8 * STEP);
+      noise(start + 4 * STEP, 0.12, 0.09, 1500);
+      noise(start + 12 * STEP, 0.12, 0.09, 1500);
+      return 16 * STEP;
+    });
   }
 
   const TRACKS = { pad: padTrack, piano: pianoTrack, synth: synthTrack, chiptune: chiptuneTrack };
@@ -513,7 +462,6 @@
   }
 
   function blip(frequency) {
-    if (!playing || !ctx) return;
     const f = frequency || 330;
     const t = ctx.currentTime;
     const osc = ctx.createOscillator();
@@ -532,7 +480,6 @@
 
   // A soft bell. `step` walks up a pentatonic scale, so consecutive chimes form a little melody.
   function chime(step) {
-    if (!playing || !ctx) return;
     const SCALE = [76, 79, 81, 83, 86, 88];
     const f = midiToHz(SCALE[Math.abs(step || 0) % SCALE.length]);
     const t = ctx.currentTime;
@@ -585,13 +532,11 @@
   }
 
   function click() {
-    if (!playing || !ctx) return;
     tick(ctx.currentTime, 2600, 0.14);
   }
 
   // A short burst of keyboard typing.
   function keys(count) {
-    if (!playing || !ctx) return;
     let time = ctx.currentTime;
     for (let i = 0; i < (count || 4); i++) {
       tick(time, 1800 + Math.random() * 1400, 0.06 + Math.random() * 0.04);
@@ -615,31 +560,26 @@
   }
 
   function coin() {
-    if (!playing || !ctx) return;
     const t = ctx.currentTime;
     square(t, 988, 988, 0.07, 0.05);
     square(t + 0.07, 1319, 1319, 0.28, 0.05);
   }
 
   function jump() {
-    if (!playing || !ctx) return;
     square(ctx.currentTime, 220, 700, 0.14, 0.03);
   }
 
   function shoot() {
-    if (!playing || !ctx) return;
     square(ctx.currentTime, 1400, 300, 0.09, 0.02);
   }
 
   function boom() {
-    if (!playing || !ctx) return;
     const t = ctx.currentTime;
     square(t, 320, 60, 0.22, 0.05);
     square(t + 0.03, 180, 40, 0.2, 0.04);
   }
 
   function over() {
-    if (!playing || !ctx) return;
     const t = ctx.currentTime;
     [523, 392, 330, 262].forEach((f, i) => square(t + i * 0.13, f, f * 0.97, 0.14, 0.05));
   }
@@ -678,5 +618,10 @@
     events.forEach((type) => document.addEventListener(type, arm, true));
   }
 
-  window.Sound = { blip, chime, click, keys, coin, jump, shoot, boom, over };
+  // Effects only play while sound is on.
+  const effects = { blip, chime, click, keys, coin, jump, shoot, boom, over };
+  window.Sound = {};
+  Object.entries(effects).forEach(([name, play]) => {
+    window.Sound[name] = (...args) => { if (playing) play(...args); };
+  });
 })();

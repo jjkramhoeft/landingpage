@@ -1,9 +1,8 @@
 /*
-  Shared project card, used by the main page and the project pages.
+  Shared project card, used by the Algorithms and Games pages.
 
   ProjectCards.create(project, options) returns an <article> that expands in place.
   options:
-    showSection  show the "Algorithms & Utilities" / "Games & Fun" badge (default true)
     linkLabel    text for project.link (default "Open project →")
     onToggle     called with true/false when the card opens or closes
     onPlay       if given, projects with a `play` URL get a Play button that calls onPlay(project, button)
@@ -14,23 +13,13 @@
 window.ProjectCards = (function () {
   'use strict';
 
-  const SECTION_LABELS = {
-    algorithms: 'Algorithms & Utilities',
-    games: 'Games & Fun',
-  };
+  const el = window.Site.el;
 
   const KIND_LABELS = {
     professional: 'Professional',
     hobby: 'Hobby',
     tool: 'Tool',
   };
-
-  function el(tag, attrs, text) {
-    const node = document.createElement(tag);
-    Object.entries(attrs || {}).forEach(([key, value]) => node.setAttribute(key, value));
-    if (text != null) node.textContent = text;
-    return node;
-  }
 
   function linkTo(href, label, className) {
     const attrs = { class: className, href };
@@ -72,7 +61,7 @@ window.ProjectCards = (function () {
   }
 
   function create(project, options) {
-    const opts = Object.assign({ showSection: true, linkLabel: 'Open project →' }, options);
+    const opts = Object.assign({ linkLabel: 'Open project →' }, options);
     const detailsId = `project-${project.id}-details`;
     const card = el('article', { class: 'project-card', 'data-section': project.section, id: `project-${project.id}` });
 
@@ -106,9 +95,6 @@ window.ProjectCards = (function () {
     const body = el('div', { class: 'project-body' });
 
     const badges = el('p', { class: 'badges' });
-    if (opts.showSection) {
-      badges.append(el('span', { class: 'badge badge-section' }, SECTION_LABELS[project.section] || project.section));
-    }
     badges.append(el('span', { class: 'badge' }, KIND_LABELS[project.kind] || 'Hobby'));
     if (project.example) badges.append(el('span', { class: 'badge badge-example' }, 'Example'));
 
@@ -181,5 +167,5 @@ window.ProjectCards = (function () {
     return String(b.date || '').localeCompare(String(a.date || ''));
   }
 
-  return { create, compare, SECTION_LABELS };
+  return { create, compare };
 })();

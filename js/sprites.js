@@ -1,8 +1,7 @@
 /*
-  Tiny pixel-art sprites for the Games page, drawn from text maps.
+  Tiny pixel-art sprites for the Star Catcher easter egg on the Games page, drawn from text maps.
   Each character is one pixel; "." is transparent and other characters are looked up in the sprite's palette.
 
-  Sprites.svg(name, pixelSize)          returns an inline <svg> string
   Sprites.draw(ctx, name, x, y, size)   draws the sprite on a canvas, centred on x, y
 */
 window.Sprites = (function () {
@@ -34,18 +33,6 @@ window.Sprites = (function () {
         '...d...',
       ],
     },
-    star: {
-      palette: { Y: '#c9a04a', w: '#ecd9a0' },
-      rows: [
-        '...Y...',
-        '..YwY..',
-        'YYYwYYY',
-        '.YYYYY.',
-        '..YYY..',
-        '.YY.YY.',
-        'Y.....Y',
-      ],
-    },
     invader: {
       palette: { M: '#e9584c', d: '#9c2f26', w: '#efe6d4' },
       rows: [
@@ -72,22 +59,6 @@ window.Sprites = (function () {
     },
   };
 
-  function svg(name, size) {
-    const sprite = SPRITES[name];
-    if (!sprite) return '';
-    const px = size || 4;
-    const w = sprite.rows[0].length;
-    const h = sprite.rows.length;
-    let rects = '';
-    sprite.rows.forEach((row, y) => {
-      [...row].forEach((ch, x) => {
-        const color = sprite.palette[ch];
-        if (color) rects += `<rect x="${x}" y="${y}" width="1" height="1" fill="${color}"/>`;
-      });
-    });
-    return `<svg class="sprite" viewBox="0 0 ${w} ${h}" width="${w * px}" height="${h * px}" shape-rendering="crispEdges" aria-hidden="true">${rects}</svg>`;
-  }
-
   function draw(ctx, name, cx, cy, size) {
     const sprite = SPRITES[name];
     if (!sprite) return;
@@ -105,10 +76,5 @@ window.Sprites = (function () {
     });
   }
 
-  function size(name, px) {
-    const sprite = SPRITES[name];
-    return sprite ? { width: sprite.rows[0].length * px, height: sprite.rows.length * px } : { width: 0, height: 0 };
-  }
-
-  return { svg, draw, size };
+  return { draw };
 })();
