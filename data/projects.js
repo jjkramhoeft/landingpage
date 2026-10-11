@@ -264,7 +264,7 @@ window.PROJECTS = [
     title: 'News Scraper and Real Headline Generator',
     section: 'algorithms',
     kind: 'tool',
-    summary: 'A news scraper and a headline generator.',
+    summary: 'A news scraper and a headline generator. Fixes headlines to signal the actual main point of the story. No more headlines just being a question and clickbait.',
   },
   {
     id: 'aurora-forecast',
@@ -273,7 +273,7 @@ window.PROJECTS = [
     kind: 'tool',
     topics: ['geo'],
     date: '2023-04',
-    summary: 'A free app with aurora forecast data.',
+    summary: 'A free app with aurora forecast data, and weather forecasts.',
   },
   {
     id: 'comfyui-nodes',
@@ -306,7 +306,7 @@ window.PROJECTS = [
     section: 'algorithms',
     kind: 'hobby',
     topics: ['tools'],
-    summary: 'An app for reading the Bible.',
+    summary: 'An app for reading or listening to the Bible, taking notes and tracking progress.',
   },
   {
     id: 'name-generator',
@@ -346,7 +346,7 @@ window.PROJECTS = [
     title: 'NPC Dialog Testbed',
     section: 'algorithms',
     kind: 'hobby',
-    summary: 'A testbed for conversations with non-player characters.',
+    summary: 'A testbed for conversations with non-player characters. Text to speech and Speech to text using Google\'s API.',
   },
   {
     id: 'bezier-hearts',
@@ -393,7 +393,6 @@ window.PROJECTS = [
     date: '2026-10',
     summary: 'A personal world map of the places you care about: where you have lived, travelled and worked, and where you want to go.',
     description: [
-      'Places are sorted into groups with their own colour and icon, and can have a note, a picture and a date range as precise as you remember it, from just a year to the exact day. Click the map to add a place, and the address and title are filled in by looking up the spot in OpenStreetMap. Pins cluster when crowded, and a display mode hides everything but the map for showing it on a wall screen.',
       'It runs entirely in the browser with no accounts and no server. Everything is saved in browser storage, and a JSON export and import moves it between devices.',
     ],
     image: 'assets/projects/locationmapper.png',
