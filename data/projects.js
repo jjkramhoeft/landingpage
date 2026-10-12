@@ -124,6 +124,17 @@ window.PROJECTS = [
   // ---- Algorithms and Utilities ----
 
   {
+    id: 'communication-of-climate-statistics',
+    title: 'Communication of Climate Statistics',
+    section: 'algorithms',
+    topics: ['graphics'],
+    date: '2026-09',
+    summary: 'An article I wrote to try to communicate climate statistics convincingly.',
+    link: 'https://github.com/jjkramhoeft/klimaformidling',
+    image: 'assets/projects/weather.png',
+    imageAlt: 'Sunbeams breaking through dark clouds over green countryside',
+  },
+  {
     id: 'mosaic-picture-generator',
     title: 'Mosaic Picture Generator',
     section: 'algorithms',
