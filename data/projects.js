@@ -53,7 +53,7 @@ window.PROJECTS = [
     title: 'The First Garden',
     section: 'games',
     date: '2026-05',
-    summary: 'A Sunday school game project: a top-down RPG where you create the map while you play, casting magic to place tiles, unlock biomes and fill the world with life.',
+    summary: 'A Sunday school game project: a top-down / puzzle hybrid where you create the map while you play, casting magic to place tiles, unlock biomes and fill the world with life.',
     description: [
       'Subtitled The Gardener\'s Apprentice, and inspired by Genesis and C.S. Lewis\' The Magician\'s Nephew. You play as Adam or Eve, start on rock and grow the world one biome at a time: desert, grass, forest, swamp, crystal, water, lava and mountains.',
       'Built with Phaser 4, TypeScript and Vite, with state machines for the characters and the game progression, and unit and smoke tests with Vitest and Playwright.',
