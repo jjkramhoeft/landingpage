@@ -160,6 +160,23 @@ window.PROJECTS = [
   // ---- Algorithms and Utilities ----
 
   {
+    id: 'worldgen',
+    title: 'Worldgen Lab',
+    section: 'algorithms',
+    topics: ['graphics'],
+    date: '2026-10',
+    summary: 'An interactive sandbox for procedural world generation, inspired by Minecraft and No Man\'s Sky.',
+    description: [
+      'Change any setting and the world rebuilds around you in real time. There are four world types: an infinite Minecraft-style terrain shaped by climate noise, splines, biomes and rivers; an editable voxel world with overhangs, caves, ores and trees; No Man\'s Sky-style planets you can fly to from orbit, with oceans, atmosphere, clouds, rings and moons; and a live hydraulic and thermal erosion simulation.',
+      'Everything is a pure function of seed and position, generated in a pool of Web Workers and streamed in as level-of-detail tiles. There is a world map with every noise layer, a spline editor and in-app help that explains the mathematics and algorithms.',
+    ],
+    image: 'assets/projects/worldgen.webp',
+    imageAlt: 'A procedurally generated landscape from above: snowy cliffs and forested hills in front of a large lake, with green plains, mountains and red mesas on the far shore',
+    tags: ['TypeScript', 'WebGL2', 'Web Workers', 'Procedural generation'],
+    link: 'https://jjkramhoeft.github.io/worldgen/',
+    source: 'https://github.com/jjkramhoeft/worldgen',
+  },
+  {
     id: 'communication-of-climate-statistics',
     title: 'Communication of Climate Statistics',
     section: 'algorithms',
