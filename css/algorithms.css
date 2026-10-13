@@ -1,21 +1,22 @@
-/* Algorithms and Utilities page: "The workshop / blueprint". Blueprint blue, electric green for active states. */
+/* Algorithms and Utilities page: "The workshop / blueprint". Blueprint blue, muted green for active states. */
 :root {
   --bg: #0a1726;
   --surface: rgba(11, 29, 50, 0.86);
   --surface-strong: rgba(15, 37, 62, 0.96);
+  --card-bg: #0b1d32;
   --line: rgba(140, 185, 255, 0.2);
   --text: #e6effa;
   --muted: #93a9c4;
   --accent: #5aa2ff;
-  --active: #4cf5a0;
+  --active: #7cc4a0;
   --bp-minor: rgba(120, 170, 255, 0.05);
   --bp-major: rgba(120, 170, 255, 0.1);
   --bp-bracket: rgba(160, 200, 255, 0.55);
   --viz-line: rgba(120, 170, 255, 0.12);
   --viz-node: rgba(150, 190, 255, 0.35);
   --viz-visited: rgba(90, 162, 255, 0.55);
-  --viz-frontier: rgba(76, 245, 160, 0.75);
-  --viz-path: rgba(76, 245, 160, 0.95);
+  --viz-frontier: rgba(124, 196, 160, 0.6);
+  --viz-path: rgba(124, 196, 160, 0.8);
   --viz-goal: rgba(242, 165, 65, 0.85);
   --viz-bar: rgba(90, 162, 255, 0.18);
   --radius: 8px;
@@ -26,19 +27,20 @@
     --bg: #edf3fb;
     --surface: rgba(255, 255, 255, 0.88);
     --surface-strong: rgba(255, 255, 255, 0.97);
+    --card-bg: #fff;
     --line: rgba(31, 102, 201, 0.22);
     --text: #0f2138;
     --muted: #4a5f7a;
     --accent: #1f66c9;
-    --active: #0a8a55;
+    --active: #2f7d5b;
     --bp-minor: rgba(31, 102, 201, 0.05);
     --bp-major: rgba(31, 102, 201, 0.1);
     --bp-bracket: rgba(31, 102, 201, 0.55);
     --viz-line: rgba(31, 102, 201, 0.14);
     --viz-node: rgba(31, 102, 201, 0.35);
     --viz-visited: rgba(31, 102, 201, 0.5);
-    --viz-frontier: rgba(10, 138, 85, 0.75);
-    --viz-path: rgba(10, 138, 85, 0.9);
+    --viz-frontier: rgba(47, 125, 91, 0.6);
+    --viz-path: rgba(47, 125, 91, 0.75);
     --viz-goal: rgba(154, 90, 6, 0.8);
     --viz-bar: rgba(31, 102, 201, 0.14);
   }
@@ -261,10 +263,12 @@ h3,
   color: var(--active);
 }
 
-/* Blueprint cards: corner brackets, and a scan line over the image on hover. */
+/* Blueprint cards: corner brackets, and a scan line over the image on hover.
+   Opaque, so the running algorithm doesn't show through the text. */
 .page-algorithms .project-card {
   --card-accent: var(--accent);
   position: relative;
+  background: var(--card-bg);
 }
 
 .page-algorithms .project-card::after {

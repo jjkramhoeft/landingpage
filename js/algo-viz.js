@@ -17,9 +17,9 @@
   const ALGORITHMS = [
     { id: 'astar', mode: 'graph', name: 'A* search', complexity: 'O(E log V)', heuristic: true },
     { id: 'dijkstra', mode: 'graph', name: 'Dijkstra', complexity: 'O(E log V)', heuristic: false },
-    { id: 'quicksort', mode: 'sort', name: 'Quicksort', complexity: 'O(n log n)', sort: quickSort, stepsPerFrame: 2 },
-    { id: 'heapsort', mode: 'sort', name: 'Heapsort', complexity: 'O(n log n)', sort: heapSort, stepsPerFrame: 2 },
-    { id: 'insertion', mode: 'sort', name: 'Insertion sort', complexity: 'O(n²)', sort: insertionSort, stepsPerFrame: 8 },
+    { id: 'quicksort', mode: 'sort', name: 'Quicksort', complexity: 'O(n log n)', sort: quickSort, stepsPerSecond: 25 },
+    { id: 'heapsort', mode: 'sort', name: 'Heapsort', complexity: 'O(n log n)', sort: heapSort, stepsPerSecond: 25 },
+    { id: 'insertion', mode: 'sort', name: 'Insertion sort', complexity: 'O(n²)', sort: insertionSort, stepsPerSecond: 100 },
   ];
   // A specific algorithm can be chosen with ?bg=<id>, e.g. algorithms.html?bg=astar.
   const requested = new URLSearchParams(location.search).get('bg');
@@ -38,8 +38,8 @@
       line: ['--viz-line', 'rgba(120, 170, 255, 0.12)'],
       node: ['--viz-node', 'rgba(150, 190, 255, 0.35)'],
       visited: ['--viz-visited', 'rgba(90, 162, 255, 0.5)'],
-      frontier: ['--viz-frontier', 'rgba(76, 245, 160, 0.75)'],
-      path: ['--viz-path', 'rgba(76, 245, 160, 0.9)'],
+      frontier: ['--viz-frontier', 'rgba(124, 196, 160, 0.6)'],
+      path: ['--viz-path', 'rgba(124, 196, 160, 0.8)'],
       goal: ['--viz-goal', 'rgba(242, 165, 65, 0.85)'],
       bar: ['--viz-bar', 'rgba(90, 162, 255, 0.16)'],
     },
@@ -335,6 +335,7 @@
     let comparisons = 0;
     let phase = 'sort';
     let timer = 0;
+    let stepClock = 0;
 
     function reset() {
       const count = Math.max(24, Math.min(120, Math.floor(view.width / 12)));
@@ -344,6 +345,7 @@
       comparisons = 0;
       phase = 'sort';
       timer = 0;
+      stepClock = 0;
       caption(plural(0, 'comparison'));
     }
 
@@ -363,7 +365,12 @@
     function update(dt) {
       timer += dt;
       if (phase === 'sort') {
-        for (let k = 0; k < algo.stepsPerFrame && phase === 'sort'; k++) advance();
+        stepClock += dt;
+        const interval = 1 / algo.stepsPerSecond;
+        while (stepClock > interval && phase === 'sort') {
+          stepClock -= interval;
+          advance();
+        }
         if (phase === 'sort') caption(plural(comparisons, 'comparison'));
       } else if (phase === 'sorted' && timer > 3.5) {
         reset();
