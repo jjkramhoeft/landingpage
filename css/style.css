@@ -171,11 +171,29 @@ main,
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 8px 12px;
   border-radius: 8px;
   color: var(--muted);
   font-size: 0.95rem;
   text-decoration: none;
+}
+
+/* Each section's icon from the landing page, in its section colour. */
+.nav-icon {
+  flex: none;
+  color: var(--nav-accent);
+}
+
+.nav-career { --nav-accent: var(--career); }
+.nav-algorithms { --nav-accent: var(--algo); }
+.nav-games { --nav-accent: var(--games); }
+
+.nav-icon .accent-2 {
+  fill: var(--games-2);
+  stroke: var(--games-2);
 }
 
 .site-nav a:hover,
