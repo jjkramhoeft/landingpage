@@ -5,3 +5,4 @@ desktop.ini
 
 # Personal Claude Code settings (launch.json, the local preview server config, is shared)
 .claude/settings.local.json
+project-lines-of-code.md
