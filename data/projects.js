@@ -8,6 +8,7 @@
     section      "algorithms" (Algorithms and Utilities) or "games" (Games and Fun)
     topics       for Algorithms and Utilities: any of "data-quality", "geo", "tools", "graphics", "ai"
                  (used by the filter chips)
+    codesize     optional lines of source code, rounded: e.g. "200", "2k", "10k"
     date         optional "YYYY-MM", used to sort newest first; projects without one come after the dated ones
     summary      one sentence shown on the card
     description  optional longer text shown when the card is expanded; a list of paragraphs
@@ -34,6 +35,7 @@ window.PROJECTS = [
     id: 'chinese-checkers',
     title: 'Chinese Checkers',
     section: 'games',
+    codesize: '3k',
     date: '1998',
     summary: 'The star-shaped board game Chinese checkers.',
     image: 'assets/projects/kinaskak.png',
@@ -50,6 +52,7 @@ window.PROJECTS = [
     id: 'the-first-garden',
     title: 'The First Garden',
     section: 'games',
+    codesize: '14k',
     date: '2026-05',
     summary: 'A Sunday school game project: a top-down / puzzle hybrid where you create the map while you play, casting magic to place tiles, unlock biomes and fill the world with life.',
     description: [
@@ -67,6 +70,7 @@ window.PROJECTS = [
     id: 'minecraft-clone',
     title: 'Minecraft Clone in C#',
     section: 'games',
+    codesize: '10k',
     date: '2026-07',
     summary: 'A Minecraft-style voxel sandbox for Windows: an infinite, procedurally generated world to explore, dig into, build on and survive in.',
     description: [
@@ -82,6 +86,7 @@ window.PROJECTS = [
     id: 'themed-bullet-heaven',
     title: 'Themed Bullet Heaven',
     section: 'games',
+    codesize: '6k',
     date: '2026-09',
     summary: 'A bullet-heaven game where every theme plays the same game and only changes how it looks and sounds.',
     description: [
@@ -100,6 +105,7 @@ window.PROJECTS = [
     id: 'jigsaw-clip',
     title: 'Jigsaw Clip',
     section: 'games',
+    codesize: '2k',
     date: '2026-10',
     summary: 'A jigsaw puzzle where every piece plays its own part of a short looping video clip.',
     description: [
@@ -116,6 +122,7 @@ window.PROJECTS = [
     id: 'sudoku',
     title: 'Sudoku',
     section: 'games',
+    codesize: '2k',
     date: '2026-10',
     summary: 'A clean Sudoku game in six difficulty levels, from Easy to Extreme, with fresh puzzles generated in the browser.',
     description: [
@@ -132,6 +139,7 @@ window.PROJECTS = [
     id: 'phaser-demo',
     title: 'Phaser Demo Game',
     section: 'games',
+    codesize: '2k',
     date: '2026-03',
     summary: 'Tech demos for AI-assisted game development with Phaser and TypeScript, made in early spring 2026 using only free AI tools.',
     description: [
@@ -157,6 +165,7 @@ window.PROJECTS = [
     id: 'worldgen',
     title: 'Worldgen Lab',
     section: 'algorithms',
+    codesize: '17k',
     topics: ['graphics'],
     date: '2026-10',
     summary: 'An interactive sandbox for procedural world generation, inspired by Minecraft and No Man\'s Sky.',
@@ -287,6 +296,7 @@ window.PROJECTS = [
     id: 'youtube-jump-page',
     title: 'YouTube Jump Page',
     section: 'algorithms',
+    codesize: '1k',
     topics: ['tools'],
     date: '2026-01',
     summary: 'Shows every YouTube channel you subscribe to as one dense, searchable grid, because YouTube\'s own subscriptions page doesn\'t.',
@@ -303,6 +313,7 @@ window.PROJECTS = [
     id: 'mateo5',
     title: 'Birthday Card for Mateo',
     section: 'algorithms',
+    codesize: '1k',
     date: '2026-09',
     summary: 'A birthday card with a small game for my nephew Mateo\'s 5th birthday, in one HTML file.',
     description: [
@@ -335,6 +346,7 @@ window.PROJECTS = [
     id: 'comfyui-nodes',
     title: 'ComfyUI Custom Nodes',
     section: 'algorithms',
+    codesize: '200',
     topics: ['ai', 'tools'],
     date: '2023-08',
     summary: 'A small set of custom nodes for ComfyUI, focused on text and parameters.',
@@ -348,6 +360,7 @@ window.PROJECTS = [
     id: 'color-picker',
     title: 'Color Picker',
     section: 'algorithms',
+    codesize: '200',
     topics: ['graphics', 'tools'],
     summary: 'A colour picker built from hexagons.',
     image: 'assets/projects/color.png',
@@ -369,6 +382,7 @@ window.PROJECTS = [
     id: 'name-generator',
     title: 'Name Generator',
     section: 'algorithms',
+    codesize: '3k',
     topics: ['ai'],
     date: '2018',
     summary: 'Generates names using a character-level Markov n-gram model (n = 3–4) on CPR\'s Real data set from Danish names.',
@@ -377,6 +391,7 @@ window.PROJECTS = [
     id: 'wikipedia-extractor',
     title: 'Wikipedia Extractor',
     section: 'algorithms',
+    codesize: '4k',
     topics: ['ai', 'tools'],
     date: '2025-01',
     summary: 'Cleans and indexes the full English Wikipedia into a personal encyclopedia, with search powered by LLM embeddings.',
@@ -391,6 +406,7 @@ window.PROJECTS = [
     id: 'perlin-simplex-noise',
     title: 'Perlin and Simplex Noise',
     section: 'algorithms',
+    codesize: '2k',
     topics: ['graphics'],
     date: '2023-10',
     summary: 'An implementation of Perlin and simplex noise.',
@@ -428,6 +444,7 @@ window.PROJECTS = [
     id: 'trello-clone',
     title: 'Trello Clone',
     section: 'algorithms',
+    codesize: '2k',
     topics: ['tools'],
     date: '2026-10',
     summary: 'A simple, single-user Trello clone where the whole board is one JSON file on your own computer.',
@@ -445,6 +462,7 @@ window.PROJECTS = [
     id: 'location-mapper',
     title: 'Location Mapper',
     section: 'algorithms',
+    codesize: '5k',
     topics: ['geo', 'tools'],
     date: '2026-10',
     summary: 'A personal world map of the places you care about: where you have lived, travelled and worked, and where you want to go.',
@@ -461,6 +479,7 @@ window.PROJECTS = [
     id: 'water-sim',
     title: 'Water Sim',
     section: 'algorithms',
+    codesize: '6k',
     topics: ['graphics'],
     date: '2026-10',
     summary: 'A sandbox fluid simulation: a glass tank of water made of tens of thousands of small cubes, simulated live on the GPU.',
@@ -478,6 +497,7 @@ window.PROJECTS = [
     id: 'code-line-counter',
     title: 'Code Line Counter',
     section: 'algorithms',
+    codesize: '1k',
     topics: ['tools'],
     date: '2026-10',
     summary: 'A small Windows tool that counts the lines of code in a folder and all its subfolders.',

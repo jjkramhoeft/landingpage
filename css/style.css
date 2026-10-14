@@ -690,11 +690,21 @@ main,
   border-color: var(--card-accent);
 }
 
-.project-date {
+.project-meta {
   margin-left: auto;
+  white-space: nowrap;
+}
+
+.project-codesize,
+.project-date {
   color: var(--muted);
   font-family: var(--mono);
   font-size: 0.8rem;
+}
+
+/* With both: "2k lines · May 2024". */
+.project-codesize + .project-date::before {
+  content: " · ";
 }
 
 .empty {

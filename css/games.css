@@ -70,6 +70,7 @@
 .page-games h2,
 .page-games h3,
 .badge,
+.project-codesize,
 .project-date,
 .pixel-button {
   font-family: var(--pixel);
@@ -292,6 +293,7 @@
   min-height: 33px;
 }
 
+.page-games .project-codesize,
 .page-games .project-date {
   font-size: 0.6rem;
 }

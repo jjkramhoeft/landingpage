@@ -7,7 +7,7 @@
     onToggle     called with true/false when the card opens or closes
 
   Only one card in a grid is open at a time: opening a card closes the one that was open.
-  A card shows the project's date in its bottom right corner.
+  A card shows the project's code size and date in its bottom right corner.
 
   ProjectCards.layout(grid) widens the grid column holding the open card and narrows the others,
   so a long description reads at a comfortable line length instead of in a tall, slim card.
@@ -121,12 +121,18 @@ window.ProjectCards = (function () {
     const date = project.date
       ? el('time', { class: 'project-date', datetime: project.date }, formatDate(project.date))
       : null;
+    const codesize = project.codesize
+      ? el('span', { class: 'project-codesize', title: 'Lines of source code' }, `${project.codesize} lines`)
+      : null;
+    // Code size and date sit together on the right, and wrap to the next line as one.
+    const meta = codesize || date ? el('span', { class: 'project-meta' }) : null;
+    if (meta) meta.append(...[codesize, date].filter(Boolean));
 
     // Projects that are only a title so far have nothing to expand, so they get no "Read more".
     const hasDetails = [].concat(project.description || []).length
       || (project.tags && project.tags.length) || project.link || project.source;
     if (!hasDetails) {
-      if (date) actions.append(date);
+      if (meta) actions.append(meta);
       if (actions.childElementCount) body.append(actions);
       card.append(body);
       return card;
@@ -173,7 +179,7 @@ window.ProjectCards = (function () {
     });
 
     actions.append(toggle);
-    if (date) actions.append(date);
+    if (meta) actions.append(meta);
 
     body.append(details, actions);
     card.append(body);
