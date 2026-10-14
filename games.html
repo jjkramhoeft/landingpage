@@ -47,8 +47,8 @@
     <section class="arcade-hero" aria-labelledby="arcade-title">
       <h1 id="arcade-title">Games <span>&amp;</span> Fun</h1>
       <p class="lead">
-        Games and playful experiments, built just for the fun of it.
-        Turn the sound on for the full arcade experience.
+        Games and playful experiments, some finished, some half-built, all made for fun.
+        My first games I programmed in BASIC on the Commodore 64 in the eighties.
       </p>
     </section>
 
@@ -62,23 +62,11 @@
   <footer class="site-footer">
     <p>© 1986-<span id="year">2026</span> Jakob Kramhøft</p>
     <p>
-      <button type="button" id="konami-button" class="konami-hint" title="Psst…">↑↑↓↓←→←→BA</button>
+      <span class="konami-hint" title="Psst… type it">↑↑↓↓BA</span>
       · <a href="https://www.linkedin.com/in/jjkramhoeft/" rel="me noopener" target="_blank">LinkedIn</a> · <a href="https://github.com/jjkramhoeft" rel="me noopener" target="_blank">GitHub</a>
     </p>
   </footer>
 
   <button type="button" id="quit-game" class="pixel-button quit-game">Quit game</button>
-
-  <dialog id="game-modal" class="arcade-modal" aria-labelledby="game-modal-title">
-    <div class="arcade-modal-inner">
-      <div class="arcade-modal-bar">
-        <h2 id="game-modal-title">Game</h2>
-        <a id="game-modal-tab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
-        <button type="button" id="game-modal-close" class="arcade-close" aria-label="Close game"><svg viewBox="0 0 7 7" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M0 0h1v1h-1zM1 1h1v1h-1zM2 2h1v1h-1zM3 3h1v1h-1zM4 4h1v1h-1zM5 5h1v1h-1zM6 6h1v1h-1zM6 0h1v1h-1zM5 1h1v1h-1zM4 2h1v1h-1zM2 4h1v1h-1zM1 5h1v1h-1zM0 6h1v1h-1z"/></svg></button>
-      </div>
-      <iframe id="game-frame" title="Game" src="about:blank"></iframe>
-      <p id="game-modal-hint" class="arcade-modal-hint" hidden></p>
-    </div>
-  </dialog>
 </body>
 </html>

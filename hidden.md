@@ -47,8 +47,8 @@ Things on the site that aren't obvious at first glance, page by page.
 
 ### Star Catcher, the hidden mini-game
 
-- **Type the Konami code** (↑ ↑ ↓ ↓ ← → ← → B A) anywhere on the page. The page dims and the starfield background turns into a game.
-- **On a touch screen**, tap the small `↑↑↓↓←→←→BA` text in the footer instead.
+- **Type the secret code** (↑ ↑ ↓ ↓ B A) anywhere on the page. The page dims and the starfield background turns into a game.
+- **The small `↑↑↓↓BA` text in the footer** is only a hint: it can't be clicked, so typing the code is the only way to start the game.
 - **How to play:** catch the falling coins with your ship. Invaders zigzag down too, so shoot them.
 
   | Action | Controls |
@@ -65,7 +65,5 @@ Things on the site that aren't obvious at first glance, page by page.
 
 - **Pixel cursor trail.** The mouse leaves a short, fading trail of pixels.
 - **Parallax starfield.** Stars drift at three speeds over scrolling pixel hills, like an old side-scroller, and shift slightly as you scroll.
-- **Sound effects:** hovering a cartridge plays a jump sound, and opening a card or pressing Play plays a coin sound.
-- **High scores.** Pixel Snake saves your best score, and the card shows it as a `HI 0042` badge after you close the game.
-- **Pixel Snake details:** it speeds up every ten apples, Space pauses, and Esc closes the pop-up from inside the game. It uses the page's sound, so the speaker button applies to it too.
+- **Sound effects:** hovering a cartridge plays a jump sound, and opening a card plays a coin sound.
 - **The Themed Bullet Heaven card changes picture.** Opening it swaps the screenshot for a boss fight in another theme.

@@ -5,8 +5,6 @@
   options:
     linkLabel    text for project.link (default "Open project →")
     onToggle     called with true/false when the card opens or closes
-    onPlay       if given, projects with a `play` URL get a Play button that calls onPlay(project, button)
-    playLabel    text for the Play button (default "Play")
 
   Only one card in a grid is open at a time: opening a card closes the one that was open.
   A card shows the project's date in its bottom right corner.
@@ -119,12 +117,6 @@ window.ProjectCards = (function () {
     body.append(el('p', { class: 'project-summary' }, project.summary));
 
     const actions = el('div', { class: 'project-actions' });
-    if (project.play && opts.onPlay) {
-      const play = el('button', { class: 'project-play', type: 'button' }, opts.playLabel || 'Play');
-      play.setAttribute('aria-label', `Play ${project.title}`);
-      play.addEventListener('click', () => opts.onPlay(project, play));
-      actions.append(play);
-    }
 
     const date = project.date
       ? el('time', { class: 'project-date', datetime: project.date }, formatDate(project.date))

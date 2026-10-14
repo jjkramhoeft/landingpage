@@ -2,7 +2,7 @@
   Games page background: a parallax pixel starfield over scrolling pixel hills, like an old side-scroller.
   Stars drift left at three speeds and shift slightly as the page scrolls.
 
-  It also hosts the hidden mini-game "Star Catcher" (started by the Konami code, see js/games.js):
+  It also hosts the hidden mini-game "Star Catcher" (started by the secret code ↑ ↑ ↓ ↓ B A, see js/games.js):
   move the ship with the arrow keys, A/D, the mouse or a finger, and catch the falling coins. Invaders zigzag down too:
   shoot them with Space, W or the up arrow, or by holding the mouse button or a finger down. Shooting a coin catches it.
   A missed coin, or an invader

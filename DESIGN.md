@@ -197,7 +197,7 @@ The palette is a map legend: a deep night-slate ground with one saturated ink pe
 ### Neutral
 - **Night Map Slate** (#0d1418): the ground on home and Career, with a soft **Night Map Glow** (#12303a) pooled in an ellipse at the top of the page.
 - **Blueprint Night** (#0a1726): the Algorithms ground, under a fine 24px grid with a stronger line every 120px.
-- **Arcade Charcoal** (#14110e): the warm Games ground, with **Console Cream** text (#efe6d4) and **Cream Muted** (#a99c88). **Cartridge Shell** (#2b2520, hover #352e27) is the plastic of the cartridge shells, and the **Label Edge** (#0e0c0a) frames each label. **On-Coin** (#14110e) is the dark ink on brass. The game pop-up is always this dark screen. In light mode the arcade turns to **Console Paper** (#f3ecdf) with warm dark ink (#221c16), muted #665a4b and a #d8ccb6 shell with a #4a4036 label edge.
+- **Arcade Charcoal** (#14110e): the warm Games ground, with **Console Cream** text (#efe6d4) and **Cream Muted** (#a99c88). **Cartridge Shell** (#2b2520, hover #352e27) is the plastic of the cartridge shells, and the **Label Edge** (#0e0c0a) frames each label. **On-Coin** (#14110e) is the dark ink on brass. In light mode the arcade turns to **Console Paper** (#f3ecdf) with warm dark ink (#221c16), muted #665a4b and a #d8ccb6 shell with a #4a4036 label edge.
 - **Night Map Surface** (rgba(17, 27, 34, 0.82)) and **Surface Strong** (rgba(22, 35, 44, 0.95)): the see-through card and panel fill. Each sheet retints these to its own ground.
 - **Night Map Line** (rgba(160, 200, 210, 0.16)): every hairline border and divider. Each sheet retints it (blue on the blueprint, cream on the arcade).
 - **Night Map Text** (#e7eef1) and **Muted** (#9aabb5): text and secondary text. In light mode they become **Day Map Paper** (#eef3f4), **Day Map Text** (#10222b) and **Day Map Muted** (#4a606d).
@@ -293,9 +293,9 @@ Eight 14px×2px corner brackets drawn with background gradients 6px inside the c
 A charcoal plastic shell with stepped pixel corners and dark grip ridges across the top. The image and body sit inside a 4px Label Edge. Hover or open lifts it 4px in two steps (`steps(2)`), lightens the plastic and turns the label edge Marquee Red. Cartridges keep their own height (the grid aligns to the top), so opening one never stretches its neighbours. Badges go square with pixel type, and the hi-score badge is solid Console Brass.
 
 ### Trim Band (signature)
-A Marquee Red stripe (6px) over a Console Brass line (2px), 2px apart, with stepped 2px pixel ends, set under the Games title at the title's width. It loads in once as the page opens, left to right in 12 pixel steps (0.9s), which is the arcade's one authored moment; under reduced motion it is simply there. A thinner version (3px red over 1px brass) runs along the bottom of the game pop-up's bar.
+A Marquee Red stripe (6px) over a Console Brass line (2px), 2px apart, with stepped 2px pixel ends, set under the Games title at the title's width. It loads in once as the page opens, left to right in 12 pixel steps (0.9s), which is the arcade's one authored moment; under reduced motion it is simply there.
 
-**The Grown-Up Arcade Rule.** The arcade earns its charm through restraint: pixel type, cartridges, a slow starfield and one trim band. No HUD line, hopping sprites, blinking text, ornament glyphs or offset text shadows. The cursor trail is a faint single-colour pixel trail (`--trail`), and the Konami easter egg stays hidden in the footer.
+**The Grown-Up Arcade Rule.** The arcade earns its charm through restraint: pixel type, cartridges, a slow starfield and one trim band. No HUD line, hopping sprites, blinking text, ornament glyphs or offset text shadows. The cursor trail is a faint single-colour pixel trail (`--trail`), and the secret-code easter egg is only hinted at in the footer.
 
 ### Route Line (signature)
 A 6px line in the Route Amber (experience) or Contour Teal (education) track, drawn as a scaled bar that grows as the visitor scrolls. A dotted segment marks gaps. Station badges light up as the line reaches them.

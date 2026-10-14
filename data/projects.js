@@ -3,7 +3,7 @@
   real projects first, newest first, then projects without a date, then the examples.
 
   To add a project, copy one of the objects below and fill in:
-    id           unique, lowercase with dashes, e.g. "pixel-snake"
+    id           unique, lowercase with dashes, e.g. "jigsaw-clip"
     title        project name
     section      "algorithms" (Algorithms and Utilities) or "games" (Games and Fun)
     topics       for Algorithms and Utilities: any of "data-quality", "geo", "tools", "graphics", "ai"
@@ -11,7 +11,7 @@
     date         optional "YYYY-MM", used to sort newest first; projects without one come after the dated ones
     summary      one sentence shown on the card
     description  optional longer text shown when the card is expanded; a list of paragraphs
-    image        optional path to an image, 16:10 works best (e.g. "assets/projects/pixel-snake.png");
+    image        optional path to an image, 16:10 works best (e.g. "assets/projects/sudoku.png");
                  it can also be a short .mp4 or .webm video, which plays silently on a loop while on screen
     imageAlt     short description of the image, or "" if it is only decoration
     imagePoster  for a video: an image shown before it starts and for visitors who prefer reduced motion
@@ -23,8 +23,6 @@
     link         optional URL to the project or live demo
     linkLabel    optional text for the link, when the page's default ("Live demo →", "Open full screen →") doesn't fit
     source       optional URL to the source code
-    play         for games: URL of a playable page; the Games page shows a Play button that opens it in a pop-up
-    playHint     for games: one line about the controls, shown under the pop-up
     example      true for placeholder projects; delete the line for real ones
 
   A card with no description, tags, link or source has no "Read more" button.
@@ -113,8 +111,6 @@ window.PROJECTS = [
     tags: ['JavaScript', 'Canvas', 'Video', 'No dependencies'],
     link: 'https://jjkramhoeft.github.io/jigsaw-clip/',
     source: 'https://github.com/jjkramhoeft/jigsaw-clip',
-    play: 'https://jjkramhoeft.github.io/jigsaw-clip/',
-    playHint: 'Drag pieces to join them · Scroll to zoom · Space to pause · ← → to step · G for ghost · Esc to close',
   },
   {
     id: 'sudoku',
@@ -131,8 +127,6 @@ window.PROJECTS = [
     tags: ['JavaScript', 'Web Worker', 'No dependencies'],
     link: 'https://jjkramhoeft.github.io/sudoku/',
     source: 'https://github.com/jjkramhoeft/sudoku',
-    play: 'https://jjkramhoeft.github.io/sudoku/',
-    playHint: 'Click or 1–9 to fill in · Arrows to move · N for notes · Ctrl+Z to undo · Esc to close',
   },
   {
     id: 'phaser-demo',
@@ -462,26 +456,5 @@ window.PROJECTS = [
     tags: ['TypeScript', 'React', 'Leaflet'],
     link: 'https://jjkramhoeft.github.io/LocationMapper/',
     source: 'https://github.com/jjkramhoeft/LocationMapper',
-  },
-
-  // ---- Examples (placeholders from the template) ----
-
-  {
-    id: 'pixel-snake',
-    title: 'Pixel Snake',
-    section: 'games',
-    date: '2026-06',
-    summary: 'The classic snake game in 8-bit style, with a chiptune soundtrack generated in the browser.',
-    description: [
-      'Steer the snake with the arrow keys or by swiping, eat the apples and avoid your own tail. The speed goes up every ten apples.',
-      'All music and sound effects are generated live with the Web Audio API, so the whole game is a few kilobytes.',
-    ],
-    image: 'assets/projects/pixel-snake.svg',
-    imageAlt: 'A pink pixel snake chasing a yellow apple on a dark purple grid',
-    tags: ['JavaScript', 'Canvas', 'Web Audio'],
-    link: 'games/pixel-snake/index.html',
-    play: 'games/pixel-snake/index.html',
-    playHint: 'Arrow keys, WASD or swipe to steer · Space to pause · Esc to close',
-    example: true,
   },
 ];
