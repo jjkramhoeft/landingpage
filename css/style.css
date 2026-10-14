@@ -51,7 +51,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  scroll-padding-top: 16px;
 }
 
 body {
@@ -126,29 +126,20 @@ main,
   z-index: 1;
 }
 
-/* Header */
+/* Header: no bar, just the home mark and the section links in the top-left corner.
+   They scroll away with the page; the sound toggle stays fixed in the top-right corner (.sound-corner). */
 .site-header {
-  position: fixed;
-  inset: 0 0 auto 0;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 72px;
   z-index: 10;
-  height: var(--header-h);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 16px;
-  background: color-mix(in srgb, var(--bg) 75%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-right: auto;
-  color: var(--text);
-  font-weight: 650;
+  margin-right: 4px;
   text-decoration: none;
 }
 
@@ -166,11 +157,12 @@ main,
 }
 
 .site-nav {
-  display: none;
+  display: flex;
+  align-items: center;
   gap: 4px;
 }
 
-.site-nav a {
+.site-nav a:not(.brand) {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -196,10 +188,22 @@ main,
   stroke: var(--games-2);
 }
 
-.site-nav a:hover,
+.site-nav a:not(.brand):hover,
 .site-nav a[aria-current="page"] {
   background: var(--surface);
   color: var(--text);
+}
+
+/* Narrow screens: icons only. */
+@media (max-width: 639px) {
+  .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 .icon-button {
@@ -730,12 +734,7 @@ main,
   to { opacity: 1; translate: 0 0; }
 }
 
-@media (min-width: 640px) {
-  .site-nav { display: flex; }
-}
-
 @media (min-width: 720px) {
-  .site-header { padding: 0 28px; }
   .section { padding: 72px 28px; }
   .site-footer { padding: 28px 28px 44px; }
   .hero { padding: 120px 28px 8px; }
