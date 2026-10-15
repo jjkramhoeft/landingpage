@@ -172,6 +172,10 @@ window.PROJECTS = [
     description: [
       'Change any setting and the world rebuilds around you in real time. There are four world types: an infinite Minecraft-style terrain shaped by climate noise, splines, biomes and rivers; an editable voxel world with overhangs, caves, ores and trees; No Man\'s Sky-style planets you can fly to from orbit, with oceans, atmosphere, clouds, rings and moons; and a live hydraulic and thermal erosion simulation.',
       'Everything is a pure function of seed and position, generated in a pool of Web Workers and streamed in as level-of-detail tiles. There is a world map with every noise layer, a spline editor and in-app help that explains the mathematics and algorithms.',
+      'How it was built: Tree prompt to Claude Opus 5.5 on Max - total time 2 hours. The prompts were:',
+      'write a short markdown document describing how minecraft and No Man\'s Sky generate there game worlds',
+      '/goal make a demo app where I can test settings for procedural world generation. it should contain a visual 3d render with some movement and panning ability. make it feature rich. (read the minecraft-vs-no-mans-sky-worldgen.md for inspiration and do your own research)',
+      '/goal expand the help pop up - the current help is fine, but there need more text/explanation below. go into extensive details with the mathematics and algorithms. Do research if needed',
     ],
     image: 'assets/projects/worldgen.webp',
     imageAlt: 'A procedurally generated landscape from above: snowy cliffs and forested hills in front of a large lake, with green plains, mountains and red mesas on the far shore',
