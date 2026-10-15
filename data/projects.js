@@ -490,6 +490,9 @@ window.PROJECTS = [
     description: [
       'Shake or tilt the tank, start the wave machine, set off an earthquake, splash, stir, pour, drain or drop in a ball, and the water sloshes and makes waves. Gravity can go down to zero-G and the water can be made as thick as honey. There are eight scenes, from Dam Break to Layer Cake.',
       'The physics is MLS-MPM running entirely in WebGPU compute shaders. Light is absorbed through the depth of the water, with caustics, foam and reflections on top. On first load it measures your GPU and picks a quality level, from about 28,000 cubes up to 400,000. It is a static web app with no build step and no dependencies.',
+      'How it was built: A readme and one prompt to Claude Opus 5.5 on Max - total time 1½ hours. The prompt was:',
+      'Readme: Water Sim. A sandbox fluid physics simulation. A big box (container) partly filled with water. The user can add forces to the box so that the water splashes and generates waves. The box and water are visualized in real time in 3D. The main feature of this sim is that the water is modeled and visualized as many small cubes.',
+      '/Goal implement the sandbox app for water simulation described in the readme. Make it feature rich, Nice design and pretty graphics. Keep framerate above 30 fps on a modern laptop',
     ],
     image: 'assets/projects/watersim.webp',
     imageAlt: 'A wave of blue voxel water crashing through a glass tank, with white spray flying over the top and the water\'s blue shadow on the floor below',
