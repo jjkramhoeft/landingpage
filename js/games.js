@@ -20,7 +20,7 @@
 
   games.forEach((project, i) => {
     const card = window.ProjectCards.create(project, {
-      linkLabel: 'Open full screen →',
+      linkLabel: 'Try on PC →',
       onToggle: () => sound('coin'),
     });
     card.classList.add('reveal');

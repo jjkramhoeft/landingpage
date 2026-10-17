@@ -22,7 +22,7 @@
     tags         optional short keywords
     complexity   optional, e.g. "O(n log n)"
     link         optional URL to the project or live demo
-    linkLabel    optional text for the link, when the page's default ("Live demo →", "Open full screen →") doesn't fit
+    linkLabel    optional text for the link, when the page's default ("Try on PC →") doesn't fit
     source       optional URL to the source code
     example      true for placeholder projects; delete the line for real ones
 

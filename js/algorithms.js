@@ -26,7 +26,7 @@
 
   const cards = projects.map((project, i) => {
     const card = window.ProjectCards.create(project, {
-      linkLabel: 'Live demo →',
+      linkLabel: 'Try on PC →',
       onToggle: (open) => { if (window.Sound) window.Sound.keys(open ? 5 : 3); },
     });
     card.classList.add('reveal');
