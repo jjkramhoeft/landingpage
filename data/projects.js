@@ -517,4 +517,23 @@ window.PROJECTS = [
     tags: ['C#', '.NET', 'Windows Forms'],
     source: 'https://github.com/jjkramhoeft/codelinecounter',
   },
+  {
+    id: 'danish-christmas-carols-lyrics',
+    title: 'Danish Christmas Carols Lyrics',
+    section: 'algorithms',
+    codesize: '2k',
+    topics: ['tools'],
+    date: '2026-10',
+    summary: 'A phone app with the lyrics of 21 Danish Christmas carols, for walking around the Christmas tree on Christmas Eve.',
+    description: [
+      'Every year the same problem: not everyone knows all the verses, and the song booklets have different versions. Scan the QR code and the lyrics are on your own phone, readable in candlelight, with the screen kept awake. Swipe or tap the edges to change song, pinch to make the text bigger, and switch between selected verses and all of them.',
+      'Each carol has a short story, its authors and melody composer. The texts are public domain, imported from Danish Wikisource. It works offline once opened and can be installed on the home screen. A "Mere hygge" button lets snow, paper hearts, stars or little Danish flags drift slowly behind the list. Plain HTML, CSS and JavaScript with no build step.',
+    ],
+    image: 'assets/projects/julesangtekster.webp',
+    imageAlt: 'The app on a phone in dark mode: the list of carols, and the first verses of Glade jul, dejlige jul in large white text',
+    tags: ['JavaScript', 'PWA', 'Offline', 'No dependencies'],
+    link: 'https://jjkramhoeft.github.io/julesangtekster/',
+    linkLabel: 'Try on phone →',
+    source: 'https://github.com/jjkramhoeft/julesangtekster',
+  },
 ];
