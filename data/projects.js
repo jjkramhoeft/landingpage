@@ -106,7 +106,7 @@ window.PROJECTS = [
     title: 'Jigsaw Clip',
     section: 'games',
     codesize: '2k',
-    date: '2026-10',
+    date: '2026-10-18',
     summary: 'A jigsaw puzzle where every piece plays its own part of a short looping video clip.',
     description: [
       'You match shapes and edges like a normal jigsaw, but the motion is a clue too: a passing train, a wave or a swimming fish moves from one piece into the next, so you can see which pieces belong together. Pick anything from a quick 12-piece puzzle to a 500-piece challenge.',
@@ -123,7 +123,7 @@ window.PROJECTS = [
     title: 'Sudoku',
     section: 'games',
     codesize: '2k',
-    date: '2026-10',
+    date: '2026-10-17',
     summary: 'A clean Sudoku game in six difficulty levels, from Easy to Extreme, with fresh puzzles generated in the browser.',
     description: [
       'Every puzzle has a unique solution and is graded by the solving techniques it needs, generated in a Web Worker so the page never stalls. Three mistakes and you are out; the score rewards speed, and high scores are kept per level for today, this week and all time.',
@@ -450,7 +450,7 @@ window.PROJECTS = [
     section: 'algorithms',
     codesize: '2k',
     topics: ['tools'],
-    date: '2026-10',
+    date: '2026-10-10',
     summary: 'A simple, single-user Trello clone where the whole board is one JSON file on your own computer.',
     description: [
       'Lists and cards with drag and drop, also on touch screens, with coloured labels, descriptions and images embedded in the file. Trello\'s own JSON exports open directly, so an existing board can be brought over.',
@@ -468,7 +468,7 @@ window.PROJECTS = [
     section: 'algorithms',
     codesize: '5k',
     topics: ['geo', 'tools'],
-    date: '2026-10',
+    date: '2026-10-14',
     summary: 'A personal world map of the places you care about: where you have lived, travelled and worked, and where you want to go.',
     description: [
       'It runs entirely in the browser with no accounts and no server. Everything is saved in browser storage, and a JSON export and import moves it between devices.',
@@ -485,7 +485,7 @@ window.PROJECTS = [
     section: 'algorithms',
     codesize: '6k',
     topics: ['graphics'],
-    date: '2026-10',
+    date: '2026-10-18',
     summary: 'A sandbox fluid simulation: a glass tank of water made of tens of thousands of small cubes, simulated live on the GPU.',
     description: [
       'Shake or tilt the tank, start the wave machine, set off an earthquake, splash, stir, pour, drain or drop in a ball, and the water sloshes and makes waves. Gravity can go down to zero-G and the water can be made as thick as honey. There are eight scenes, from Dam Break to Layer Cake.',
@@ -523,7 +523,7 @@ window.PROJECTS = [
     section: 'algorithms',
     codesize: '2k',
     topics: ['tools'],
-    date: '2026-10',
+    date: '2026-10-22',
     summary: 'A phone app with the lyrics of 21 Danish Christmas carols, for walking around the Christmas tree on Christmas Eve.',
     description: [
       'Every year the same problem: not everyone knows all the verses, and the song booklets have different versions. Scan the QR code and the lyrics are on your own phone, readable in candlelight, with the screen kept awake. Swipe or tap the edges to change song, pinch to make the text bigger, and switch between selected verses and all of them.',
