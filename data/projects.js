@@ -127,7 +127,7 @@ window.PROJECTS = [
     summary: 'An old Amiga game recreated for a friend.',
     description: [
       'These two prompt was used with Claude Opus 5.5 on max:',
-      '/deep-research the classic game describe in the readme, and evaluate the possibility of remaking/cloning it. Include gameplay detail, screen shoot and art style descriptions. It should be in English',
+      '/deep-research the classic game Bandit King of Ancient China by KOEI, and evaluate the possibility of remaking/cloning it. Include gameplay detail, screen shoot and art style descriptions. It should be in English',
       '/goal Make a playable (in a browser) version of the western Amiga version of the game Bandit King of Ancient China. Use the company name "Fick" as a stand in for KOEI, Use the research from bandit-kings-research.html'
     ],
     image: 'assets/projects/bandit-king.webp',
