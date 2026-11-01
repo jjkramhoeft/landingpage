@@ -124,10 +124,11 @@ window.PROJECTS = [
     section: 'games',
     codesize: '10k',
     date: '2026-11',
-    summary: 'A browser recreation of the 1989 KOEI strategy game, in the style of the Amiga release, about the outlaw heroes of the Water Margin.',
+    summary: 'An old Amiga game recreated for a friend.',
     description: [
-      'Play one of the Good Fellows: gather heroes, build up prefectures, earn the Imperial Edict and bring down the corrupt minister Gao Qiu before the Northern Barbarians invade in 1127. Four scenarios, three difficulties, up to seven players at one screen, monthly turns with all sixteen commands, and 30-day hex battles with terrain, rivers, weather, fire, archery, magic and duels.',
-      'The rules follow the numbers printed in the original manuals, but the art is drawn procedurally in code and all 18 music cues are new Web Audio compositions. Plain HTML, CSS and JavaScript with no build step; games save to browser storage or to a file.',
+      'These two prompt was used with Claude Opus 5.5 on max:',
+      '/deep-research the classic game describe in the readme, and evaluate the possibility of remaking/cloning it. Include gameplay detail, screen shoot and art style descriptions. It should be in English',
+      '/goal Make a playable (in a browser) version of the western Amiga version of the game Bandit King of Ancient China. Use the company name "Fick" as a stand in for KOEI, Use the research from bandit-kings-research.html'
     ],
     image: 'assets/projects/bandit-king.webp',
     imageAlt: 'The pixel-art title screen: a walled fortress with a red banner on a lake below misty mountains, and a fisherman in a boat in the reeds',
