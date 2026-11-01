@@ -119,6 +119,23 @@ window.PROJECTS = [
     source: 'https://github.com/jjkramhoeft/jigsaw-clip',
   },
   {
+    id: 'bandit-king',
+    title: 'Bandit King of Ancient China',
+    section: 'games',
+    codesize: '10k',
+    date: '2026-11',
+    summary: 'A browser recreation of the 1989 KOEI strategy game, in the style of the Amiga release, about the outlaw heroes of the Water Margin.',
+    description: [
+      'Play one of the Good Fellows: gather heroes, build up prefectures, earn the Imperial Edict and bring down the corrupt minister Gao Qiu before the Northern Barbarians invade in 1127. Four scenarios, three difficulties, up to seven players at one screen, monthly turns with all sixteen commands, and 30-day hex battles with terrain, rivers, weather, fire, archery, magic and duels.',
+      'The rules follow the numbers printed in the original manuals, but the art is drawn procedurally in code and all 18 music cues are new Web Audio compositions. Plain HTML, CSS and JavaScript with no build step; games save to browser storage or to a file.',
+    ],
+    image: 'assets/projects/bandit-king.webp',
+    imageAlt: 'The pixel-art title screen: a walled fortress with a red banner on a lake below misty mountains, and a fisherman in a boat in the reeds',
+    tags: ['JavaScript', 'Canvas', 'Web Audio', 'Strategy'],
+    link: 'https://jjkramhoeft.github.io/bandit-king-fick/',
+    source: 'https://github.com/jjkramhoeft/bandit-king-fick',
+  },
+  {
     id: 'sudoku',
     title: 'Sudoku',
     section: 'games',
